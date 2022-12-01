@@ -32,7 +32,7 @@ const Navigation = () => {
                     rounded-lg md:hidden hover:bg-gray-100
                     focus:outline-none focus:ring-2 focus:ring-gray-200
                     dark:text-gray-400">
-                <button
+                {/* <button
                   data-collapse-toggle="navbar-hamburger"
                   type="button"
                   aria-controls="navbar-hamburger"
@@ -50,7 +50,8 @@ const Navigation = () => {
                       clipRule="evenodd">
                   </path>
                 </svg>
-                </button>
+              </button>
+                 */}
               </Popover.Button>
             </div>
           </div>
