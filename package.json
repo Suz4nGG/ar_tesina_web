@@ -1,13 +1,16 @@
 {
-  "name": "my-project",
-  "version": "0.1.0",
-  "private": true,
+  "name": "ajustes_razonables_web",
+  "version": "1.0.0",
+  "description": "Sistema web que permite la solicitud de ajustes curriculares a estudiantes con NEE, de la licenciatura en Redes y Servicios de Cómputo de la facultad de Estadística e informática de la Universidad Veracruzana",
+  "main": "index.js",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
+  "author": "Susana Gómez",
+  "license": "ISC",
   "dependencies": {
     "@types/node": "18.11.9",
     "@types/react": "18.0.25",
@@ -18,5 +21,10 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "typescript": "4.9.3"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.13",
+    "postcss": "^8.4.19",
+    "tailwindcss": "^3.2.4"
   }
 }
