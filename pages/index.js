@@ -1,9 +1,22 @@
-import { Container } from "../my-project/components/Container"
+import { Container } from "../components/Container"
+import Footer from "../components/Global/Footer"
+import PageTitle from "../components/Global/PageTitle"
+import Hero from "../components/Home/Hero"
+import Info from "../components/Home/Info"
+import Logos from "../components/Home/Logos"
+
 const Index = () => {
   return (
     <Container>
-      <h1>Index</h1>
-      <p>lorem</p>
+      <PageTitle
+        title="Inicio"
+        name="Inicio"
+        content="Inicio aplicación"
+      />
+      <Hero />
+      <Info />
+      <Logos />
+      <Footer/>
     </Container>
   )
 }
