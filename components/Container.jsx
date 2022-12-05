@@ -1,10 +1,7 @@
-import Head from "next/head"
-import Navigation from "./Navigation"
+import Navigation from "./Global/Navigation"
+
 export const Container = (props) => {
-  return <div>
-    <Head>
-      <title>Next.js</title>
-    </Head>
+  return <div className="mx-auto max-w-9xl">
     <Navigation />
     <div>
       {props.children}
