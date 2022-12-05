@@ -1,4 +1,4 @@
-import { Container } from "../components/Container"
+import { Container } from "../components/Global/Container"
 import Footer from "../components/Global/Footer"
 import PageTitle from "../components/Global/PageTitle"
 import Hero from "../components/Home/Hero"

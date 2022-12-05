@@ -1,5 +1,5 @@
 import React from 'react';
-import HeaderForm from './Forms/HeaderForm';
+import HeaderForm from '/components/Forms/HeaderForm';
 import Pagination from './Pagination';
 const ContainerRegister = (props) => {
   return (

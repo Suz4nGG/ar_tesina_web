@@ -1,4 +1,4 @@
-import Navigation from "./Global/Navigation"
+import Navigation from "./Navigation"
 
 export const Container = (props) => {
   return <div className="mx-auto max-w-9xl">
