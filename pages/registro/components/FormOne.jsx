@@ -60,7 +60,7 @@ const dataForm = [
   },
   {
     col: 1,
-    colQuery: 2,
+    colQuery: 3,
     type: "number",
     name: "cp",
     text: "Código Postal",
