@@ -26,7 +26,7 @@ const pagination = [
 
 const Pagination = () => {
   return (
-    <nav className="flex items-center justify-center border-t border-gray-200 px-4 sm:px-0 mt-5">
+    <nav className="w-full flex items-center justify-center border-t border-gray-200 px-4 sm:px-0 mx-5">
       <div className="-mt-px flex w-0 flex-1">
         <a
           href="#"

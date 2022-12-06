@@ -9,7 +9,10 @@ const Input = ({placeholder, type, name, ref}) => {
         ref={ref}
         type={type}
         id={name}
-        className="block w-full flex-1 rounded-none rounded-r-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+        className="py-3 px-2 flex-1 rounded-r-md
+          block w-full rounded-md border-2 border-gray-200
+        focus:border-indigo-500 focus:ring-indigo-500
+          sm:text-sm"
       />
     </>
   );
