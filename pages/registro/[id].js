@@ -11,7 +11,7 @@ const FormularioRegistroTemplate = () => {
   const {id} = router.query
   return (
     <ContainerRegister>
-      <PageTitle title="Registro" name="Registro" content="Registrar nueva cuenta de usuario"/>
+      <PageTitle title="Registro" name="Registro" content="Registrar nueva cuenta de usuario" />
       {id === '1' && <FormOne />}
       {id === '2' && <FormTwo />}
       {id === '3' && <FormThree />}

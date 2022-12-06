@@ -2,7 +2,7 @@ import React from 'react';
 
 const GroupForm = ({name, text, placeholder, ref, type, col, colQuery}) => {
   return (
-    <div className={`col-span-${colQuery} md:col-span-${col}`}>
+    <div className={`col-span-${col} md:col-span-${col}`}>
       <label
         htmlFor={name}
         className="block text-sm md:text-base font-medium text-gray-700"
