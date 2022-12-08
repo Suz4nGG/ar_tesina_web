@@ -1,10 +1,9 @@
-import React from 'react';
-import Link from "next/link"
+import Router from 'next/router';
 
-const Button = ({bg, textColor, text, href, hover}) => {
+const Button = ({ bg, textColor, text, href, hover }) => {
   return (
-    <Link
-      href={href}
+    <button
+      onClick={e => Router.push(`${href}`, `${href}`)}
       className={`
         flex items-center justify-center
         rounded-md ${bg} px-4 py-3
@@ -12,7 +11,7 @@ const Button = ({bg, textColor, text, href, hover}) => {
         shadow-sm hover:${hover} sm:px-8
       `}>
       {text}
-    </Link>
+    </button>
   );
 }
 
