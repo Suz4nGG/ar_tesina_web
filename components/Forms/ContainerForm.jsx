@@ -1,9 +1,11 @@
-const ContainerForm = (props) => {
+const ContainerForm = ({ children }) => {
+  console.log(children)
+  const onSubmit = (data) => {
+    alert(JSON.stringify(data));
+  };
   return (
-    <form className="space-y-8 divide-y divide-gray-200 md:pb-0 pb-9">
-      <div className="space-y-8 divide-y divide-gray-200">
-        {props.children}
-      </div>
+    <form className="w-full flex flex-col justify-center py-12 sm:px-6 lg:px-8" onSubmit={onSubmit}>
+        {children}
     </form>
   );
 }

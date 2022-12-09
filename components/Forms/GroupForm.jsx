@@ -1,6 +1,6 @@
 import React from 'react';
 
-const GroupForm = ({name, text, placeholder, ref, type, col, colQuery}) => {
+const GroupForm = ({name, text, placeholder, ref, type, col, colQuery, register}) => {
   return (
     <div className={`col-span-${col} md:col-span-${col}`}>
       <label

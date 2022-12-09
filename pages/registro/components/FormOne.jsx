@@ -1,6 +1,9 @@
 import ContainerForm from "../../../components/Forms/ContainerForm";
 import GroupForm from "../../../components/Forms/GroupForm";
-import HeaderForm from "../../../components/Forms/HeaderForm";
+import UseForms from "../../../hooks/useForms";
+import { useForm } from "react-hook-form";
+import { usePageContext } from "../../context/pagesContext";
+
 const dataForm = [
   {
     col: 3,
@@ -69,9 +72,9 @@ const dataForm = [
 ]
 
 const FormOne = () => {
+  const { setContextValue } = usePageContext()
   return (
-    <ContainerForm>
-      <div className="mt-6 w-full grid grid-cols-2 gap-y-6 gap-x-4 md:grid-cols-6 lg:grid-cols-6 px-4 sm:p-0">
+      <div className="w-full grid grid-cols-2 gap-y-6 gap-x-4 md:grid-cols-6 lg:grid-cols-6 px-4 sm:p-0">
         {
           dataForm.map((item) => (
             <GroupForm
@@ -86,7 +89,6 @@ const FormOne = () => {
           ))
         }
       </div>
-    </ContainerForm>
   );
 }
 
