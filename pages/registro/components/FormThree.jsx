@@ -38,8 +38,8 @@ const FormThree = () => {
             />
           </div>
         </div>
-        <div className="col-span-3 pt-4 block md:flex justify-center">
-          <Button bg="bg-green-600" textColor="text-gray-100" text="Envíar" href="#"/>
+        <div className="pt-4 block md:flex justify-center col-span-3 2xl:col-span-2">
+          <Button bg="bg-green-600 w-full 2xl:w-1/5" textColor="text-gray-100" text="Envíar" href="#" hover="bg-green-700"/>
         </div>
       </div>
   );
