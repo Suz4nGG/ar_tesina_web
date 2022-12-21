@@ -1,5 +1,5 @@
 import ContainerForm from "../../../components/Forms/ContainerForm";
-import GroupForm from "../../../components/Forms/GroupForm";
+// import GroupForm from "../../../components/Forms/GroupForm";
 import UseForms from "../../../hooks/useForms";
 import { useForm } from "react-hook-form";
 import { usePageContext } from "../../context/pagesContext";
@@ -71,13 +71,45 @@ const dataForm = [
   }
 ]
 
-const FormOne = () => {
-  const { setContextValue } = usePageContext()
+const GroupForm = ({ name, text, placeholder, ref, type, col, colQuery, register }) => {
+  return (
+    <div className={`col-span-${col} md:col-span-${col}`}>
+      <label
+        htmlFor={name}
+        className="block text-sm md:text-base font-medium text-gray-700"
+      >
+        {text}
+      </label>
+      <div className="mt-1">
+        <input
+          {...register(
+            name,
+              {
+                required: true,
+                message: "sss"
+              }
+            )
+          }
+        placeholder={placeholder}
+        type={type}
+        id={name}
+        className="py-3 px-2 flex-1 rounded-r-md
+          block w-full rounded-md border-2 border-gray-200
+        focus:border-indigo-500 focus:ring-indigo-500
+          text-sm md:text-base"
+      />
+      </div>
+    </div>
+  );
+}
+
+const FormOne = ({register}) => {
   return (
       <div className="w-full grid grid-cols-2 gap-y-6 gap-x-4 md:grid-cols-6 lg:grid-cols-6 px-4 sm:p-0">
         {
           dataForm.map((item) => (
             <GroupForm
+              register={register}
               key={item.name}
               col={item.col}
               type={item.type}
@@ -87,7 +119,7 @@ const FormOne = () => {
               placeholder={item.placeholder}
             />
           ))
-        }
+      }
       </div>
   );
 }

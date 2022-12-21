@@ -1,6 +1,5 @@
-import React from 'react';
-
-const GroupForm = ({name, text, placeholder, ref, type, col, colQuery, register}) => {
+const GroupForm = ({ name, text, placeholder, ref, type, col, colQuery, register }) => {
+  console.log("GR",name)
   return (
     <div className={`col-span-${col} md:col-span-${col}`}>
       <label
@@ -11,9 +10,8 @@ const GroupForm = ({name, text, placeholder, ref, type, col, colQuery, register}
       </label>
       <div className="mt-1">
         <input
+        {...register(name)}
         placeholder={placeholder}
-        name={name}
-        ref={ref}
         type={type}
         id={name}
         className="py-3 px-2 flex-1 rounded-r-md

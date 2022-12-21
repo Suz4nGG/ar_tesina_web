@@ -31,7 +31,7 @@ export default function Hero() {
                   </p>
                   <div className="mx-auto mt-10 max-w-sm sm:flex sm:max-w-none sm:justify-center">
                     <div className="space-y-4 sm:mx-auto sm:inline-grid sm:grid-cols-2 sm:gap-5 sm:space-y-0">
-                      <Button bg="bg-blue-600" textColor="text-gray-100" text="Registrate" href="/registro/1" hover="bg-blue-700"/>
+                      <Button bg="bg-blue-600" textColor="text-gray-100" text="Registrate" href="/registro/formulario" hover="bg-blue-700"/>
                       <Button bg="bg-green-600" textColor="text-gray-100" text="Inicia Sesión" href="/iniciar_sesion" hover="bg-green-700" />
                     </div>
                   </div>

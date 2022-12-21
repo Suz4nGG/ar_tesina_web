@@ -4,20 +4,23 @@ import PageTitle from "../components/Global/PageTitle"
 import Hero from "../components/Home/Hero"
 import Info from "../components/Home/Info"
 import Logos from "../components/Home/Logos"
+import { PageProvider } from "./context/pagesContext"
 
 const Index = () => {
   return (
-    <Container>
-      <PageTitle
-        title="Inicio"
-        name="Inicio"
-        content="Inicio aplicación"
-      />
-      <Hero />
-      <Info />
-      <Logos />
-      <Footer/>
-    </Container>
+    <PageProvider>
+      <Container>
+        <PageTitle
+          title="Inicio"
+          name="Inicio"
+          content="Inicio aplicación"
+        />
+        <Hero />
+        <Info />
+        <Logos />
+        <Footer/>
+      </Container>
+    </PageProvider>
   )
 }
 

@@ -5,8 +5,7 @@ export const PageContext = createContext()
 
 // ! 2. Se crea el provider
 export const PageProvider = ({ children }) => {
-  const [contextValue, setContextValue] = useState()
-  // console.log(contextValue)
+  const [contextValue, setContextValue] = useState('')
   return (
     <PageContext.Provider value={{contextValue, setContextValue}}>
       {children}
@@ -18,6 +17,7 @@ export const PageProvider = ({ children }) => {
 export const usePageContext = () => {
   const context = useContext(PageContext)
   if (context === undefined) throw new Error('Fuera del proveedor')
+  // console.log(context)
   return context
 }
 
