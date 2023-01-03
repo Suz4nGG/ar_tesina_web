@@ -1,56 +1,51 @@
-import ContainerForm from "/components/Forms/ContainerForm";
-import Button from "../../../components/Global/Button";
+import Select from "react-select";
+import { selectOptionsLic } from "../data";
 
-const selectOptions = [
-  {
-    name: "Redes y Servicios de Cómputo"
-  },
-  {
-    name: "Cibercrimen"
-  }
-]
-const FormThree = ({register}) => {
+const FormThree = ({ data, handleChange }) => {
   return (
-      <div className="w-full grid grid-cols-1 gap-y-6 gap-x-4 md:grid-cols-3 lg:grid-cols-2 px-4 sm:p-0">
-        <div className="col-span-2 lg:col-span-1">
-          <label className="block text-sm md:text-base font-medium text-gray-700">
-            Licenciatura que se encuentra cursando o que está próximo a cursar
-          </label>
-          <select className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-2 shadow-sm focus:border-gray-500 focus:outline-none focus:ring-gray-500 text-sm md:text-base" {...register("carrera")}>
-            {
-              selectOptions.map((opt) => (
-                <option
-                  value={opt.name}
-                  key={opt.name}
-                  className="px-2"
-                >
-                  {opt.name}
-                </option>
-              ))
-            }
-          </select>
-        </div>
-        <div className="col-span-3 pt-4">
-          <label htmlFor="adaptaciones" className="block text-sm md:text-base font-medium text-gray-700 sm:mt-px pb-2">
-                Menciona las adaptaciones que tuviste en tu anterior etapa educativa y/o en cursos (Opcional)
-          </label>
-          <div className="mt-1 sm:col-span-2 sm:mt-0">
+    <div className="w-full grid grid-cols-1 gap-y-4 gap-x-4 md:grid-cols-3 lg:grid-cols-2 px-4 sm:p-0">
+      <div className="col-span-3 lg:col-span-1">
+        <label className="block text-sm md:text-base font-medium text-gray-700">
+          Licenciatura que se encuentra cursando o que está próximo a cursar{" "}
+          <span className="text-red-600">*</span>
+        </label>
+        <Select
+          styles={{
+            control: (baseStyles, state) => ({
+              ...baseStyles,
+              height: "47px",
+              marginTop: "5px",
+            }),
+          }}
+          onChange={handleChange}
+          name="carrera"
+          options={selectOptionsLic}
+          placeholder="Licenciatura"
+          required
+        />
+      </div>
+      <div className="col-span-3 pb-4">
+        <label
+          htmlFor="adaptaciones"
+          className="block text-sm md:text-base font-medium text-gray-700 sm:mt-px pb-2"
+        >
+          Menciona las adaptaciones que tuviste en tu anterior etapa educativa
+          y/o en cursos (Opcional)
+        </label>
+        <div className="sm:col-span-2">
           <textarea
-              {...register("adaptaciones")}
-              id="adaptaciones"
-              name="adaptaciones"
-              rows={5}
-              className="block w-full rounded-md border-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 text-sm md:text-base p-4"
-              defaultValue={''}
-              placeholder="Los ajustes curriculares solicitados en mis cursos anteriores..."
-            />
-          </div>
-        </div>
-        <div className="pt-4 block md:flex justify-center col-span-3 2xl:col-span-2">
-          <Button bg="bg-green-600 w-full 2xl:w-1/5" textColor="text-gray-100" text="Envíar" href="#" hover="bg-green-700"/>
+            onChange={handleChange}
+            id="adaptaciones"
+            name="adaptaciones"
+            value={data.adaptaciones}
+            rows={5}
+            className="bg-gray-50 block w-full rounded border border-gray-300 py-2 px-2 focus:outline-none focus:border-green-500 focus:ring-green-500 text-sm md:text-base text-gray-700"
+            placeholder="Los ajustes curriculares solicitados en mis cursos anteriores..."
+          />
         </div>
       </div>
+    </div>
   );
-}
+};
 
 export default FormThree;
