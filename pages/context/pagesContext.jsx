@@ -17,7 +17,6 @@ export const PageProvider = ({ children }) => {
 export const usePageContext = () => {
   const context = useContext(PageContext)
   if (context === undefined) throw new Error('Fuera del proveedor')
-  // console.log(context)
   return context
 }
 
