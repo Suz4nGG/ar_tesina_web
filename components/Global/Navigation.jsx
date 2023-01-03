@@ -21,7 +21,7 @@ const secondaryNavigation = [
   {
     name: "Iniciar Sesión",
     href: "/iniciar_sesion",
-    text: "text-white focus:ring-4 font-medium rounded-lg text-base px-5 py-2.5 text-center md:mr-0 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-blue-800"
+    text: "text-white focus:ring-4 font-medium rounded-lg text-base px-5 mt-5 mob:mt-0 w-full mob:w-auto py-2.5 text-center md:mr-0 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-blue-800"
   }
 ]
 
@@ -34,7 +34,7 @@ const Navigation = () => {
           p-5
           grid-cols-1
           md:grid-cols-[300px,_1fr]
-          mx-auto bg-gray-100
+          mx-auto bg-white max-w-md- mx-auto-
         ">
           {/* Navegación: LOGO */}
           <div className="flex items-center justify-between space-x-3">
@@ -43,7 +43,7 @@ const Navigation = () => {
                 src={LogoUv}
                 alt="Universidad Veracruzana Logo"
                 title="Logo Universidad Veracruzana"
-                className="w-30"
+                className="w-10 md:w-14"
                 width={60} height={16} />
               <span className="
                 hidden md:block self-end
@@ -143,7 +143,7 @@ const Navigation = () => {
                 </Popover.Button>
               </div>
               <div className="pt-5 pb-6">
-                <div className="pb-5 grid grid-cols-1 gap-2 ">
+                <div className="pb-5 grid grid-cols-1 gap-2">
                   {
                     primaryNavigation.map((item) => (
                       <Link
@@ -159,7 +159,7 @@ const Navigation = () => {
                     ))
                   }
                 </div>
-                <div className="flex justify-between items-center pl-2">
+                <div className="flex flex-col mob:flex-row justify-start sm:justify-between mob:justify-between items-start mob:items-center pl-2 text-sm sm:text-base">
                   {
                     secondaryNavigation.map((item) => (
                       <Link

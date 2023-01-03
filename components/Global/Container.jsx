@@ -1,10 +1,10 @@
-import Navigation from "./Navigation"
+import Navigation from "./Navigation";
 
 export const Container = (props) => {
-  return <div className="mx-auto max-w-9xl">
-    <Navigation />
-    <div>
-      {props.children}
+  return (
+    <div className="mx-auto max-w-9xl">
+      <Navigation />
+      <div>{props.children}</div>
     </div>
-  </div>
-}
+  );
+};

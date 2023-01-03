@@ -5,7 +5,7 @@ const Info = () => {
     <div className="relative px-4 sm:px-6 lg:px-8 bg-white py-9">
         <div className="mx-auto max-w-prose px-4 sm:px-6 lg:px-8">
           <h1>
-            <span className="block text-center text-2xl font-medium leading-8 tracking-tight text-gray-800 sm:text-3xl">
+            <span className="block text-center text-2xl font-medium leading-8 tracking-tight text-gray-800 sm:text-3xl break-words">
               INFORMACIÓN RELACIONADA A LA ACCESIBILIDAD
             </span>
           </h1>

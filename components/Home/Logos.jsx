@@ -21,7 +21,7 @@ const Logos = () => {
     <div className="mx-auto w-full py-16 px-4 sm:px-6 lg:px-8 bg-white">
       <div className="mx-auto max-w-prose px-4 sm:px-6 lg:px-8">
         <h2>
-          <span className="block text-center text-2xl font-medium leading-8 tracking-tight text-gray-800 sm:text-3xl">
+          <span className="block text-center text-2xl font-medium leading-8 tracking-tight text-gray-800 sm:text-3xl break-words">
               CENTROS DE AYUDA AL ESTUDIANTE EN LA UNIVERSIDAD VERACRUZANA
           </span>
         </h2>
@@ -36,7 +36,7 @@ const Logos = () => {
                   width={300}
                   height={16}
                 />
-                <p className="text-gray-800">{logo.name}</p>
+                <p className="text-gray-800 break-words">{logo.name}</p>
               </div>
             ))
           }
