@@ -1,23 +1,25 @@
 import Image from 'next/image';
 import LogoUv from "/public/universidad_veracruzana_logo.svg"
+
 const HeaderForm = ({ title, step }) => {
   const Title = (
     step === "FormOne" && "DATOS DE IDENTIFICACIÓN DEL ESTUDIANTE" ||
-    step === "FormTwo" && "DATOS DEL TIPO DE DISCAPACIDAD QUE SE PRESENTA" ||
-    step === "FormThree" && "DATOS ESCOLARES DEL ESTUDIANTE"
+    step === "FormTwo" && "DATOS DEL TIPO DE DISCAPACIDAD DEL ESTUDIANTE" ||
+    step === "FormThree" && "DATOS ESCOLARES DEL ESTUDIANTE" ||
+    step === "FormAcount" && "DATOS DE LA CUENTA"
   )
   return (
-    <div className="flex justify-between flex-col md:flex-row w-full">
-      <h2 className="px-4 mb-2 md:m-0 text-center self-auto md:self-end text-xl md:text-2xl font-bold tracking-tight text-gray-800">
+    <div className="flex items-center px-4 sm:px-0 flex-col md:flex-row w-full mb-5 border-b border-gray-300">
+      <h2 className="py-3 text-center self-auto md:self-end text-lg md:text-xl font-medium tracking-tight text-gray-700 break-words">
         {title ? title : Title}
       </h2>
-      <Image
+      {/* <Image
         src={LogoUv}
         alt="Universidad Veracruzana Logo"
         title="Logo Universidad Veracruzana"
         className="h-16 w-auto"
         width={60} height={16}
-      />
+      /> */}
     </div>
   );
 }
