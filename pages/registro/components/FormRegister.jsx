@@ -1,174 +1,104 @@
-import React, { useState } from 'react';
-import HeaderForm from '/components/Forms/HeaderForm';
-import Pagination from './Pagination';
-// import FormOne from './FormOne';
-import FormTwo from './FormTwo';
-import FormThree from './FormThree';
-import { usePageContext } from '../../context/pagesContext';
-import { useForm } from 'react-hook-form';
-import Button from '../../../components/Global/Button';
+import { useEffect, useRef, useState } from "react";
+import HeaderForm from "/components/Forms/HeaderForm";
+import Button from "../../../components/Global/Button";
+import { dateNow } from "../data";
+import { selectOptionsLic } from "../data";
+import axios from "axios";
+import { API_REG } from "../../constants";
+import Select from "react-select";
+import { useRouter } from "next/router";
+import { validations } from "../validations";
+import FormOne from "./FormOne";
+import FormTwo from "./FormTwo";
+import FormThree from "./FormThree";
+import FormAcount from "./FormAcount";
 
-const dataForm = [
-  {
-    col: 3,
-    colQuery: 3,
-    type: "text",
-    name: "nombreCompleto",
-    text: "Nombre Completo",
-    placeholder: "Nombre Completo",
-    pattern: /^[A-Za-z]+$/i,
-    validationMessage: "Unicamente letras",
-    value: true
-  },
-  {
-    col: 3,
-    colQuery: 3,
-    type: "text",
-    name: "nombreResponsable",
-    text: "Nombre del tutor o responsable",
-    placeholder: "Nombre del tutor o responsable",
-    value: true
-  },
-  {
-    col: 3,
-    colQuery: 3,
-    type: "date",
-    name: "fecNacimiento",
-    text: "Fecha de nacimiento",
-    placeholder: "Fecha de nacimiento",
-    value: true
-  },
-  {
-    col: 1,
-    colQuery: 2,
-    type: "number",
-    name: "edad",
-    text: "Edad",
-    placeholder: "Edad",
-    value: 17
-  },
-  {
-    col: 3,
-    colQuery: 3,
-    type: "tel",
-    name: "tel",
-    text: "Teléfono",
-    placeholder: "Teléfono",
-    value: true
-  },
-  {
-    col: 3,
-    colQuery: 3,
-    type: "text",
-    name: "ciudad",
-    text: "Ciudad",
-    placeholder: "Ciudad",
-    value: true
-  },
-  {
-    col: 3,
-    colQuery: 3,
-    type: "text",
-    name: "municipio",
-    text: "Municipio",
-    placeholder: "Municipio",
-    value: true
-  },
-  {
-    col: 2,
-    colQuery: 2,
-    type: "number",
-    name: "cp",
-    text: "Código Postal",
-    placeholder: "Código Postal",
-    value: true
-  }
-]
+const FormRegister = () => {
+  const [data, setData] = useState({
+    nombreCompleto: "",
+    nombreResponsable: "",
+    fecNacimiento: dateNow(),
+    edad: 17,
+    tel: "",
+    ciudad: "",
+    cp: "",
+    municipio: "",
+    tipoDiscapacidad: "",
+    sobreDiscapacidad: "",
+    carrera: "",
+    adaptaciones: "",
+    tiempoDisc: "",
+    username: '',
+    password: ''
+  });
+  const [hasError, setHasError] = useState(true);
+  const router = useRouter();
+  const errorMessage = validations(data);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      if (errorMessage[0] === undefined) {
+        setHasError(false);
+        const res = await axios.post(API_REG, data);
+        console.log("re", res);
+        const dataOld = Object.entries(data);
+        const clearData = dataOld.map(([key]) => [key, ""]);
+        const newData = Object.fromEntries(clearData);
+        setData(newData);
+        router.push("/iniciar_sesion");
+      }
+    } catch (err) {
+      setHasError(true);
+    }
+  };
 
-
-
-const GroupFormOne = ({ register, name, text, placeholder, type, col, colQuery, required, errors, pattern,
-  validationMessage, value }) => {
-  console.log("err", errors)
-  console.log("mes", validationMessage)
-  return <>
-    <div className={`col-span-${col} md:col-span-${col}`}>
-      <label
-        htmlFor={name}
-        className="block text-sm md:text-base font-medium text-gray-700"
-      >
-        {text}
-      </label>
-      <div className="mt-1">
-        <input
-          {...register(
-              name, {
-              required: true,
-              pattern: pattern
-              }
-            )
-          }
-          placeholder={placeholder}
-          type={type}
-          id={name}
-          className="
-            appearance-none
-            bg-gray-200text-gray-700 border border-red-500
-            rounded py-3 mb-3 leading-tight
-            focus:outline-none focus:bg-gray-200 px-2 flex-1 rounded-r-md my-2
-            block w-full
-          focus:border-green-500 focus:ring-green-500
-            text-sm md:text-base"
-        />
-        {errors[name]?.type === "required" && <p className='text-red-500 text-xs'>Requerido</p>}
-        {errors[name]?.type === "maxLength" && (
-          <p></p>
-        )}
-        {errors[name]?.type === "pattern" && (
-          <p className='text-red-500 text-xl font-semibold'>Solo caracteres alfabéticos</p>
-        )}
-      </div>
-    </div>
-  </>
-}
-
-
-
-const FormRegister = (props) => {
-  const { register, handleSubmit, watch,  formState: { errors } } = useForm()
-  const { contextValue, setContextValue } = usePageContext()
-  const [step, setStep] = useState("FormOne")
-  const onSubmit = data => setContextValue(data)
-  // console.log("CTX", contextValue)
+  const handleChange = (e) => {
+    const nameRef = e.name || e.target.name;
+    const valueRef = e.value || e.target.value;
+    setData({ ...data, [nameRef]: valueRef });
+  };
+  console.log("DDD", data);
   return (
     <>
-      <HeaderForm step={step} />
-      <form className="w-full flex flex-col justify-center py-12 sm:px-6 lg:px-8" onSubmit={handleSubmit(onSubmit)}>
-        <div className="w-full grid grid-cols-2 gap-y-6 gap-x-4 md:grid-cols-6 lg:grid-cols-6 px-4 sm:p-0">
-          {
-            dataForm.map((item) => (
-              <GroupFormOne
-                key={item.name}
-                register={register}
-                text={item.text}
-                name={item.name}
-                placeholder={item.placeholder}
-                type={item.type}
-                col={item.col}
-                errors={errors}
-                pattern={item.pattern}
-                validationMessage={item.validationMessage}
-                value={item.value}
-              />
-            ))
-          }
-        </div>
-        <div className="pt-4 block md:flex justify-center col-span-3 2xl:col-span-2">
-          <Button bg="bg-green-600 w-full 2xl:w-1/5" textColor="text-gray-100" text="Envíar" href="#" hover="bg-green-700"/>
+      <form
+        className="w-full flex flex-col justify-center pt-2 pb-12 sm:px-6 lg:px-8"
+        onSubmit={handleSubmit}
+      >
+        {/* * Datos estudiante */}
+        <HeaderForm step="FormOne" />
+        <FormOne
+          data={data}
+          handleChange={handleChange}
+          errorMessage={errorMessage}
+        />
+        {/* * Datos tipo de discapacidad */}
+        <HeaderForm step="FormTwo" />
+        <FormTwo data={data} handleChange={handleChange} />
+        {/* * Datos escolaridad */}
+        <HeaderForm step="FormThree" />
+        <FormThree data={data} handleChange={handleChange} />
+        {/* datos de cuenta */}
+        <HeaderForm step="FormAcount" />
+        <FormAcount handleChange={handleChange} errorMessage={errorMessage} />
+        <div className="mx-4 sm:mx-0">
+          {hasError ? (
+            <p className="text-red-600 text-sm py-4">
+              * Completa los campos requeridos
+            </p>
+          ) : (
+            <p></p>
+          )}
+          <Button
+            bg="bg-green-600 w-full"
+            textColor="text-gray-100"
+            text="Registrarse"
+            href="#"
+            hover="bg-green-700"
+          />
         </div>
       </form>
     </>
-  )
-}
+  );
+};
 
 export default FormRegister;
