@@ -1,31 +1,24 @@
-import PageTitle from '/components/Global/PageTitle.jsx'
-import { PageProvider } from '../context/pagesContext';
-import FormRegister from './components/FormRegister';
-
+import PageTitle from "/components/Global/PageTitle.jsx";
+import { PageProvider } from "../context/pagesContext";
+import FormRegister from "./components/FormRegister";
+import Navigation from "../../components/Global/Navigation";
 const FormularioRegistroTemplate = () => {
-  console.log()
   return (
     <PageProvider>
+      <Navigation />
       <div
         className="
-          py-12 w-full
-          flex justify-center items-center
-          flex-col sm:px-6 lg:px-8"
+            w-full flex flex-col justify-center items-center"
       >
-        <div
-          className='
-            w-full flex flex-col justify-center items-center'
-        >
-          <PageTitle
-            title="Registro"
-            name="Registro"
-            content="Registrar nueva cuenta de usuario"
-          />
-            <FormRegister />
-        </div>
+        <PageTitle
+          title="Registro"
+          name="Registro"
+          content="Registrar nueva cuenta de usuario"
+        />
+        <FormRegister />
       </div>
     </PageProvider>
   );
-}
+};
 
 export default FormularioRegistroTemplate;
