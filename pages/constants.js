@@ -1,0 +1,1 @@
+export const API_REG = "http://localhost:3000/api/registro"
