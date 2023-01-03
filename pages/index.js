@@ -5,6 +5,7 @@ import Hero from "../components/Home/Hero"
 import Info from "../components/Home/Info"
 import Logos from "../components/Home/Logos"
 import { PageProvider } from "./context/pagesContext"
+import Head from "next/head"
 
 const Index = () => {
   return (
