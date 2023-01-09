@@ -2,11 +2,12 @@ import axios from "axios";
 import Navigation from "/components/Global/Navigation.jsx";
 import Layout from "/components/Global/Layout.jsx";
 import { PaperClipIcon } from "@heroicons/react/solid";
-import { APISTUDENT,EDITADAPT } from "../../constants";
+import { APISTUDENT, EDITADAPT } from "../../constants";
 import { useState } from "react";
 import { dateParse } from "../../registro/validations";
 import { states } from "../../data";
 import { useRouter } from "next/router";
+import { createPDF } from "../../../hooks/createPDF";
 
 const Box = ({ title, description, btnText }) => {
   // if (description.split("\n")) {
@@ -16,7 +17,9 @@ const Box = ({ title, description, btnText }) => {
     <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
       <dt className="text-sm font-medium text-gray-500">{title}</dt>
       <dd className="mt-1 flex text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-        <span className="flex-grow truncate" style={{ whiteSpace: "pre" }}>{description}</span>
+        <span className="flex-grow truncate" style={{ whiteSpace: "pre" }}>
+          {description}
+        </span>
         <span className="ml-4 flex-shrink-0">
           {btnText ? (
             <button
@@ -34,7 +37,7 @@ const Box = ({ title, description, btnText }) => {
   );
 };
 
-const Id = ({ data }) => {
+const Id = ({ data, infoUser }) => {
   const {
     idSolicitud,
     username,
@@ -51,11 +54,11 @@ const Id = ({ data }) => {
   const dataAdaptacion = [
     {
       title: "Estado",
-      description: stateSol[estadoSolicitud] || '',
+      description: stateSol[estadoSolicitud] || "",
     },
     {
       title: "Experiencia Educativa",
-      description: experienciaR || '',
+      description: experienciaR || "",
     },
     {
       title: "Creación",
@@ -63,33 +66,37 @@ const Id = ({ data }) => {
     },
     {
       title: "Presentación de la información",
-      description: informacion || '',
+      description: informacion || "",
       btnText: true,
     },
     {
       title: "Formas de respuesta",
-      description: respuesta || '',
+      description: respuesta || "",
       btnText: true,
     },
     {
       title: "Tiempo y horario",
-      description: tiempoHorario || '',
+      description: tiempoHorario || "",
       btnText: true,
     },
     {
       title: "Adaptaciones anteriores",
-      description: adapAnteriores || '',
+      description: adapAnteriores || "",
       btnText: true,
     },
     {
       title: "Motivo de la solicitud",
-      description: motSolicitud || '',
+      description: motSolicitud || "",
     },
   ];
-  const {push} = useRouter()
+  const { push } = useRouter();
   const handleClick = () => {
-    push(EDITADAPT+idSolicitud)
-  }
+    push(EDITADAPT + idSolicitud);
+  };
+  const downloadPDF = () => {
+    const pdf = createPDF({ data }, {infoUser});
+    console.log("PDF", pdf);
+  };
   return (
     <>
       <Navigation actState="session" />
@@ -140,9 +147,17 @@ const Id = ({ data }) => {
                     <div className="ml-4 flex flex-shrink-0 space-x-4">
                       <button
                         type="button"
+                        onClick={downloadPDF}
                         className="rounded-md bg-white font-medium text-green-600 hover:text-green-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
                       >
                         Descargar
+                      </button>
+                      <button
+                        type="button"
+                        onClick={downloadPDF}
+                        className="rounded-md bg-white font-medium text-green-600 hover:text-green-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+                      >
+                        Visualizar
                       </button>
                     </div>
                   </li>
@@ -160,8 +175,12 @@ export const getServerSideProps = async (context) => {
   const { data } = await axios.get(
     APISTUDENT + "/adaptacion/" + context.query.id
   );
+  const { authTokenUser } = context.req.cookies;
+  const { data: infoUser } = await axios.post(APISTUDENT, {
+    authTokenUser,
+  });
   return {
-    props: { data },
+    props: { data, infoUser },
   };
 };
 export default Id;

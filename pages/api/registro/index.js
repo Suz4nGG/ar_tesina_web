@@ -27,7 +27,7 @@ const registerStudent = async (req, res) => {
     tiempoDisc,
     temporal,
     permanente,
-    username,
+    usernameA,
     password
   } = req.body;
   const salt = 10
@@ -47,7 +47,7 @@ const registerStudent = async (req, res) => {
     carrera,
     adaptaciones,
     tiempoDisc: temporal || permanente,
-    username,
+    usernameA,
     passwordU: passHash
   })
   return res.status(200).json({

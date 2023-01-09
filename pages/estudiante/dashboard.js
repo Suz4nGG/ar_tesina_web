@@ -17,11 +17,6 @@ const Dashboard = ({
   username,
   nombreCompleto,
 }) => {
-  // const { contextValue, getID } = usePageContext();
-  // useEffect(() => {
-  //   const idVal = contextValue.find(item => item.id)
-  //   !idVal && getID({ username });
-  // }, [username]);
   const router = useRouter();
   return (
     <>
@@ -89,7 +84,7 @@ export async function getServerSideProps(context) {
     authTokenUser,
   });
   const {
-    username,
+    usernameA,
     nombreCompleto,
     nombreResponsable,
     fecNacimiento,
@@ -106,7 +101,7 @@ export async function getServerSideProps(context) {
   } = data[0];
   return {
     props: {
-      username,
+      usernameA,
       nombreCompleto,
       nombreResponsable,
       fecNacimiento,

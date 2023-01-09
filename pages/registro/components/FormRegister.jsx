@@ -26,7 +26,7 @@ const FormRegister = () => {
     carrera: "",
     adaptaciones: "",
     tiempoDisc: "",
-    username: '',
+    usernameA: '',
     password: ''
   });
   const [hasError, setHasError] = useState(true);
@@ -49,7 +49,6 @@ const FormRegister = () => {
       setHasError(true);
     }
   };
-  console.log(errorMessage)
   const handleChange = (e) => {
     const nameRef = e.name || e.target.name;
     const valueRef = e.value || e.target.value;

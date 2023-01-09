@@ -4,15 +4,16 @@ import { TOKENJWT } from "../pages/constants";
 const SECRET = process.env.SECRET;
 
 export default function generateToken(data) {
-  const { username } = data;
+  const { usernameA } = data;
   // ! Establecemos el JWT
   const token = sign(
     {
       exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 30,
-      username,
+      usernameA,
     },
     SECRET
   );
+  console.log("tk". token)
   // ! Serializar la data para mandarla en la cabecera
   const serialized = serialize(TOKENJWT, token, {
     httpOnly: true,
@@ -21,5 +22,6 @@ export default function generateToken(data) {
     maxAge: 1000 * 60 * 60 * 24 * 30,
     path: "/",
   });
+  console.log(serialized)
   return serialized;
 }

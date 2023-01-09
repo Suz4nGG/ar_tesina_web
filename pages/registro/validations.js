@@ -10,7 +10,7 @@ const nombreValidation = [
 const textValidation = [
   {
     message: "Caracteres invalidos o longitud invalida",
-    pattern: /^[a-zA-Z0-9]{5}$/,
+    pattern: /^[a-z0-9]{5}$/,
   },
 ];
 
@@ -109,7 +109,7 @@ export const validations = (data) => {
     fecNacimiento,
     tipoDiscapacidad,
     sobreDiscapacidad,
-    username,
+    usernameA,
     password
   } = data;
   let errors = [];
@@ -123,7 +123,7 @@ export const validations = (data) => {
     cp ||
     fecNacimiento ||
     tipoDiscapacidad ||
-    username ||
+    usernameA ||
     password
   ) {
     case nombreCompleto:
@@ -152,17 +152,10 @@ export const validations = (data) => {
       dateValidation(fecNacimiento, "fecNacimiento", errors);
     case cp:
       cpValidationF(cp, "cp", errors);
-    // case sobreDiscapacidad:
-    //   stringsValidation(
-    //     textValidation,
-    //     sobreDiscapacidad,
-    //     "sobreDiscapacidad",
-    //     errors
-    //   );
-    case username:
+    case usernameA:
       textValidation.map((item) => {
-        if (!item.pattern.test(username))
-          return errors.push(`username: ${item.message}`);
+        if (!item.pattern.test(usernameA))
+          return errors.push(`usernameA: ${item.message}`);
       });
     case password:
       passwordValidation.map((item) => {
