@@ -7,7 +7,8 @@ import axios from "axios";
 import { SOLADAPT, ADAPSTUDENT, APISTUDENT, GETADAPT } from "../../constants";
 import { useRouter } from "next/router";
 import { GroupForm } from "../../../components/Forms/GroupForm";
-import { dataSolicitudF } from "../../data";
+import { dataSolicitudF, dataProfesores } from "../../data";
+import { normalizeText } from "../../registro/validations";
 
 const FormAC = () => {
   const router = useRouter();
@@ -19,13 +20,14 @@ const FormAC = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const ee = normalizeText(dataA.experienciaR).toLowerCase();
+    const responsables = dataProfesores.find((item) => item.ee === ee);
     try {
       if (
         dataA.motSolicitud &&
-        dataA.experienciaR &&
+        dataA.experienciaR && responsables &&
         (dataA.informacion || dataA.respuesta || dataA.tiempoHorario)
       ) {
-        console.log("oass");
         if (router.query.id) {
           console.log("sss");
           const resA = await axios.put(

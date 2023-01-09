@@ -9,15 +9,14 @@ import { states } from "../../data";
 import { useRouter } from "next/router";
 
 const Box = ({ title, description, btnText }) => {
-  const [desc, setDesc] = useState()
-  if (description.split("\n")) {
-    console.log(description.split("\n").length)
-  }
+  // if (description.split("\n")) {
+  //   console.log(description.split("\n").length)
+  // }
   return (
     <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
       <dt className="text-sm font-medium text-gray-500">{title}</dt>
       <dd className="mt-1 flex text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-        <span className="flex-grow" style={{ whiteSpace: "pre" }}>{description}</span>
+        <span className="flex-grow truncate" style={{ whiteSpace: "pre" }}>{description}</span>
         <span className="ml-4 flex-shrink-0">
           {btnText ? (
             <button
