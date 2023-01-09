@@ -7,12 +7,17 @@ import { useState } from "react";
 import { dateParse } from "../../registro/validations";
 import { states } from "../../data";
 import { useRouter } from "next/router";
+
 const Box = ({ title, description, btnText }) => {
+  const [desc, setDesc] = useState()
+  if (description.split("\n")) {
+    console.log(description.split("\n").length)
+  }
   return (
     <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
       <dt className="text-sm font-medium text-gray-500">{title}</dt>
       <dd className="mt-1 flex text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-        <span className="flex-grow">{description}</span>
+        <span className="flex-grow" style={{ whiteSpace: "pre" }}>{description}</span>
         <span className="ml-4 flex-shrink-0">
           {btnText ? (
             <button
@@ -47,11 +52,11 @@ const Id = ({ data }) => {
   const dataAdaptacion = [
     {
       title: "Estado",
-      description: stateSol[estadoSolicitud],
+      description: stateSol[estadoSolicitud] || '',
     },
     {
       title: "Experiencia Educativa",
-      description: experienciaR,
+      description: experienciaR || '',
     },
     {
       title: "Creación",
@@ -59,27 +64,27 @@ const Id = ({ data }) => {
     },
     {
       title: "Presentación de la información",
-      description: informacion,
+      description: informacion || '',
       btnText: true,
     },
     {
       title: "Formas de respuesta",
-      description: respuesta,
+      description: respuesta || '',
       btnText: true,
     },
     {
       title: "Tiempo y horario",
-      description: tiempoHorario,
+      description: tiempoHorario || '',
       btnText: true,
     },
     {
       title: "Adaptaciones anteriores",
-      description: adapAnteriores,
+      description: adapAnteriores || '',
       btnText: true,
     },
     {
       title: "Motivo de la solicitud",
-      description: motSolicitud,
+      description: motSolicitud || '',
     },
   ];
   const {push} = useRouter()
