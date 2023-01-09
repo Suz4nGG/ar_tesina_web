@@ -4,7 +4,7 @@ export const GroupForm = ({
   name,
   text,
   type,
-  value = '',
+  value,
   colSM = "1",
   colQuery,
   placeholder,
