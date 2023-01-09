@@ -1,18 +1,16 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import HeaderForm from "/components/Forms/HeaderForm";
 import Button from "../../../components/Global/Button";
-import { dateNow } from "../data";
-import { selectOptionsLic } from "../data";
+import { dateNow } from "../../data";
 import axios from "axios";
 import { API_REG } from "../../constants";
-import Select from "react-select";
 import { useRouter } from "next/router";
 import { validations } from "../validations";
 import FormOne from "./FormOne";
 import FormTwo from "./FormTwo";
 import FormThree from "./FormThree";
 import FormAcount from "./FormAcount";
-
+import { LOGIN } from "../../constants";
 const FormRegister = () => {
   const [data, setData] = useState({
     nombreCompleto: "",
@@ -45,19 +43,19 @@ const FormRegister = () => {
         const clearData = dataOld.map(([key]) => [key, ""]);
         const newData = Object.fromEntries(clearData);
         setData(newData);
-        router.push("/iniciar_sesion");
+        router.push(LOGIN);
       }
     } catch (err) {
       setHasError(true);
     }
   };
-
+  console.log(errorMessage)
   const handleChange = (e) => {
     const nameRef = e.name || e.target.name;
     const valueRef = e.value || e.target.value;
     setData({ ...data, [nameRef]: valueRef });
   };
-  console.log("DDD", data);
+  // console.log("DDD", data);
   return (
     <>
       <form

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Eye from "../../../components/icons/Eye";
 import EyeN from "../../../components/icons/EyeN";
-import { dataAcount } from "../data";
+import { dataAcount } from "../../data";
 
 export default function FormAcount({ handleChange, errorMessage }) {
   const [event, setEvent] = useState();

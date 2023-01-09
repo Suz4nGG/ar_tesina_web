@@ -1,5 +1,5 @@
 import Select from "react-select";
-import { selectOptionsLic } from "../data";
+import { selectOptionsLic } from "../../data";
 
 const FormThree = ({ data, handleChange }) => {
   return (

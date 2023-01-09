@@ -1,15 +1,15 @@
-import Pseudo from "react-dom-pseudo";
 import { useState } from "react";
+
 export const GroupForm = ({
   name,
   text,
   type,
-  value,
+  value = '',
   colSM = "1",
   colQuery,
   placeholder,
   handleChange,
-  errorMessage,
+  errorMessage
 }) => {
   const [event, setEvent] = useState('eve')
   return (
@@ -56,12 +56,4 @@ export const GroupForm = ({
       </div>
     </div>
   );
-};
-
-const sheet = {
-  inputFocus: {
-    border: "1px solid rgba(0,0,0,0.1)",
-    background: "#f0f0f3",
-    transitionTimingFunction: "ease-in",
-  },
 };

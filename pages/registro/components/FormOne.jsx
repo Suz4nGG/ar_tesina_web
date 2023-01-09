@@ -1,4 +1,4 @@
-import { dataForm } from "../data";
+import { dataForm } from "../../data";
 import { GroupForm } from "../../../components/Forms/GroupForm";
 
 const FormOne = ({ data, handleChange, errorMessage }) => {

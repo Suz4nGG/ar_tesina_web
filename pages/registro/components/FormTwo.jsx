@@ -1,6 +1,6 @@
 import CheckBox from "../../../components/Forms/CheckBox";
 import Select from "react-select";
-import { selectOptionsDis, boxOption } from "../data";
+import { selectOptionsDis, boxOption } from "../../data";
 
 const FormTwo = ({ data, handleChange }) => {
   return (

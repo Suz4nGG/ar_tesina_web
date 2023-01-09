@@ -1,7 +1,7 @@
 import Image from "next/image"
 import Button from "../Global/Button"
 import HeroImg from "/public/uv_hero.png"
-
+import { LOGIN, REGISTRO } from "../../pages/constants"
 export default function Hero() {
   return (
     <div className="bg-white">
@@ -31,8 +31,8 @@ export default function Hero() {
                   </p>
                   <div className="mx-auto mt-10 max-w-sm sm:flex sm:max-w-none sm:justify-center sm:items-center">
                     <div className="flex justify-center items-center sm:mx-auto sm:inline-grid sm:grid-cols-2 sm:gap-5 gap-2 sm:space-y-0 flex-col mo:flex-row">
-                      <Button bg="bg-blue-600 w-full mo:w-42" textColor="text-gray-100" text="Registrate" href="/registro/formulario" hover="bg-blue-700"/>
-                      <Button bg="bg-green-600 w-full mo:w-42" textColor="text-gray-100" text="Inicia Sesión" href="/iniciar_sesion" hover="bg-green-700" />
+                      <Button bg="bg-blue-600 w-full mo:w-42" textColor="text-gray-100" text="Registrate" href={`${REGISTRO}`} hover="bg-blue-700"/>
+                      <Button bg="bg-green-600 w-full mo:w-42" textColor="text-gray-100" text="Inicia Sesión" href={`${LOGIN}`} hover="bg-green-700" />
                     </div>
                   </div>
                 </div>
