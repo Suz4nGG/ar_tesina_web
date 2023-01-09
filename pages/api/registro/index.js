@@ -1,4 +1,5 @@
 import { pool } from "../../../config/db";
+import bcrypt from "bcrypt";
 
 export default async function registro(req, res) {
   switch (req.method) {
@@ -8,8 +9,6 @@ export default async function registro(req, res) {
       return await registerStudent(req, res);
   }
 }
-
-
 
 const registerStudent = async (req, res) => {
   const {
@@ -27,8 +26,13 @@ const registerStudent = async (req, res) => {
     adaptaciones,
     tiempoDisc,
     temporal,
-    permanente
+    permanente,
+    username,
+    password
   } = req.body;
+  const salt = 10
+  const passHash = await bcrypt.hash(password, salt)
+  console.log("PWW",passHash)
   const [result] = await pool.query("INSERT INTO estudiantes SET ?", {
     nombreCompleto,
     nombreResponsable,
@@ -42,7 +46,9 @@ const registerStudent = async (req, res) => {
     sobreDiscapacidad,
     carrera,
     adaptaciones,
-    tiempoDisc: temporal || permanente
+    tiempoDisc: temporal || permanente,
+    username,
+    passwordU: passHash
   })
   return res.status(200).json({
     nombreCompleto,
