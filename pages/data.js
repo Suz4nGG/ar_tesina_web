@@ -298,6 +298,10 @@ export const dataProfesores = [
     ee: "criptografia",
     profesor: "MCC Jovanny Arriaga Martinez",
   },
+  {
+    ee: "wwww",
+    profesor: "MCC Jovanny RUiz Martinez",
+  },
 ];
 
 export const states = [
