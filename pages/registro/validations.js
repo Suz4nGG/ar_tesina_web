@@ -1,4 +1,4 @@
-import { selectOptionsDis } from "./data";
+import { selectOptionsDis } from "../data";
 
 const nombreValidation = [
   {
@@ -10,16 +10,16 @@ const nombreValidation = [
 const textValidation = [
   {
     message: "Caracteres invalidos o longitud invalida",
-    pattern: /^[a-zA-Z0-9]{5}$/
-  }
-]
+    pattern: /^[a-zA-Z0-9]{5}$/,
+  },
+];
 
 const passwordValidation = [
   {
     message: "Contraseña insegura",
-    pattern: /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/
-  }
-]
+    pattern: /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/,
+  },
+];
 
 const telValidation = [
   {
@@ -50,7 +50,7 @@ const fechaNacValidation = [
   },
 ];
 
-const normalizeText = (text) => {
+export const normalizeText = (text) => {
   return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 };
 
@@ -122,12 +122,24 @@ export const validations = (data) => {
     edad ||
     cp ||
     fecNacimiento ||
-    tipoDiscapacidad || sobreDiscapacidad || username || password
+    tipoDiscapacidad ||
+    username ||
+    password
   ) {
     case nombreCompleto:
-      stringsValidation(nombreValidation, nombreCompleto, "nombreCompleto", errors);
+      stringsValidation(
+        nombreValidation,
+        nombreCompleto,
+        "nombreCompleto",
+        errors
+      );
     case nombreResponsable:
-      stringsValidation(nombreValidation, nombreResponsable, "nombreResponsable", errors);
+      stringsValidation(
+        nombreValidation,
+        nombreResponsable,
+        "nombreResponsable",
+        errors
+      );
     case municipio:
       stringsValidation(nombreValidation, municipio, "municipio", errors);
     case ciudad:
@@ -139,19 +151,40 @@ export const validations = (data) => {
     case fecNacimiento:
       dateValidation(fecNacimiento, "fecNacimiento", errors);
     case cp:
-      cpValidationF(cp, "cp", errors)
-    case sobreDiscapacidad:
-      stringsValidation(textValidation, sobreDiscapacidad, 'sobreDiscapacidad', errors)
+      cpValidationF(cp, "cp", errors);
+    // case sobreDiscapacidad:
+    //   stringsValidation(
+    //     textValidation,
+    //     sobreDiscapacidad,
+    //     "sobreDiscapacidad",
+    //     errors
+    //   );
     case username:
-      textValidation.map(item => {
-        if(!item.pattern.test(username)) return errors.push(`username: ${item.message}`)
-      })
+      textValidation.map((item) => {
+        if (!item.pattern.test(username))
+          return errors.push(`username: ${item.message}`);
+      });
     case password:
-      passwordValidation.map(item => {
-        if (!item.pattern.test(password)) return errors.push(`password: ${item.message}`)
-      })
+      passwordValidation.map((item) => {
+        if (!item.pattern.test(password))
+          return errors.push(`password: ${item.message}`);
+      });
       return errors;
   }
 };
 
-//P123#opt
+export const validationsLogin = (data, serverErrors) => {
+  // const { usernameA } = data
+  let errors = [];
+  errors.push(`password: ${serverErrors}`)
+  return errors
+}
+
+
+export const dateParse = (createdAt) => {
+  return new Date(createdAt).toLocaleDateString("es-es", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  });
+}
