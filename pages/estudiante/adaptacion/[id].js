@@ -50,11 +50,13 @@ const Id = ({ data, infoUser }) => {
     createdAt,
     estadoSolicitud,
   } = data;
+  // console.log("ee", estadoSolicitud);
   const stateSol = states.find((item) => item[estadoSolicitud]);
+  // console.log("rr", stateSol[estadoSolicitud]);
   const dataAdaptacion = [
     {
       title: "Estado",
-      description: stateSol[estadoSolicitud] || "",
+      description: stateSol[estadoSolicitud],
     },
     {
       title: "Experiencia Educativa",
@@ -94,8 +96,12 @@ const Id = ({ data, infoUser }) => {
     push(EDITADAPT + idSolicitud);
   };
   const downloadPDF = () => {
-    const pdf = createPDF({ data }, {infoUser});
-    console.log("PDF", pdf);
+    const prev = true;
+    const pdf = createPDF({ data }, { infoUser }, prev);
+  };
+  const previewPDF = () => {
+    const prev = true;
+    const pdf = createPDF({ data }, { infoUser }, prev);
   };
   return (
     <>
@@ -154,7 +160,7 @@ const Id = ({ data, infoUser }) => {
                       </button>
                       <button
                         type="button"
-                        onClick={downloadPDF}
+                        onClick={previewPDF}
                         className="rounded-md bg-white font-medium text-green-600 hover:text-green-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
                       >
                         Visualizar
@@ -162,6 +168,7 @@ const Id = ({ data, infoUser }) => {
                     </div>
                   </li>
                 </ul>
+                <iframe id="frame" src=""></iframe>
               </dd>
             </div>
           </dl>
