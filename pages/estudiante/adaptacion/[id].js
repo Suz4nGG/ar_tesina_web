@@ -97,7 +97,7 @@ const Id = ({ data, infoUser }) => {
   };
   const downloadPDF = () => {
     const prev = true;
-    const pdf = createPDF({ data }, { infoUser }, prev);
+    const pdf = createPDF(data , { infoUser }, prev);
   };
   const previewPDF = () => {
     const prev = true;
