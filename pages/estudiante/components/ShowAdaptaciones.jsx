@@ -21,7 +21,6 @@ const ShowAdaptaciones = ({
   const date = dateParse(createdAt);
   const EE = normalizeText(experienciaR).toLowerCase();
   const stateSol = states.find((item) => item[estadoSolicitud]);
-  console.log(EE)
   const responsables = dataProfesores.find((item) => item.ee === EE);
   const handleClick = () => {
     router.push(`${GETADAPT}${idSolicitud}`);
