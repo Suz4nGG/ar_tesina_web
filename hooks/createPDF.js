@@ -253,7 +253,9 @@ export const createPDF = async (data, { infoUser }, prev) => {
     margin: { left: 10, right: 10 },
     rowPageBreak: 'avoid'
   });
-  PDF.save("pd.pdf");
+  const namePDF = nombreCompleto.toLowerCase().split(' ').join('_')
+  console.log()
+  PDF.save(`adaptacion_curricular_${namePDF}_${idSolicitud}`);
   if (prev) {
     PDF.output("bloburl");
     return;
