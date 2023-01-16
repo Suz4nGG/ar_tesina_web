@@ -14,15 +14,15 @@ function classNames(...classes) {
 }
 
 const Dashboard = ({
-  username,
+  usernameA,
   nombreCompleto,
 }) => {
   const router = useRouter();
   return (
     <>
       <Navigation actState="session" />
-      <Layout data={{ title: `Bienvenido(a) ${username}` }}>
-        <div className="divide-y divide-gray-200 overflow-hidden rounded-lg bg-gray-200 shadow sm:grid sm:grid-cols-2 sm:gap-px sm:divide-y-0 my-4">
+      <Layout data={{ title: `Bienvenido(a) ${usernameA}` }}>
+        <div className="divide-y divide-gray-200 overflow-hidden rounded-lg bg-gray-200 shadow sm:grid sm:grid-cols-2 sm:gap-px sm:divide-y-0 my-4 mb-10">
           {actions.map((action, actionIdx) => (
             <div
               key={action.title}
@@ -83,6 +83,7 @@ export async function getServerSideProps(context) {
   const { data } = await axios.post(APISTUDENT, {
     authTokenUser,
   });
+  try {
   const {
     usernameA,
     nombreCompleto,
@@ -96,7 +97,6 @@ export async function getServerSideProps(context) {
     tipoDiscapacidad,
     sobreDiscapacidad,
     carrera,
-    adaptaciones,
     tiempoDisc,
   } = data[0];
   return {
@@ -113,10 +113,15 @@ export async function getServerSideProps(context) {
       tipoDiscapacidad,
       sobreDiscapacidad,
       carrera,
-      adaptaciones,
       tiempoDisc,
     },
   };
+  } catch (err) {
+    return {
+    props: {
+    },
+  };
+  }
 }
 
 export default Dashboard;

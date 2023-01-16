@@ -2,8 +2,8 @@ import axios from "axios";
 import React from "react";
 import Layout from "../../components/Global/Layout";
 import Navigation from "../../components/Global/Navigation";
-import { SOLADAPT, APISTUDENT } from "../constants";
 import ShowAdaptaciones from "./components/ShowAdaptaciones";
+import Footer from "/components/Global/Footer"
 
 const AdaptacionesCurriculares = (adaptaciones) => {
   const data = adaptaciones.adaptaciones;
@@ -11,7 +11,7 @@ const AdaptacionesCurriculares = (adaptaciones) => {
     <>
       <Navigation actState="session" />
       <Layout data={{ title: "Adaptaciones curriculares" }}>
-        <div className="">
+        <div className="mb-8">
           <div className="sm:flex sm:items-center">
             <div className="sm:flex-auto">
               <p className="mt-2 text-sm text-gray-700">
@@ -35,6 +35,7 @@ const AdaptacionesCurriculares = (adaptaciones) => {
             />
           ))}
         </div>
+        <Footer/>
       </Layout>
     </>
   );
