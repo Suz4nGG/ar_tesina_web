@@ -8,6 +8,7 @@ import { dateParse } from "../../registro/validations";
 import { states } from "../../data";
 import { useRouter } from "next/router";
 import { createPDF } from "../../../hooks/createPDF";
+import Footer from "/components/Global/Footer"
 
 const Box = ({ title, description, btnText }) => {
   // if (description.split("\n")) {
@@ -50,7 +51,6 @@ const Id = ({ data, infoUser }) => {
     createdAt,
     estadoSolicitud,
   } = data;
-  // console.log("ee", estadoSolicitud);
   const stateSol = states.find((item) => item[estadoSolicitud]);
   // console.log("rr", stateSol[estadoSolicitud]);
   const dataAdaptacion = [
@@ -97,7 +97,7 @@ const Id = ({ data, infoUser }) => {
   };
   const downloadPDF = () => {
     const prev = true;
-    const pdf = createPDF(data , { infoUser }, prev);
+    const pdf = createPDF(data, { infoUser }, prev);
   };
   const previewPDF = () => {
     const prev = true;
@@ -112,7 +112,7 @@ const Id = ({ data, infoUser }) => {
             Detalles de la solicitud
           </h3>
           <p className="mt-1 max-w-2xl text-sm text-gray-500">
-            Nombre Completo
+            {infoUser[0].nombreCompleto}
           </p>
         </div>
         <div className="mt-5 border-t border-gray-200">
@@ -125,7 +125,7 @@ const Id = ({ data, infoUser }) => {
                 // btnText={item.btnText}
               />
             ))}
-            <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
+            <div className="py-4 sm:grid sm:grid-cols-2 sm:gap-4 sm:py-5">
               <dd className="mt-1 mb-2 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
                 <button
                   onClick={handleClick}
@@ -154,14 +154,14 @@ const Id = ({ data, infoUser }) => {
                       <button
                         type="button"
                         onClick={downloadPDF}
-                        className="rounded-md bg-white font-medium text-green-600 hover:text-green-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+                        className="rounded-md bg-white font-medium text-green-600 hover:text-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 px-3 py-2"
                       >
                         Descargar
                       </button>
                       <button
                         type="button"
                         onClick={previewPDF}
-                        className="rounded-md bg-white font-medium text-green-600 hover:text-green-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+                        className="rounded-md bg-white font-medium text-green-600 hover:text-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 px-3 py-2"
                       >
                         Visualizar
                       </button>
@@ -173,6 +173,7 @@ const Id = ({ data, infoUser }) => {
             </div>
           </dl>
         </div>
+        <Footer />
       </Layout>
     </>
   );

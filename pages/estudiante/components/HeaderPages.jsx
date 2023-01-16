@@ -4,6 +4,7 @@ import ArrowLeft from "/components/icons/ArrowLeft";
 import Home from "/components/icons/Home";
 import { useRouter } from "next/router";
 import { DASHSTUDENT } from "../../constants";
+
 const HeaderPages = ({ data }) => {
   const router = useRouter()
   const { title } = data;
@@ -13,7 +14,7 @@ const HeaderPages = ({ data }) => {
         <div>
           <nav className="sm:hidden" aria-label="Back">
             <a
-              onClick={() => router.push(DASHSTUDENT)}
+              onClick={() => router.back()}
               className="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 cursor-pointer"
             >
               <ArrowLeft />
@@ -26,10 +27,10 @@ const HeaderPages = ({ data }) => {
                 <div className="flex items-center text-gray-500">
                   <Home />
                   <a
-                    onClick={() => router.push(DASHSTUDENT)}
+                    onClick={() => router.back()}
                     className="px-2 text-sm font-medium text-gray-500 hover:text-gray-700 cursor-pointer"
                   >
-                    Inicio
+                    Atras
                   </a>
                   <ArrowRight />
                 </div>
