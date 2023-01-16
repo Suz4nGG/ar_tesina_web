@@ -19,7 +19,7 @@ const footerNavigation = [
 const Footer = () => {
   return (
     <footer className="bg-white">
-      <div className="mx-auto py-9 px-4 sm:px-6 md:flex md:items-center md:justify-between lg:px-8 border-solid border-t-2 border-t-gray-300">
+      <div className="mx-auto py-9 px-4 sm:px-6 md:flex md:justify-between lg:px-8 border-solid border-t-2 border-t-gray-300">
         {/* <div className="flex justify-center space-x-6 md:order-2">
           {footerNavigation.map((item) => (
             <a key={item.name} href={item.href} className="text-gray-400 hover:text-gray-500">
@@ -29,7 +29,7 @@ const Footer = () => {
           ))}
         </div> */}
         <div className="md:order-1">
-          <p className="text-center text-base text-gray-500">&copy; Universidad Veracruzana 2022</p>
+          <p className="text-base text-gray-500">&copy; Universidad Veracruzana 2022</p>
         </div>
       </div>
     </footer>
