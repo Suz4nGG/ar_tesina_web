@@ -17,7 +17,6 @@ CREATE TABLE estudiantes (
   tipoDiscapacidad VARCHAR(100) NOT NULL,
   sobreDiscapacidad VARCHAR(400) NOT NULL,
   carrera VARCHAR(100) NOT NULL,
-  adaptaciones VARCHAR(100) NOT NULL,
   tiempoDisc VARCHAR(20) NOT NULL,
   createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -32,6 +31,16 @@ CREATE TABLE solicitudAdaptacion (
   motSolicitud VARCHAR(2000) NOT NULL,
   experienciaR VARCHAR(200) NOT NULL,
   estadoSolicitud INT NOT NULL DEFAULT 1,
+  createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE personalAdministrativo (
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  usernameP VARCHAR(5) NOT NULL,
+  passwordP VARCHAR(400) NOT NULL,
+  nombreCompleto VARCHAR(200) NOT NULL,
+  edad INT NOT NULL,
+  tel VARCHAR(10) NOT NULL,
   createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

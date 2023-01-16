@@ -1,0 +1,35 @@
+- id: INT
+- usernameA: VARCHAR(5)
+- passwordU: VARCHAR(400)
+- nombreCompleto: VARCHAR(200)
+- nombreResponsable: VARCHAR(200)
+- fecNacimiento: DATE
+- edad: INT
+- tel: VARCHAR(10)
+- ciudad: VARCHAR(30)
+- cp: VARCHAR(5)
+- municipio: VARCHAR(100)
+- tipoDiscapacidad: VARCHAR(100)
+- sobreDiscapacidad: VARCHAR(400)
+- carrera: VARCHAR(100)
+- tiempoDisc: VARCHAR(20)
+
+-- ! Personal Administrativo
+- id: INT
+- numeroP: VARCHAR(5)
+- passwordP: VARCHAR(400)
+- nombreCompleto: VARCHAR(200)
+- edad: INT
+- tel: VARCHAR(10)
+
+-- ! Solicitud de A.C.
+- idSolicitud: INT
+- username: VARCHAR(5)
+- informacion: VARCHAR(2000)
+- respuesta: VARCHAR(2000)
+- tiempoHorario: VARCHAR(2000)
+- adapAnteriores: VARCHAR(2000)
+- motSolicitud: VARCHAR(2000)
+- experienciaR: VARCHAR(200)
+- estadoSolicitud: INT
+- responsablesSolicitud: VARCHAR(500)
