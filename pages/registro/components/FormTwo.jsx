@@ -19,6 +19,7 @@ const FormTwo = ({ data, handleChange }) => {
           }}
           onChange={handleChange}
           name="tipoDiscapacidad"
+          id="tipoDiscapacidad"
           options={selectOptionsDis}
           placeholder="Discapacidad"
           className="basic-multi-select"

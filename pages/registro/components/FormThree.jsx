@@ -24,7 +24,7 @@ const FormThree = ({ data, handleChange }) => {
           required
         />
       </div>
-      <div className="col-span-3 pb-4">
+      {/* <div className="col-span-3 pb-4">
         <label
           htmlFor="adaptaciones"
           className="block text-sm md:text-base font-medium text-gray-700 sm:mt-px pb-2"
@@ -43,7 +43,7 @@ const FormThree = ({ data, handleChange }) => {
             placeholder="Los ajustes curriculares solicitados en mis cursos anteriores..."
           />
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
