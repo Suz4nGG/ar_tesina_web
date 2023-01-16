@@ -209,7 +209,6 @@ export const initialState = {
   tipoDiscapacidad: "",
   sobreDiscapacidad: "",
   carrera: "",
-  adaptaciones: "",
   tiempoDisc: "",
 };
 

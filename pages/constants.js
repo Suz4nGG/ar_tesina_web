@@ -5,6 +5,12 @@ export const REGISTRO = "/registro/formulario"
 export const RECURSOS = "/recursos"
 export const CONTACTO = "/contacto"
 
+export const INITIAL = "http://localhost:3000/"
+export const REGISTROADMIN = "/api/registro/administrador"
+export const LOGINAUTHPERSONAL = "/api/auth/login-administrativo"
+export const DASHSPERSONAL = "/administrativo/dashboard"
+export const GETADAPTACIONES = "/api/administrativo/get-adaptaciones"
+
 export const LOGINAUTH = "/api/auth/login-student"
 export const DASHSTUDENT = "/estudiante/dashboard"
 export const SOLSTUDENT = "/estudiante/solicitar-adaptacion"

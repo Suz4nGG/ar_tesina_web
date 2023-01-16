@@ -13,7 +13,6 @@ export default function generateToken(data) {
     },
     SECRET
   );
-  console.log("tk". token)
   // ! Serializar la data para mandarla en la cabecera
   const serialized = serialize(TOKENJWT, token, {
     httpOnly: true,
@@ -22,6 +21,5 @@ export default function generateToken(data) {
     maxAge: 1000 * 60 * 60 * 24 * 30,
     path: "/",
   });
-  console.log(serialized)
   return serialized;
 }
