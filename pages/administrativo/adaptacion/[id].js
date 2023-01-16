@@ -8,7 +8,7 @@ import { dateParse } from "../../registro/validations";
 import { states } from "../../data";
 import { useRouter } from "next/router";
 import { createPDF } from "../../../hooks/createPDF";
-import Footer from "/components/Global/Footer";
+import Footer from "/components/Global/Footer"
 
 const Box = ({ title, description, btnText }) => {
   return (
@@ -183,7 +183,7 @@ export const getServerSideProps = async (context) => {
   const { data: infoUser } = await axios.post(APISTUDENT, {
     authTokenUser,
   });
-  console.log("IF", infoUser);
+  console.log("IF",infoUser)
   return {
     props: { data, infoUser },
   };

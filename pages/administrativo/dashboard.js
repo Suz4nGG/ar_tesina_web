@@ -1,16 +1,11 @@
 import React from 'react';
 import Navigation from "/components/Global/Navigation";
 import Layout from '../../components/Global/Layout';
-import ShowAdaptaciones from "/pages/estudiante/components/ShowAdaptaciones";
+import ShowAdaptaciones from "./components/ShowAdaptaciones";
 import axios from 'axios';
 import { GETADAPTACIONES, INITIAL } from '../constants';
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
-
 const Dashboard = (data) => {
-  console.log(data.data)
   const dataS = data.data;
   return (
     <>
@@ -45,11 +40,6 @@ const Dashboard = (data) => {
   );
 }
 export async function getServerSideProps(context) {
-  const { authTokenUser } = context.req.cookies;
-  let headers = {
-    "Content-Type": "application/json",
-    Authorization: "Bearer " + authTokenUser,
-  };
   const {data} = await axios.get(
     INITIAL+GETADAPTACIONES
   );
@@ -61,3 +51,5 @@ export async function getServerSideProps(context) {
   };
 }
 export default Dashboard;
+
+// ! Pasa..

@@ -10,6 +10,7 @@ export const REGISTROADMIN = "/api/registro/administrador"
 export const LOGINAUTHPERSONAL = "/api/auth/login-administrativo"
 export const DASHSPERSONAL = "/administrativo/dashboard"
 export const GETADAPTACIONES = "/api/administrativo/get-adaptaciones"
+export const GETADAPTPERSONAL = "/administrativo/adaptacion/"
 
 export const LOGINAUTH = "/api/auth/login-student"
 export const DASHSTUDENT = "/estudiante/dashboard"
