@@ -7,7 +7,7 @@ import { GroupForm } from "../components/Forms/GroupForm";
 import { dataAcount } from "../pages/data";
 import { validationsLogin } from "./registro/validations";
 import { useState } from "react";
-import { LOGINAUTH, DASHSTUDENT } from "./constants";
+import { LOGINAUTH, DASHSTUDENT, LOGINAUTHPERSONAL, DASHSPERSONAL } from "./constants";
 import axios from "axios";
 import { useRouter } from "next/router";
 /*
@@ -16,25 +16,34 @@ handleChange,
 errorMessage
 */
 const Login = () => {
-  const router = useRouter()
+  const router = useRouter();
+  const actual = router.pathname.includes("administrativo/login");
   const [errors, setErrors] = useState();
   const [data, setData] = useState({
     usernameA: "",
     password: "",
   });
+  const [dataA, setDataA] = useState({
+
+  });
   const handleChange = ({ target: { name, value } }) => {
-    setData({ ...data, [name]: value });
+      setData({ ...data, [name]: value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(LOGINAUTH, data);
-      console.log("RR", res)
-      const { message } = res.data;
-      if (message === "Inicio exitoso") {
-        router.push(DASHSTUDENT)
-        localStorage.setItem('username', JSON.stringify(data.usernameA))
+      if (actual) {
+        console.log("rees", dataA);
+        const resPersonal = await axios.post(LOGINAUTHPERSONAL, data);
+        console.log(resPersonal);
+        const { message } = resPersonal.data;
+        if (message === "Inicio exitoso") router.push(DASHSPERSONAL);
+      } else {
+        const resEstudiante = await axios.post(LOGINAUTH, data);
+        console.log("RR", resEstudiante);
+        const { message } = resEstudiante.data;
+        if (message === "Inicio exitoso") router.push(DASHSTUDENT);
       }
     } catch (err) {
       const { error } = err.response.data;
@@ -93,6 +102,11 @@ const Login = () => {
                 />
               </div>
             </form>
+            <div className="mt-4 text-blue-600 hover:text-blue-800">
+              <button onClick={(e) => router.push("/administrativo/login/")}>
+                Soy personal administrativo
+              </button>
+            </div>
           </div>
         </div>
       </div>
