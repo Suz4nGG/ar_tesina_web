@@ -4,7 +4,7 @@ import { dateParse } from "/pages/registro/validations";
 import "jspdf-autotable";
 import { states } from "../pages/data";
 
-export const createPDF = async (data, { infoUser }, prev) => {
+export const createPDF = async (data, infoUser, prev) => {
   const {
     idSolicitud,
     informacion,
@@ -30,7 +30,7 @@ export const createPDF = async (data, { infoUser }, prev) => {
     sobreDiscapacidad,
     carrera,
     tiempoDisc,
-  } = infoUser[0];
+  } = infoUser;
   const stateSol = states.find((item) => item[estadoSolicitud]);
   const cr = dateParse(createdAt);
   const cr1 = dateParse(fecNacimiento);
