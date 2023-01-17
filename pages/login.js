@@ -17,7 +17,7 @@ errorMessage
 */
 const Login = () => {
   const router = useRouter();
-  const actual = router.pathname.includes("administrativo/login");
+  const actual = router.pathname.includes("login-personal");
   const [errors, setErrors] = useState();
   const [data, setData] = useState({
     usernameA: "",
@@ -38,7 +38,7 @@ const Login = () => {
         const resPersonal = await axios.post(LOGINAUTHPERSONAL, data);
         console.log(resPersonal);
         const { message } = resPersonal.data;
-        if (message === "Inicio exitoso") router.push(DASHSPERSONAL);
+        if (message === "Inicio exitoso") {router.push(DASHSPERSONAL)};
       } else {
         const resEstudiante = await axios.post(LOGINAUTH, data);
         console.log("RR", resEstudiante);
@@ -103,7 +103,7 @@ const Login = () => {
               </div>
             </form>
             <div className="mt-4 text-blue-600 hover:text-blue-800">
-              <button onClick={(e) => router.push("/administrativo/login/")}>
+              <button onClick={(e) => router.push("/login-personal/")}>
                 Soy personal administrativo
               </button>
             </div>
