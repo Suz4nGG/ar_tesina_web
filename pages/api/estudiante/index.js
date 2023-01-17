@@ -5,6 +5,8 @@ export default async function getDataStudent(req, res) {
   switch (req.method) {
     case "POST":
       await validateTK(req, res)
+    case "GET":
+      await getStudent(req, res)
     break
   }
 }
@@ -21,9 +23,9 @@ const validateTK = async (req, res) => {
     );
 }
 
-/*
+
 const getStudent = (req, res) => {
-  const { authTokenUser } = req.body
-  console.log("dataaa", authTokenUser)
+  // const { username } = req.body
+  console.log("dataaa", req.query)
   return res.json(200)
-}*/
+}
