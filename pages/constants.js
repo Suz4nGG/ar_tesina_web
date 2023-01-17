@@ -5,7 +5,7 @@ export const REGISTRO = "/registro/formulario"
 export const RECURSOS = "/recursos"
 export const CONTACTO = "/contacto"
 
-export const INITIAL = "http://localhost:3000/"
+export const INITIAL = "http://localhost:3001/"
 export const REGISTROADMIN = "/api/registro/administrador"
 export const LOGINAUTHPERSONAL = "/api/auth/login-administrativo"
 export const DASHSPERSONAL = "/administrativo/dashboard"
@@ -26,4 +26,5 @@ export const EDITADAPT = "/estudiante/editar-solicitud/"
 export const LOGOUT = "/api/auth/logout"
 export const TOKENJWT = 'authTokenUser'
 
-export const APISTUDENT = "http://localhost:3000/api/estudiante"
+export const APIPERSONAL = "http://localhost:3001/api/administrativo"
+export const APISTUDENT = "http://localhost:3001/api/estudiante"
