@@ -2,36 +2,74 @@ import axios from "axios";
 import Navigation from "/components/Global/Navigation.jsx";
 import Layout from "/components/Global/Layout.jsx";
 import { PaperClipIcon } from "@heroicons/react/solid";
-import { APISTUDENT, EDITADAPT } from "../../constants";
-import { useState } from "react";
+import { EDITADAPT, APIPERSONAL, APISTUDENT } from "../../constants";
 import { dateParse } from "../../registro/validations";
 import { states } from "../../data";
 import { useRouter } from "next/router";
 import { createPDF } from "../../../hooks/createPDF";
-import Footer from "/components/Global/Footer"
+import Footer from "/components/Global/Footer";
+import { useState } from "react";
+import TextArea from "../../estudiante/components/TextArea";
 
-const Box = ({ title, description, btnText }) => {
+const Box = ({ title, description, btnText, nameInput }) => {
+  const [showInput, setShowInput] = useState(false);
+  const handleClick = () => {
+    setShowInput(!showInput);
+  };
+  const handleChange = ({target: {name, value}}) => {
+    console.log(name, value)
+  }
   return (
-    <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
-      <dt className="text-sm font-medium text-gray-500">{title}</dt>
-      <dd className="mt-1 flex text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-        <span className="flex-grow truncate" style={{ whiteSpace: "pre" }}>
-          {description}
-        </span>
-        <span className="ml-4 flex-shrink-0">
-          {btnText ? (
+    <>
+      <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
+        <dt className="text-sm font-medium text-gray-500">{title}</dt>
+        <dd className="mt-1 flex text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+          <span className="flex-grow truncate" style={{ whiteSpace: "pre" }}>
+            {description}
+          </span>
+        </dd>
+      </div>
+      <span className="mt-4 mb-4 flex-shrink-0 w-full">
+        {btnText ? (
+          <div className="py-4">
             <button
               type="button"
               className="rounded-md bg-blue-600 px-4 py-2 font-medium text-white hover:bg-blue-700 focus:outline-none"
+              onClick={handleClick}
+              style={
+                showInput
+                  ? { background: "#B71010" }
+                  : { background: "#1B539E" }
+              }
             >
-              Editar
+              {showInput ? "Cerrar" : "Comentar"}
             </button>
-          ) : (
-            ""
-          )}
-        </span>
-      </dd>
-    </div>
+            <form>
+              {showInput ? (
+                <>
+                  <TextArea
+                    label="Deja tus comentarios"
+                    name={nameInput}
+                    placeholder="Comenta sobre tus observaciones"
+                    handleChange={handleChange}
+                  />
+                  <button
+                    type="button"
+                    className="rounded-md bg-green-600 px-4 py-2 my-2 font-medium text-white hover:bg-green-700 focus:outline-none"
+                  >
+                    Guardar
+                  </button>{" "}
+                </>
+              ) : (
+                ""
+              )}
+            </form>
+          </div>
+        ) : (
+          ""
+        )}
+      </span>
+    </>
   );
 };
 
@@ -67,34 +105,37 @@ const Id = ({ data, infoUser }) => {
       title: "Presentación de la información",
       description: informacion || "",
       btnText: true,
+      nameInput: 'comentarioInfo'
     },
     {
       title: "Formas de respuesta",
       description: respuesta || "",
       btnText: true,
+      nameInput: 'comentarioResp'
     },
     {
       title: "Tiempo y horario",
       description: tiempoHorario || "",
       btnText: true,
+      nameInput: 'comentarioTH'
     },
     {
       title: "Adaptaciones anteriores",
       description: adapAnteriores || "",
       btnText: true,
+      nameInput: 'comentarioAA'
     },
     {
       title: "Motivo de la solicitud",
       description: motSolicitud || "",
+      btnText: true,
+      nameInput: 'comentarioMS'
     },
   ];
   const { push } = useRouter();
-  const handleClick = () => {
-    push(EDITADAPT + idSolicitud);
-  };
   const downloadPDF = () => {
     const prev = true;
-    const pdf = createPDF(data, { infoUser }, prev);
+    createPDF(data, infoUser, prev);
   };
   const previewPDF = () => {
     const prev = true;
@@ -109,7 +150,7 @@ const Id = ({ data, infoUser }) => {
             Detalles de la solicitud
           </h3>
           <p className="mt-1 max-w-2xl text-sm text-gray-500">
-            {infoUser[0].nombreCompleto}
+            {infoUser.nombreCompleto}
           </p>
         </div>
         <div className="mt-5 border-t border-gray-200">
@@ -119,17 +160,12 @@ const Id = ({ data, infoUser }) => {
                 key={item.title}
                 title={item.title}
                 description={item.description}
+                btnText={item.btnText}
+                nameInput={item.nameInput}
               />
             ))}
             <div className="py-4 sm:grid sm:grid-cols-2 sm:gap-4 sm:py-5">
-              <dd className="mt-1 mb-2 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                <button
-                  onClick={handleClick}
-                  className="rounded-md bg-blue-600 px-4 py-2 font-medium text-white hover:bg-blue-700 focus:outline-none"
-                >
-                  Editar Solicitud
-                </button>
-              </dd>
+              <dd className="mt-1 mb-2 text-sm text-gray-900 sm:col-span-2 sm:mt-0"></dd>
               <dt className="text-sm font-medium text-gray-500">Archivos</dt>
               <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
                 <ul
@@ -176,14 +212,14 @@ const Id = ({ data, infoUser }) => {
 };
 
 export const getServerSideProps = async (context) => {
-  const { data } = await axios.get(
-    APISTUDENT + "/adaptacion/" + context.query.id
+  // * Solicitud
+  const { data } = await axios.get(APIPERSONAL + "/" + context.query.id);
+  const usernameEstudiante = data.username;
+  // * Información del estudiante
+  const { data: infoUser } = await axios.post(
+    APIPERSONAL + "/" + context.query.id,
+    { usernameEstudiante }
   );
-  const { authTokenUser } = context.req.cookies;
-  const { data: infoUser } = await axios.post(APISTUDENT, {
-    authTokenUser,
-  });
-  console.log("IF",infoUser)
   return {
     props: { data, infoUser },
   };
