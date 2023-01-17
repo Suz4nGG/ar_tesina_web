@@ -7,6 +7,7 @@ import { GETADAPTACIONES, INITIAL } from '../constants';
 
 const Dashboard = (data) => {
   const dataS = data.data;
+  console.log(dataS)
   return (
     <>
       <Navigation />
@@ -39,9 +40,10 @@ const Dashboard = (data) => {
     </>
   );
 }
-export async function getServerSideProps(context) {
+export async function getServerSideProps() {
+  // * Ver direccionamiento
   const {data} = await axios.get(
-    INITIAL+GETADAPTACIONES
+    'http://localhost:3001'+GETADAPTACIONES
   );
   console.log(data)
   return {
@@ -51,5 +53,3 @@ export async function getServerSideProps(context) {
   };
 }
 export default Dashboard;
-
-// ! Pasa..
