@@ -128,19 +128,6 @@ export const boxOption = [
   },
 ];
 
-export const selectOptionsLic = [
-  {
-    name: "carrera",
-    value: "Redes y Servicios de Cómputo",
-    label: "Redes y Servicios de Cómputo",
-  },
-  {
-    name: "carrera",
-    value: "Cibercrimen",
-    label: "Cibercrimen",
-  },
-];
-
 export const dataAcount = [
   {
     text: "Nombre usuario",
@@ -250,7 +237,7 @@ export const dataSolicitudF = (dataA) => {
       description:
         "Información táctil, auditiva, visual o la mixtura de estas.",
       placeholder: "1. Ampliación de la letra o imagen...",
-      value: dataA.informacion || '',
+      value: dataA.informacion || "",
     },
     {
       label: "FORMAS DE RESPUESTA",
@@ -258,7 +245,7 @@ export const dataSolicitudF = (dataA) => {
       description:
         "Permitir ejecutar actividades, tareas o evaluaciones a través de diversas formas: dispositivos o ayudas técnicas",
       placeholder: "1. Respuesta a través de computador adaptado...",
-      value: dataA.respuesta || '',
+      value: dataA.respuesta || "",
     },
     {
       label: "ORGANIZACIÓN DEL TIEMPO Y EL HORARIO",
@@ -266,7 +253,7 @@ export const dataSolicitudF = (dataA) => {
       description: "Estructura de la clase o desarrollo de evaluaciones.",
       placeholder:
         "1. Adecuar el tiempo utilizado en una actividad o evaluación...",
-      value: dataA.tiempoHorario || '',
+      value: dataA.tiempoHorario || "",
     },
     {
       label: "ADAPTACIONES ANTERIORES",
@@ -274,7 +261,7 @@ export const dataSolicitudF = (dataA) => {
       description:
         "Si has contado con adaptaciones en cursos anteriores, por favor escríbelas (Opcional)",
       placeholder: "1. Subtitulos en videos...",
-      value: dataA.adapAnteriores || '',
+      value: dataA.adapAnteriores || "",
     },
     {
       label: "MOTIVO DE LA SOLUCITUD",
@@ -282,10 +269,10 @@ export const dataSolicitudF = (dataA) => {
       description: "Argumenta el motivo de la solicitud",
       required: "*",
       placeholder: "El motivo por el cual yo Nombre Completo estudiante de...",
-      value: dataA.motSolicitud || ''
+      value: dataA.motSolicitud || "",
     },
   ];
-  return dataSolicitud
+  return dataSolicitud;
 };
 
 export const dataProfesores = [
@@ -299,14 +286,55 @@ export const dataProfesores = [
   },
   {
     ee: "wwww",
-    profesor: "MCC Jovanny RUiz Martinez",
+    profesor: "MCC Jovanny Ruíz Martinez",
   },
 ];
 
 export const states = [
-  { 1: "Enviada" },
-  { 2: "Revision" },
-  { 3: "Aceptada" },
-  { 4: "Pendiente" },
-  { 5: "Terminada" },
+  { 1: "Enviada", name: "Enviada", value: "1", label: "Enviada" },
+  { 2: "Revision", name: "Revision", value: "2", label: "Revisión" },
+  { 3: "Aceptada", name: "Aceptada", value: "3", label: "Aceptada" },
+  { 4: "Pendiente", name: "Pendiente", value: "4", label: "Pendiente" },
+  { 5: "Terminada", name: "Terminada", value: "5", label: "Terminada" },
+  { 6: "Cancelada", name: "Cancelada", value: "6", label: "Cancelada" },
+  {
+    7: "Suspendida",
+    name: "Suspendida",
+    value: "7",
+    label: "Suspendida",
+  },
+  {
+    8: "Actualizada",
+    name: "Actualizada",
+    value: "8",
+    label: "Actualizada",
+  },
+];
+
+export const statesPersonal = [
+  { 2: "Revision", name: "Revision", value: "2", label: "Revisión", id: '2' },
+  { 3: "Aceptada", name: "Aceptada", value: "3", label: "Aceptada", id: '3' },
+  { 4: "Pendiente Firma", name: "Pendiente", value: "4", label: "Pendiente Firma", id: '4' },
+  { 5: "Terminada", name: "Terminada", value: "5", label: "Terminada", id: '5' },
+  { 6: "Cancelada", name: "Cancelada", value: "6", label: "Cancelada", id: '6' },
+  {
+    7: "Suspendida",
+    name: "Suspendida",
+    value: "7",
+    label: "Suspendida",
+    id: '7'
+  },
+];
+
+export const selectOptionsLic = [
+  {
+    name: "carrera",
+    value: "Redes y Servicios de Cómputo",
+    label: "Redes y Servicios de Cómputo",
+  },
+  {
+    name: "carrera",
+    value: "Cibercrimen",
+    label: "Cibercrimen",
+  },
 ];
