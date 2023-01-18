@@ -2,7 +2,12 @@ import axios from "axios";
 import Navigation from "/components/Global/Navigation.jsx";
 import Layout from "/components/Global/Layout.jsx";
 import { PaperClipIcon } from "@heroicons/react/solid";
-import { APISTUDENT, EDITADAPT } from "../../constants";
+import {
+  APISTUDENT,
+  EDITADAPT,
+  INITIAL,
+  GETCOMENTARIOS,
+} from "../../constants";
 import { useState } from "react";
 import { dateParse } from "../../registro/validations";
 import { states } from "../../data";
@@ -10,7 +15,7 @@ import { useRouter } from "next/router";
 import { createPDF } from "../../../hooks/createPDF";
 import Footer from "/components/Global/Footer";
 
-const Box = ({ title, description, btnText }) => {
+const Box = ({ title, description, btnText, comentarioRecuperado }) => {
   return (
     <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
       <dt className="text-sm font-medium text-gray-500">{title}</dt>
@@ -18,24 +23,25 @@ const Box = ({ title, description, btnText }) => {
         <span className="flex-grow truncate" style={{ whiteSpace: "pre" }}>
           {description}
         </span>
-        <span className="ml-4 flex-shrink-0">
-          {btnText ? (
-            <button
-              type="button"
-              className="rounded-md bg-blue-600 px-4 py-2 font-medium text-white hover:bg-blue-700 focus:outline-none"
-            >
-              Editar
-            </button>
-          ) : (
-            ""
-          )}
-        </span>
       </dd>
+      <span className="ml-4 flex-shrink-0">
+        {btnText && comentarioRecuperado ? (
+          <div className="">
+            <h3 className="text-sm font-medium text-green-700">Comentario</h3>
+            <p className="mt-1 flex text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+              {comentarioRecuperado}
+            </p>
+          </div>
+        ) : (
+          ""
+        )}
+      </span>
     </div>
   );
 };
 
-const Id = ({ data, infoUser }) => {
+const Id = ({ data, infoUser, comentarioRecuperado }) => {
+  console.log(comentarioRecuperado);
   const {
     idSolicitud,
     username,
@@ -67,25 +73,31 @@ const Id = ({ data, infoUser }) => {
       title: "Presentación de la información",
       description: informacion || "",
       btnText: true,
+      comentarioRec: comentarioRecuperado.comentarioInfo,
     },
     {
       title: "Formas de respuesta",
       description: respuesta || "",
       btnText: true,
+      comentarioRec: comentarioRecuperado.comentarioResp,
     },
     {
       title: "Tiempo y horario",
       description: tiempoHorario || "",
       btnText: true,
+      comentarioRec: comentarioRecuperado.comentarioTH,
     },
     {
       title: "Adaptaciones anteriores",
       description: adapAnteriores || "",
       btnText: true,
+      comentarioRec: comentarioRecuperado.comentarioAA,
     },
     {
       title: "Motivo de la solicitud",
       description: motSolicitud || "",
+      comentarioRec: comentarioRecuperado.comentarioMS,
+      btnText: true,
     },
   ];
   const { push } = useRouter();
@@ -94,11 +106,11 @@ const Id = ({ data, infoUser }) => {
   };
   const downloadPDF = () => {
     const prev = true;
-    const pdf = createPDF(data, { infoUser }, prev);
+    const pdf = createPDF(data, infoUser, prev);
   };
   const previewPDF = () => {
     const prev = true;
-    const pdf = createPDF({ data }, { infoUser }, prev);
+    const pdf = createPDF({ data }, infoUser, prev);
   };
   return (
     <>
@@ -109,7 +121,7 @@ const Id = ({ data, infoUser }) => {
             Detalles de la solicitud
           </h3>
           <p className="mt-1 max-w-2xl text-sm text-gray-500">
-            {infoUser[0].nombreCompleto}
+            {infoUser.nombreCompleto}
           </p>
         </div>
         <div className="mt-5 border-t border-gray-200">
@@ -119,6 +131,8 @@ const Id = ({ data, infoUser }) => {
                 key={item.title}
                 title={item.title}
                 description={item.description}
+                comentarioRecuperado={item.comentarioRec}
+                btnText={item.btnText}
               />
             ))}
             <div className="py-4 sm:grid sm:grid-cols-2 sm:gap-4 sm:py-5">
@@ -183,9 +197,13 @@ export const getServerSideProps = async (context) => {
   const { data: infoUser } = await axios.post(APISTUDENT, {
     authTokenUser,
   });
-  console.log("IF", infoUser);
+  // * Comentarios
+  const { data: comentarioRecuperado } = await axios.get(
+    INITIAL + GETCOMENTARIOS + context.query.id
+  );
+  console.log("IF", comentarioRecuperado);
   return {
-    props: { data, infoUser },
+    props: { data, infoUser, comentarioRecuperado },
   };
 };
 export default Id;
