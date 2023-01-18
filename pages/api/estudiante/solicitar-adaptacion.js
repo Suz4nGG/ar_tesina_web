@@ -16,7 +16,6 @@ export default async function solicitudAdaptaciones(req, res) {
 }
 
 const insertData = async (req, res, username) => {
-  console.log(req.body)
   const [result] = await pool.query("INSERT INTO solicitudAdaptacion SET ?", {
     username,
     ...req.body,

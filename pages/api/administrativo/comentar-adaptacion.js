@@ -1,4 +1,5 @@
 import { pool } from "/config/db";
+// comentarioSolicitud
 export default async function handler(req, res) {
   switch (req.method) {
     case "POST":
@@ -10,14 +11,31 @@ export default async function handler(req, res) {
 }
 
 const comentarAdaptacion = async (req, res) => {
-  const { id } = req.query;
+  const { idSolicitud, comentariosMS } = req.body;
   try {
-    const [result] = await pool.query(
-      "SELECT * FROM solicitudAdaptacion WHERE idSolicitud = ?",
-      [id]
+    const [exist] = await pool.query(
+      "SELECT idSolicitud FROM comentarioSolicitud WHERE idSolicitud = ?" ,
+      [idSolicitud]
     );
-    return res.status(200).json(result[0]);
+    console.log(exist[0])
+    if (exist[0]) {
+      console.log("EXISTE")
+      const [result] = await pool.query(
+        "INSERT INTO comentarioSolicitud SET ? WHERE idSolicitud = ?",
+        {...req.body}
+      );
+      console.log(result)
+      return res.status(200).json("mess");
+    } else {
+      const [result] = await pool.query(
+        "INSERT INTO comentarioSolicitud SET ?",
+        {...req.body}
+      );
+      console.log(result)
+      return res.status(200).json("mess");
+    }
   } catch (err) {
+    console.log(err)
     return res.status(500).json({ message: "Error del servidor" });
   }
 };

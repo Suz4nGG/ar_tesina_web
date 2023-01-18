@@ -2,23 +2,29 @@ import axios from "axios";
 import Navigation from "/components/Global/Navigation.jsx";
 import Layout from "/components/Global/Layout.jsx";
 import { PaperClipIcon } from "@heroicons/react/solid";
-import { EDITADAPT, APIPERSONAL, APISTUDENT } from "../../constants";
+import { APIPERSONAL,COMENTARADAP,INITIAL } from "../../constants";
 import { dateParse } from "../../registro/validations";
 import { states } from "../../data";
-import { useRouter } from "next/router";
+import Router, { useRouter } from "next/router";
 import { createPDF } from "../../../hooks/createPDF";
 import Footer from "/components/Global/Footer";
 import { useState } from "react";
 import TextArea from "../../estudiante/components/TextArea";
 
-const Box = ({ title, description, btnText, nameInput }) => {
+const Box = ({ title, description, btnText, nameInput, id }) => {
   const [showInput, setShowInput] = useState(false);
+  const [comentarios, setComentarios] = useState({idSolicitud: id});
   const handleClick = () => {
     setShowInput(!showInput);
   };
-  const handleChange = ({target: {name, value}}) => {
-    console.log(name, value)
-  }
+  const handleChange = ({ target: { name, value } }) => {
+    setComentarios({ ...comentarios, [name]: value });
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const enviarCom = await axios.post(INITIAL+COMENTARADAP, comentarios)
+    console.log("CC", enviarCom);
+  };
   return (
     <>
       <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
@@ -34,7 +40,7 @@ const Box = ({ title, description, btnText, nameInput }) => {
           <div className="py-4">
             <button
               type="button"
-              className="rounded-md bg-blue-600 px-4 py-2 font-medium text-white hover:bg-blue-700 focus:outline-none"
+              className="rounded-md px-4 py-2 font-medium text-white hover:bg-blue-700 focus:outline-none"
               onClick={handleClick}
               style={
                 showInput
@@ -44,9 +50,9 @@ const Box = ({ title, description, btnText, nameInput }) => {
             >
               {showInput ? "Cerrar" : "Comentar"}
             </button>
-            <form>
-              {showInput ? (
-                <>
+            {showInput ? (
+              <>
+                <form onSubmit={handleSubmit}>
                   <TextArea
                     label="Deja tus comentarios"
                     name={nameInput}
@@ -54,16 +60,15 @@ const Box = ({ title, description, btnText, nameInput }) => {
                     handleChange={handleChange}
                   />
                   <button
-                    type="button"
                     className="rounded-md bg-green-600 px-4 py-2 my-2 font-medium text-white hover:bg-green-700 focus:outline-none"
                   >
                     Guardar
-                  </button>{" "}
-                </>
-              ) : (
-                ""
-              )}
-            </form>
+                  </button>
+                </form>
+              </>
+            ) : (
+              ""
+            )}
           </div>
         ) : (
           ""
@@ -105,34 +110,34 @@ const Id = ({ data, infoUser }) => {
       title: "Presentación de la información",
       description: informacion || "",
       btnText: true,
-      nameInput: 'comentarioInfo'
+      nameInput: "comentarioInfo",
     },
     {
       title: "Formas de respuesta",
       description: respuesta || "",
       btnText: true,
-      nameInput: 'comentarioResp'
+      nameInput: "comentarioResp",
     },
     {
       title: "Tiempo y horario",
       description: tiempoHorario || "",
       btnText: true,
-      nameInput: 'comentarioTH'
+      nameInput: "comentarioTH",
     },
     {
       title: "Adaptaciones anteriores",
       description: adapAnteriores || "",
       btnText: true,
-      nameInput: 'comentarioAA'
+      nameInput: "comentarioAA",
     },
     {
       title: "Motivo de la solicitud",
       description: motSolicitud || "",
       btnText: true,
-      nameInput: 'comentarioMS'
+      nameInput: "comentarioMS",
     },
   ];
-  const { push } = useRouter();
+  const router = useRouter();
   const downloadPDF = () => {
     const prev = true;
     createPDF(data, infoUser, prev);
@@ -162,6 +167,7 @@ const Id = ({ data, infoUser }) => {
                 description={item.description}
                 btnText={item.btnText}
                 nameInput={item.nameInput}
+                id={router.query.id}
               />
             ))}
             <div className="py-4 sm:grid sm:grid-cols-2 sm:gap-4 sm:py-5">
