@@ -19,7 +19,7 @@ const validateTK = async (req, res) => {
       [username]
   );
       return res.json(
-      result
+      result[0]
     );
 }
 
