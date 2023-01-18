@@ -2,7 +2,13 @@ import axios from "axios";
 import Navigation from "/components/Global/Navigation.jsx";
 import Layout from "/components/Global/Layout.jsx";
 import { PaperClipIcon } from "@heroicons/react/solid";
-import { APIPERSONAL,COMENTARADAP,INITIAL } from "../../constants";
+import {
+  APIPERSONAL,
+  COMENTARADAP,
+  INITIAL,
+  CHANGESTATE,
+  GETCOMENTARIOS
+} from "../../constants";
 import { dateParse } from "../../registro/validations";
 import { states } from "../../data";
 import Router, { useRouter } from "next/router";
@@ -10,10 +16,13 @@ import { createPDF } from "../../../hooks/createPDF";
 import Footer from "/components/Global/Footer";
 import { useState } from "react";
 import TextArea from "../../estudiante/components/TextArea";
+import Select from "react-select";
+import { statesPersonal } from "../../data";
 
-const Box = ({ title, description, btnText, nameInput, id }) => {
+const Box = ({ title, description, btnText, nameInput, id, changeState, comentarioRecuperado }) => {
   const [showInput, setShowInput] = useState(false);
-  const [comentarios, setComentarios] = useState({idSolicitud: id});
+  const [comentarios, setComentarios] = useState({ idSolicitud: id });
+  const [getComentarios, setGetComentarios] = useState()
   const handleClick = () => {
     setShowInput(!showInput);
   };
@@ -22,16 +31,16 @@ const Box = ({ title, description, btnText, nameInput, id }) => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const enviarCom = await axios.post(INITIAL+COMENTARADAP, comentarios)
-    console.log("CC", enviarCom);
+    const enviarCom = await axios.post(INITIAL + COMENTARADAP, comentarios);
+    setGetComentarios(enviarCom.data)
   };
   return (
     <>
       <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
-        <dt className="text-sm font-medium text-gray-500">{title}</dt>
+        <dt className="text-sm font-medium text-gray-600">{title}</dt>
         <dd className="mt-1 flex text-sm text-gray-900 sm:col-span-2 sm:mt-0">
           <span className="flex-grow truncate" style={{ whiteSpace: "pre" }}>
-            {description}
+            {title === "Estado" && changeState ? changeState : description}
           </span>
         </dd>
       </div>
@@ -50,6 +59,12 @@ const Box = ({ title, description, btnText, nameInput, id }) => {
             >
               {showInput ? "Cerrar" : "Comentar"}
             </button>
+            <div className="mt-4">
+              <h3 className="text-sm font-medium text-gray-500">Comentarios realizados</h3>
+              <p className="mt-1 flex text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                {getComentarios === undefined ? comentarioRecuperado : getComentarios}
+              </p>
+            </div>
             {showInput ? (
               <>
                 <form onSubmit={handleSubmit}>
@@ -57,11 +72,10 @@ const Box = ({ title, description, btnText, nameInput, id }) => {
                     label="Deja tus comentarios"
                     name={nameInput}
                     placeholder="Comenta sobre tus observaciones"
+                    // value={comentarioRecuperado}
                     handleChange={handleChange}
                   />
-                  <button
-                    className="rounded-md bg-green-600 px-4 py-2 my-2 font-medium text-white hover:bg-green-700 focus:outline-none"
-                  >
+                  <button className="rounded-md bg-green-600 px-4 py-2 my-2 font-medium text-white hover:bg-green-700 focus:outline-none">
                     Guardar
                   </button>
                 </form>
@@ -78,7 +92,7 @@ const Box = ({ title, description, btnText, nameInput, id }) => {
   );
 };
 
-const Id = ({ data, infoUser }) => {
+const Id = ({ data, infoUser, comentarioRecuperado }) => {
   const {
     idSolicitud,
     username,
@@ -93,6 +107,8 @@ const Id = ({ data, infoUser }) => {
   } = data;
   const stateSol = states.find((item) => item[estadoSolicitud]);
   // console.log("rr", stateSol[estadoSolicitud]);
+  const [estado, setEstado] = useState({});
+  const [nuevoEstado, setNuevoEstado] = useState()
   const dataAdaptacion = [
     {
       title: "Estado",
@@ -111,30 +127,35 @@ const Id = ({ data, infoUser }) => {
       description: informacion || "",
       btnText: true,
       nameInput: "comentarioInfo",
+      comentarioRec: comentarioRecuperado.comentarioInfo
     },
     {
       title: "Formas de respuesta",
       description: respuesta || "",
       btnText: true,
       nameInput: "comentarioResp",
+      comentarioRec: comentarioRecuperado.comentarioResp
     },
     {
       title: "Tiempo y horario",
       description: tiempoHorario || "",
       btnText: true,
       nameInput: "comentarioTH",
+      comentarioRec: comentarioRecuperado.comentarioTH
     },
     {
       title: "Adaptaciones anteriores",
       description: adapAnteriores || "",
       btnText: true,
       nameInput: "comentarioAA",
+      comentarioRec: comentarioRecuperado.comentarioAA
     },
     {
       title: "Motivo de la solicitud",
       description: motSolicitud || "",
       btnText: true,
       nameInput: "comentarioMS",
+      comentarioRec: comentarioRecuperado.comentarioMS
     },
   ];
   const router = useRouter();
@@ -146,17 +167,50 @@ const Id = ({ data, infoUser }) => {
     const prev = true;
     const pdf = createPDF({ data }, { infoUser }, prev);
   };
+
+  const handleChangeEstados = (e) => {
+    setEstado({ ...estado, e });
+  };
+
+  const handleChangeActualizar = async () => {
+    const res = await axios.post(INITIAL + CHANGESTATE, {
+      estado,
+      idSolicitud: router.query.id,
+    });
+    setNuevoEstado(res.data)
+  };
   return (
     <>
       <Navigation actState="session" />
       <Layout data={{ title: `Adaptación Curricular: ${idSolicitud}` }}>
         <div>
-          <h3 className="text-lg font-medium leading-6 text-gray-900">
-            Detalles de la solicitud
-          </h3>
-          <p className="mt-1 max-w-2xl text-sm text-gray-500">
-            {infoUser.nombreCompleto}
-          </p>
+          <div className="col-span-3 lg:col-span-1">
+            <label className="block text-sm text-gray-900 font-medium">
+              Actualizar el estado de la solicitud
+            </label>
+            <Select
+              styles={{
+                control: (baseStyles, state) => ({
+                  ...baseStyles,
+                  height: "47px",
+                  marginTop: "5px",
+                }),
+              }}
+              onChange={handleChangeEstados}
+              name="carrera"
+              options={statesPersonal}
+              placeholder="Estado de la solicitud"
+              required
+            />
+            <button
+              type="button"
+              onClick={handleChangeActualizar}
+              className="rounded-md mt-4 px-4 py-2 font-medium text-white focus:outline-none"
+              style={{ background: "#1B539E" }}
+            >
+              Actualizar
+            </button>
+          </div>
         </div>
         <div className="mt-5 border-t border-gray-200">
           <dl className="divide-y divide-gray-200">
@@ -168,6 +222,8 @@ const Id = ({ data, infoUser }) => {
                 btnText={item.btnText}
                 nameInput={item.nameInput}
                 id={router.query.id}
+                changeState={nuevoEstado}
+                comentarioRecuperado={item.comentarioRec}
               />
             ))}
             <div className="py-4 sm:grid sm:grid-cols-2 sm:gap-4 sm:py-5">
@@ -196,17 +252,9 @@ const Id = ({ data, infoUser }) => {
                       >
                         Descargar
                       </button>
-                      <button
-                        type="button"
-                        onClick={previewPDF}
-                        className="rounded-md bg-white font-medium text-green-600 hover:text-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 px-3 py-2"
-                      >
-                        Visualizar
-                      </button>
                     </div>
                   </li>
                 </ul>
-                <iframe id="frame" src=""></iframe>
               </dd>
             </div>
           </dl>
@@ -226,8 +274,12 @@ export const getServerSideProps = async (context) => {
     APIPERSONAL + "/" + context.query.id,
     { usernameEstudiante }
   );
+  // * Comentarios
+  const {data: comentarioRecuperado} = await axios.get(
+    INITIAL+GETCOMENTARIOS+context.query.id
+  )
   return {
-    props: { data, infoUser },
+    props: { data, infoUser, comentarioRecuperado },
   };
 };
 export default Id;
