@@ -8,7 +8,6 @@ import {
   INITIAL,
   GETCOMENTARIOS,
 } from "../../constants";
-import { useState } from "react";
 import { dateParse } from "../../registro/validations";
 import { states } from "../../data";
 import { useRouter } from "next/router";
@@ -24,10 +23,10 @@ const Box = ({ title, description, btnText, comentarioRecuperado }) => {
           {description}
         </span>
       </dd>
-      <span className="ml-4 flex-shrink-0">
+      <span className="flex-shrink-0">
         {btnText && comentarioRecuperado ? (
           <div className="">
-            <h3 className="text-sm font-medium text-green-700">Comentario</h3>
+            <h3 className="text-sm font-medium text-green-700 mt-4">Comentario</h3>
             <p className="mt-1 flex text-sm text-gray-900 sm:col-span-2 sm:mt-0">
               {comentarioRecuperado}
             </p>
@@ -72,32 +71,22 @@ const Id = ({ data, infoUser, comentarioRecuperado }) => {
     {
       title: "Presentación de la información",
       description: informacion || "",
-      btnText: true,
-      comentarioRec: comentarioRecuperado.comentarioInfo,
     },
     {
       title: "Formas de respuesta",
       description: respuesta || "",
-      btnText: true,
-      comentarioRec: comentarioRecuperado.comentarioResp,
     },
     {
       title: "Tiempo y horario",
       description: tiempoHorario || "",
-      btnText: true,
-      comentarioRec: comentarioRecuperado.comentarioTH,
     },
     {
       title: "Adaptaciones anteriores",
       description: adapAnteriores || "",
-      btnText: true,
-      comentarioRec: comentarioRecuperado.comentarioAA,
     },
     {
       title: "Motivo de la solicitud",
       description: motSolicitud || "",
-      comentarioRec: comentarioRecuperado.comentarioMS,
-      btnText: true,
     },
   ];
   const { push } = useRouter();

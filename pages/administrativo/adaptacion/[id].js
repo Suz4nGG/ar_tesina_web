@@ -29,13 +29,10 @@ const Box = ({
   changeState,
   comentarioRecuperado,
 }) => {
-  const [showInput, setShowInput] = useState(false);
   const [comentarios, setComentarios] = useState({ idSolicitud: id });
   const [getComentarios, setGetComentarios] = useState();
-  const handleClick = () => {
-    setShowInput(!showInput);
-  };
   const handleChange = ({ target: { name, value } }) => {
+    console.log(name)
     setComentarios({ ...comentarios, [name]: value });
   };
   const handleSubmit = async (e) => {
@@ -53,33 +50,16 @@ const Box = ({
           </span>
         </dd>
       </div>
-      <span className="mt-4 mb-4 flex-shrink-0 w-full">
+      <span className=" mb-4 flex-shrink-0 w-full">
         {btnText ? (
-          <div className="py-4">
-            <button
-              type="button"
-              className="rounded-md px-4 py-2 font-medium text-white hover:bg-blue-700 focus:outline-none"
-              onClick={handleClick}
-              style={
-                showInput
-                  ? { background: "#B71010" }
-                  : { background: "#1B539E" }
-              }
-            >
-              {showInput ? "Cerrar" : "Comentar"}
-            </button>
-            <div className="mt-4">
-              <h3 className="text-sm font-medium text-gray-500">
-                Comentarios realizados
-              </h3>
-              <p className="mt-1 flex text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+          <div className="">
+            <div className="">
+              <p className="flex text-sm text-gray-900 sm:col-span-2 sm:mt-0">
                 {getComentarios === undefined
                   ? comentarioRecuperado
                   : getComentarios}
               </p>
             </div>
-            {showInput ? (
-              <>
                 <form onSubmit={handleSubmit}>
                   <TextArea
                     label="Deja tus comentarios"
@@ -89,13 +69,9 @@ const Box = ({
                     handleChange={handleChange}
                   />
                   <button className="rounded-md bg-green-600 px-4 py-2 my-2 font-medium text-white hover:bg-green-700 focus:outline-none">
-                    Guardar
+                    Enviar
                   </button>
                 </form>
-              </>
-            ) : (
-              ""
-            )}
           </div>
         ) : (
           ""
@@ -108,12 +84,6 @@ const Box = ({
 const Id = ({ data, infoUser, comentarioRecuperado }) => {
   const {
     idSolicitud,
-    username,
-    informacion,
-    respuesta,
-    tiempoHorario,
-    adapAnteriores,
-    motSolicitud,
     experienciaR,
     createdAt,
     estadoSolicitud,
@@ -146,40 +116,11 @@ const Id = ({ data, infoUser, comentarioRecuperado }) => {
       description: dateParse(createdAt),
     },
     {
-      title: "Presentación de la información",
-      description: informacion || "",
+      title: "Mensajes Previos",
+      description: comentarioRecuperado.comentarios,
       btnText: true,
-      nameInput: "comentarioInfo",
-      comentarioRec: comentarioRecuperado.comentarioInfo,
-    },
-    {
-      title: "Formas de respuesta",
-      description: respuesta || "",
-      btnText: true,
-      nameInput: "comentarioResp",
-      comentarioRec: comentarioRecuperado.comentarioResp,
-    },
-    {
-      title: "Tiempo y horario",
-      description: tiempoHorario || "",
-      btnText: true,
-      nameInput: "comentarioTH",
-      comentarioRec: comentarioRecuperado.comentarioTH,
-    },
-    {
-      title: "Adaptaciones anteriores",
-      description: adapAnteriores || "",
-      btnText: true,
-      nameInput: "comentarioAA",
-      comentarioRec: comentarioRecuperado.comentarioAA,
-    },
-    {
-      title: "Motivo de la solicitud",
-      description: motSolicitud || "",
-      btnText: true,
-      nameInput: "comentarioMS",
-      comentarioRec: comentarioRecuperado.comentarioMS,
-    },
+      nameInput: "comentarios"
+    }
   ];
   const router = useRouter();
   const downloadPDF = () => {
@@ -190,11 +131,9 @@ const Id = ({ data, infoUser, comentarioRecuperado }) => {
     const prev = true;
     const pdf = createPDF({ data }, { infoUser }, prev);
   };
-
   const handleChangeEstados = (e) => {
     setEstado({ ...estado, e });
   };
-
   const handleChangeActualizar = async () => {
     const res = await axios.post(INITIAL + CHANGESTATE, {
       estado,

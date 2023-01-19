@@ -46,11 +46,7 @@ CREATE TABLE personalAdministrativo (
 
 CREATE TABLE comentarioSolicitud (
   idSolicitud INT NOT NULL PRIMARY KEY,
-  comentarioInfo VARCHAR(400),
-  comentarioResp VARCHAR(400),
-  comentarioTH VARCHAR(400),
-  comentarioAA VARCHAR(400),
-  comentarioMS VARCHAR(400),
+  comentarios VARCHAR(400),
   createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

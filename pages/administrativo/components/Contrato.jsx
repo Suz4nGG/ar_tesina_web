@@ -50,10 +50,10 @@ const AjustesPropuestos = ({ ajustes, icon, name }) => {
   return (
     <div className="sm:flex lg:block">
       <div className="mt-4 sm:mt-0 lg:mt-6 lg:ml-0">
-        <h3 className="text-sm font-medium text-gray-900">{name}</h3>
+        <h3 className="font-medium text-gray-900">{name}</h3>
         <ul className="list-outside list-decimal px-4 py-4">
           {ajustes.map((item) => (
-            <li key={item} className="text-sm text-gray-500 py-2">
+            <li key={item} className=" text-gray-500 py-2">
               {item}
             </li>
           ))}
@@ -127,6 +127,13 @@ const Contrato = ({}) => {
                 className="rounded-md mt-4 px-4 py-2 font-medium bg-orange-600 text-white focus:outline-none"
               >
                 Firmar
+              </button>
+              <button
+                type="button"
+                // onClick={handleChangeActualizar}
+                className="rounded-md mt-4 px-4 py-2 font-medium bg-green-600 text-white focus:outline-none ml-2"
+              >
+                Previsualizar
               </button>
             </div>
           </div>
