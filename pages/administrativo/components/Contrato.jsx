@@ -1,56 +1,139 @@
-import React from 'react';
-const incentives = [
+import React from "react";
+
+const INFORMACION = [
+  "Ampliación de la letra o imagen",
+  "Amplitud de la palabra o sonido",
+  "Videos o animaciones",
+  "Velocidad de la animación o sonido",
+  "Ayudas técnicas de acceso a la información",
+  "Utilización de textos escritos o hablados",
+  "Uso de lengua de señas",
+  "Uso de sistema braille",
+  "Uso de gráficos táctiles",
+];
+
+const RESPUESTA = [
+  "Respuesta a través de computador adaptado",
+  "Ofrecer posibilidades de expresión a través de múltiples medios comunicación:",
+  "Texto escrito",
+  "Sistema braille",
+  "Lengua de señas",
+  "Transcripción de respuesta del estudiante",
+  "Ilustraciones, etc.",
+];
+
+const TIEMPOHORARIO = [
+  "Adecuar el tiempo utilizado en una actividad o evaluación",
+  "Organizar espacios de distención",
+  "Considerar según sea necesario el tiempo de inicio de la clase respecto a estudiantes que puedan tardar más en llegar al aula.",
+];
+
+const ajustesPropuestos = [
   {
-    name: 'Free shipping',
-    imageSrc: 'https://tailwindui.com/img/ecommerce/icons/icon-shipping-simple.svg',
-    description: "It's not actually free we just price it into the products. Someone's paying for it, and it's not us.",
+    name: "AJUSTES RAZONABLES PARA LA PRESENTACIÓN DE LA INFOMACIÓN",
+    icon: "",
+    ajustes: INFORMACION,
   },
   {
-    name: '10-year warranty',
-    imageSrc: 'https://tailwindui.com/img/ecommerce/icons/icon-warranty-simple.svg',
-    description: "If it breaks in the first 10 years we'll replace it. After that you're on your own though.",
+    name: "AJUSTES RAZONABLES PARA FORMAS DE RESPUESTAS",
+    icon: "",
+    ajustes: RESPUESTA,
   },
   {
-    name: 'Exchanges',
-    imageSrc: 'https://tailwindui.com/img/ecommerce/icons/icon-exchange-simple.svg',
-    description:
-      "If you don't like it, trade it to one of your friends for something of theirs. Don't send it here though.",
+    name: "AJUSTES RAZONABLES PARA TIEMPO Y HORARIO",
+    icon: "",
+    ajustes: TIEMPOHORARIO,
   },
-]
-const Contrato = () => {
+];
+
+const AjustesPropuestos = ({ ajustes, icon, name }) => {
+  return (
+    <div className="sm:flex lg:block">
+      <div className="mt-4 sm:mt-0 lg:mt-6 lg:ml-0">
+        <h3 className="text-sm font-medium text-gray-900">{name}</h3>
+        <ul className="list-outside list-decimal px-4 py-4">
+          {ajustes.map((item) => (
+            <li key={item} className="text-sm text-gray-500 py-2">
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+};
+
+const Contrato = ({}) => {
   return (
     <>
-      <div className="bg-white">
-      <div className="mx-auto max-w-7xl py-24 sm:px-2 sm:py-32 lg:px-4">
-        <div className="mx-auto max-w-2xl px-4 lg:max-w-none">
-          <div className="max-w-3xl">
-            <h2 className="text-4xl font-bold tracking-tight text-gray-900">
-              We built our business on customer service
-            </h2>
-            <p className="mt-4 text-gray-500">
-              At the beginning at least, but then we realized we could make a lot more money if we kinda stopped caring
-              about that. Our new strategy is to write a bunch of things that look really good in the headlines, then
-              clarify in the small print but hope people don't actually read it.
+      <div className="bg-white mt-4">
+        <div className="mx-auto pb-24 sm:pb-32">
+          <div className="mx-auto">
+            <div className="max-w-3xl">
+              <h2 className="text-4xl font-bold tracking-tight text-gray-700">
+                Contrato de Ajustes Curriculares
+              </h2>
+              <h3 className="mt-4">DESCRIPCIÓN DEL CONTRATO DE A.R.</h3>
+              <p className="mt-4 text-gray-500">
+                loribus dolores nostrum quia qui natus officia quod Doloribus
+                dolores nostrum quia qui natus officia quod Doloribus dolores
+                nostrum quia qui natus officia quod Doloribus dolores nostrum
+                quia qui natus officia quod Doloribus dolores nostrum quia qui
+                natus officia quod.
+              </p>
+            </div>
+            <h3 className="mt-7 uppercase">
+              Adaptaciones propuestas para el estudiante en función de la
+              discapacidad presentada
+            </h3>
+            <p className="mt-5 text-gray-500">
+              loribus dolores nostrum quia qui natus officia quod Doloribus
+              dolores nostrum quia qui natus officia quod Doloribus dolores
             </p>
-          </div>
-          <div className="mt-16 grid grid-cols-1 gap-y-10 gap-x-8 lg:grid-cols-3">
-            {incentives.map((incentive) => (
-              <div key={incentive.name} className="sm:flex lg:block">
-                <div className="sm:flex-shrink-0">
-                  <img className="h-16 w-16" src={incentive.imageSrc} alt="" />
-                </div>
-                <div className="mt-4 sm:mt-0 sm:ml-6 lg:mt-6 lg:ml-0">
-                  <h3 className="text-sm font-medium text-gray-900">{incentive.name}</h3>
-                  <p className="mt-2 text-sm text-gray-500">{incentive.description}</p>
-                </div>
-              </div>
-            ))}
+            <div className="mt-7 grid grid-cols-1 gap-y-10 gap-x-8 lg:grid-cols-3">
+              {ajustesPropuestos.map((item) => (
+                <AjustesPropuestos
+                  key={item.name}
+                  ajustes={item.ajustes}
+                  icon={item.icon}
+                  name={item.name}
+                />
+              ))}
+            </div>
+            <div>
+              <h3 className="mt-7 uppercase">
+                Aplicación de Ajustes Curriculares
+              </h3>
+              <p className="mt-5 text-gray-500">
+                loribus dolores nostrum quia qui natus officia quod Doloribus
+                dolores nostrum quia qui natus officia quod Doloribus dolores
+              </p>
+            </div>
+            {/* BOX EDITOR DE TEXTO */}
+            <div className="mt-5 rounded h-60 border border-green-600 py-5 flex justify-center">
+              EDITOR
+            </div>
+            <div>
+              <h3 className="mt-7 uppercase">
+                Firmar Contrato de Ajustes Curriculares
+              </h3>
+              <p className="mt-5 text-gray-500">
+                loribus dolores nostrum quia qui natus officia quod Doloribus
+                dolores nostrum quia qui natus officia quod Doloribus dolores
+              </p>
+              <button
+                type="button"
+                // onClick={handleChangeActualizar}
+                className="rounded-md mt-4 px-4 py-2 font-medium bg-orange-600 text-white focus:outline-none"
+              >
+                Firmar
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
     </>
   );
-}
+};
 
 export default Contrato;
