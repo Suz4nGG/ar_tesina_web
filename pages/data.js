@@ -291,23 +291,25 @@ export const dataProfesores = [
 ];
 
 export const states = [
-  { 1: "Enviada", name: "Enviada", value: "1", label: "Enviada" },
-  { 2: "Revision", name: "Revision", value: "2", label: "Revisión" },
-  { 3: "Aceptada", name: "Aceptada", value: "3", label: "Aceptada" },
-  { 4: "Pendiente", name: "Pendiente", value: "4", label: "Pendiente" },
-  { 5: "Terminada", name: "Terminada", value: "5", label: "Terminada" },
-  { 6: "Cancelada", name: "Cancelada", value: "6", label: "Cancelada" },
+  { 1: "Enviada", name: "Enviada", value: "1", label: "Enviada", color: "green" },
+  { 2: "Revision", name: "Revision", value: "2", label: "Revisión", color: "orange" },
+  { 3: "Aceptada", name: "Aceptada", value: "3", label: "Aceptada", color: "green" },
+  { 4: "Pendiente", name: "Pendiente", value: "4", label: "Pendiente", color: "brown" },
+  { 5: "Terminada", name: "Terminada", value: "5", label: "Terminada", color: "green" },
+  { 6: "Cancelada", name: "Cancelada", value: "6", label: "Cancelada" , color: "red"},
   {
     7: "Suspendida",
     name: "Suspendida",
     value: "7",
     label: "Suspendida",
+    color: "orange"
   },
   {
     8: "Actualizada",
     name: "Actualizada",
     value: "8",
     label: "Actualizada",
+    color: "green"
   },
 ];
 
