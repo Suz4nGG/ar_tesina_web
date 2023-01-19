@@ -4,18 +4,17 @@ import Layout from '../../components/Global/Layout';
 import ShowAdaptaciones from "./components/ShowAdaptaciones";
 import axios from 'axios';
 import { GETADAPTACIONES, INITIAL } from '../constants';
-
+import Footer from "/components/Global/Footer.jsx"
 const Dashboard = (data) => {
   const dataS = data.data;
-  console.log(dataS)
   return (
     <>
       <Navigation />
       <Layout data={{ title: `Ajustes curriculares pendientes` }}>
-        <div className="mb-8">
+        <div className="mb-20">
           <div className="sm:flex sm:items-center">
             <div className="sm:flex-auto">
-              <p className="mt-2 text-sm text-gray-700">
+              <p className="text-sm text-gray-700">
                 Aqui se encuentran las adaptaciones pendientes
               </p>
             </div>
@@ -36,6 +35,7 @@ const Dashboard = (data) => {
             />
           ))}
         </div>
+        <Footer/>
       </Layout>
     </>
   );
@@ -45,7 +45,6 @@ export async function getServerSideProps() {
   const {data} = await axios.get(
     INITIAL+GETADAPTACIONES
   );
-  console.log(data)
   return {
     props: {
       data
