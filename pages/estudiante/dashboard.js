@@ -21,7 +21,7 @@ const Dashboard = ({
   return (
     <>
       <Navigation actState="session" />
-      <Layout data={{ title: `Bienvenido(a) ${usernameA}` }}>
+      <Layout data={{ title: `Bienvenido(a)` }}>
         <div className="divide-y divide-gray-200 overflow-hidden rounded-lg bg-gray-200 shadow sm:grid sm:grid-cols-2 sm:gap-px sm:divide-y-0 my-4 mb-10">
           {actions.map((action, actionIdx) => (
             <div

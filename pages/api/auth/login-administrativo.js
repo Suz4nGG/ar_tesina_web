@@ -20,6 +20,6 @@ export default async function loginHandler(req, res) {
     res.setHeader("Set-Cookie", serialized)
     return res.status(200).json({ message: "Inicio exitoso" });
   } catch (err) {
-    return res.status(500).json({ message: "Err" });
+    return res.status(500).json({ message: "Error del servidor" });
   }
 }
