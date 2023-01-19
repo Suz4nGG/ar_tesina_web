@@ -22,7 +22,10 @@
     "bcrypt": "^5.1.0",
     "cookie": "^0.5.0",
     "cookies": "^0.8.0",
+    "draft-convert": "^2.1.13",
+    "draft-js": "^0.11.7",
     "eslint-config-next": "^12.0.4",
+    "install": "^0.13.0",
     "jose": "^4.11.2",
     "jsonwebtoken": "^9.0.0",
     "jspdf": "^2.5.1",
@@ -32,10 +35,12 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-dom-pseudo": "^1.1.21",
+    "react-draft-wysiwyg": "^1.15.0",
     "react-redux": "^8.0.5",
     "react-select": "^5.7.0"
   },
   "devDependencies": {
+    "@types/react-draft-wysiwyg": "^1.13.4",
     "autoprefixer": "^10.4.13",
     "postcss": "^8.4.19",
     "tailwindcss": "^3.2.4"
