@@ -7,7 +7,7 @@ import {
   COMENTARADAP,
   INITIAL,
   CHANGESTATE,
-  GETCOMENTARIOS
+  GETCOMENTARIOS,
 } from "../../constants";
 import { dateParse } from "../../registro/validations";
 import { states } from "../../data";
@@ -18,11 +18,20 @@ import { useState } from "react";
 import TextArea from "../../estudiante/components/TextArea";
 import Select from "react-select";
 import { statesPersonal } from "../../data";
+import Contrato from "../components/Contrato";
 
-const Box = ({ title, description, btnText, nameInput, id, changeState, comentarioRecuperado }) => {
+const Box = ({
+  title,
+  description,
+  btnText,
+  nameInput,
+  id,
+  changeState,
+  comentarioRecuperado,
+}) => {
   const [showInput, setShowInput] = useState(false);
   const [comentarios, setComentarios] = useState({ idSolicitud: id });
-  const [getComentarios, setGetComentarios] = useState()
+  const [getComentarios, setGetComentarios] = useState();
   const handleClick = () => {
     setShowInput(!showInput);
   };
@@ -32,7 +41,7 @@ const Box = ({ title, description, btnText, nameInput, id, changeState, comentar
   const handleSubmit = async (e) => {
     e.preventDefault();
     const enviarCom = await axios.post(INITIAL + COMENTARADAP, comentarios);
-    setGetComentarios(enviarCom.data)
+    setGetComentarios(enviarCom.data);
   };
   return (
     <>
@@ -60,9 +69,13 @@ const Box = ({ title, description, btnText, nameInput, id, changeState, comentar
               {showInput ? "Cerrar" : "Comentar"}
             </button>
             <div className="mt-4">
-              <h3 className="text-sm font-medium text-gray-500">Comentarios realizados</h3>
+              <h3 className="text-sm font-medium text-gray-500">
+                Comentarios realizados
+              </h3>
               <p className="mt-1 flex text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                {getComentarios === undefined ? comentarioRecuperado : getComentarios}
+                {getComentarios === undefined
+                  ? comentarioRecuperado
+                  : getComentarios}
               </p>
             </div>
             {showInput ? (
@@ -108,7 +121,8 @@ const Id = ({ data, infoUser, comentarioRecuperado }) => {
   const stateSol = states.find((item) => item[estadoSolicitud]);
   // console.log("rr", stateSol[estadoSolicitud]);
   const [estado, setEstado] = useState({});
-  const [nuevoEstado, setNuevoEstado] = useState()
+  const [nuevoEstado, setNuevoEstado] = useState();
+  const [contrato, setShowContrato] = useState(false);
   const dataAdaptacion = [
     {
       title: "Estado",
@@ -127,35 +141,35 @@ const Id = ({ data, infoUser, comentarioRecuperado }) => {
       description: informacion || "",
       btnText: true,
       nameInput: "comentarioInfo",
-      comentarioRec: comentarioRecuperado.comentarioInfo
+      comentarioRec: comentarioRecuperado.comentarioInfo,
     },
     {
       title: "Formas de respuesta",
       description: respuesta || "",
       btnText: true,
       nameInput: "comentarioResp",
-      comentarioRec: comentarioRecuperado.comentarioResp
+      comentarioRec: comentarioRecuperado.comentarioResp,
     },
     {
       title: "Tiempo y horario",
       description: tiempoHorario || "",
       btnText: true,
       nameInput: "comentarioTH",
-      comentarioRec: comentarioRecuperado.comentarioTH
+      comentarioRec: comentarioRecuperado.comentarioTH,
     },
     {
       title: "Adaptaciones anteriores",
       description: adapAnteriores || "",
       btnText: true,
       nameInput: "comentarioAA",
-      comentarioRec: comentarioRecuperado.comentarioAA
+      comentarioRec: comentarioRecuperado.comentarioAA,
     },
     {
       title: "Motivo de la solicitud",
       description: motSolicitud || "",
       btnText: true,
       nameInput: "comentarioMS",
-      comentarioRec: comentarioRecuperado.comentarioMS
+      comentarioRec: comentarioRecuperado.comentarioMS,
     },
   ];
   const router = useRouter();
@@ -177,7 +191,10 @@ const Id = ({ data, infoUser, comentarioRecuperado }) => {
       estado,
       idSolicitud: router.query.id,
     });
-    setNuevoEstado(res.data)
+    setNuevoEstado(res.data);
+  };
+  const showContrato = () => {
+    setShowContrato(!contrato);
   };
   return (
     <>
@@ -227,8 +244,9 @@ const Id = ({ data, infoUser, comentarioRecuperado }) => {
               />
             ))}
             <div className="py-4 sm:grid sm:grid-cols-2 sm:gap-4 sm:py-5">
-              <dd className="mt-1 mb-2 text-sm text-gray-900 sm:col-span-2 sm:mt-0"></dd>
-              <dt className="text-sm font-medium text-gray-500">Archivos</dt>
+              <dt className="text-sm font-medium text-gray-500">
+                Adaptación curricular del estudiante
+              </dt>
               <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
                 <ul
                   role="list"
@@ -256,7 +274,20 @@ const Id = ({ data, infoUser, comentarioRecuperado }) => {
                   </li>
                 </ul>
               </dd>
+              <dd className="mt-1 mb-2 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                <button
+                  onClick={showContrato}
+                  className="rounded-md bg-green-600 px-4 py-3 font-medium text-white hover:bg-green-700 focus:outline-none"
+                >
+                  {contrato ? "Cerrar contrato" : "Realizar contrato"}
+                </button>
+              </dd>
             </div>
+          </dl>
+          <dl className="divide-y divide-gray-200">
+            {
+              contrato ? <Contrato/> : ''
+            }
           </dl>
         </div>
         <Footer />
@@ -275,9 +306,9 @@ export const getServerSideProps = async (context) => {
     { usernameEstudiante }
   );
   // * Comentarios
-  const {data: comentarioRecuperado} = await axios.get(
-    INITIAL+GETCOMENTARIOS+context.query.id
-  )
+  const { data: comentarioRecuperado } = await axios.get(
+    INITIAL + GETCOMENTARIOS + context.query.id
+  );
   return {
     props: { data, infoUser, comentarioRecuperado },
   };
