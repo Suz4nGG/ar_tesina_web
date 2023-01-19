@@ -9,7 +9,7 @@ import {
   CHANGESTATE,
   GETCOMENTARIOS,
 } from "../../constants";
-import { dateParse } from "../../registro/validations";
+import { dateParse, normalizeText } from "../../registro/validations";
 import { states } from "../../data";
 import Router, { useRouter } from "next/router";
 import { createPDF } from "../../../hooks/createPDF";
@@ -17,7 +17,7 @@ import Footer from "/components/Global/Footer";
 import { useState } from "react";
 import TextArea from "../../estudiante/components/TextArea";
 import Select from "react-select";
-import { statesPersonal } from "../../data";
+import { statesPersonal, dataProfesores } from "../../data";
 import Contrato from "../components/Contrato";
 
 const Box = ({
@@ -45,7 +45,7 @@ const Box = ({
   };
   return (
     <>
-      <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
+      <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 break-words">
         <dt className="text-sm font-medium text-gray-600">{title}</dt>
         <dd className="mt-1 flex text-sm text-gray-900 sm:col-span-2 sm:mt-0">
           <span className="flex-grow truncate" style={{ whiteSpace: "pre" }}>
@@ -118,11 +118,16 @@ const Id = ({ data, infoUser, comentarioRecuperado }) => {
     createdAt,
     estadoSolicitud,
   } = data;
+  // ! Estado de la solicitud
   const stateSol = states.find((item) => item[estadoSolicitud]);
-  // console.log("rr", stateSol[estadoSolicitud]);
+  // ! Responsables
+  const experienciaE = normalizeText(experienciaR).toLowerCase()
+  const responsablesS = dataProfesores.find(item => item.ee === experienciaE).profesor
+
   const [estado, setEstado] = useState({});
   const [nuevoEstado, setNuevoEstado] = useState();
   const [contrato, setShowContrato] = useState(false);
+
   const dataAdaptacion = [
     {
       title: "Estado",
@@ -131,6 +136,10 @@ const Id = ({ data, infoUser, comentarioRecuperado }) => {
     {
       title: "Experiencia Educativa",
       description: experienciaR || "",
+    },
+    {
+      title: "Responsables",
+      description: responsablesS || "",
     },
     {
       title: "Creación",
@@ -274,10 +283,10 @@ const Id = ({ data, infoUser, comentarioRecuperado }) => {
                   </li>
                 </ul>
               </dd>
-              <dd className="mt-1 mb-2 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+              <dd className="mt-1 mb-2 text-gray-900 sm:col-span-2 sm:mt-0">
                 <button
                   onClick={showContrato}
-                  className="rounded-md bg-green-600 px-4 py-3 font-medium text-white hover:bg-green-700 focus:outline-none"
+                  className="rounded-md bg-green-600 mt-4 px-4 py-3 font-medium text-white hover:bg-green-700 focus:outline-none"
                 >
                   {contrato ? "Cerrar contrato" : "Realizar contrato"}
                 </button>
