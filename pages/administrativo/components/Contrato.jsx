@@ -1,4 +1,8 @@
-import React from "react";
+import { useState, useEffect } from "react";
+import { EditorState } from "draft-js";
+import { Editor } from "react-draft-wysiwyg";
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import { convertToHTML } from 'draft-convert';
 
 const INFORMACION = [
   "Ampliación de la letra o imagen",
@@ -64,6 +68,19 @@ const AjustesPropuestos = ({ ajustes, icon, name }) => {
 };
 
 const Contrato = ({}) => {
+  const [editorState, setEditorState] = useState(() =>
+    EditorState.createEmpty()
+  );
+  const [convertedContent, setConvertedContent] = useState(null);
+// if (typeof window !== 'undefined') {
+//   import('react-draft-wysiwyg')
+//     .then(({default: editorState}) => setEditorState())
+// }
+    useEffect(() => {
+    let html = convertToHTML(editorState.getCurrentContent());
+    setConvertedContent(html);
+    }, [editorState]);
+  console.log(convertedContent)
   return (
     <>
       <div className="bg-white mt-4">
@@ -110,8 +127,28 @@ const Contrato = ({}) => {
               </p>
             </div>
             {/* BOX EDITOR DE TEXTO */}
-            <div className="mt-5 rounded h-60 border border-green-600 py-5 flex justify-center">
-              EDITOR
+            <div className="mt-5 rounded h-60 border border-green-800 flex justify-center">
+              <Editor
+                editorState={editorState}
+              onEditorStateChange={setEditorState}
+              className="h-60"
+              />
+            </div>
+            <div>
+              <button
+                type="button"
+                // onClick={handleChangeActualizar}
+                className="rounded-md mt-4 px-4 py-2 font-medium bg-green-600 text-white focus:outline-none"
+              >
+                Guardar
+              </button>
+              <button
+                type="button"
+                // onClick={handleChangeActualizar}
+                className="rounded-md mt-4 px-4 py-2 font-medium bg-red-600 text-white focus:outline-none ml-2"
+              >
+                Cancelar
+              </button>
             </div>
             <div>
               <h3 className="mt-7 uppercase">

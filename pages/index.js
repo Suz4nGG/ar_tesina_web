@@ -4,6 +4,8 @@ import PageTitle from "../components/Global/PageTitle";
 import Hero from "../components/Home/Hero";
 import Info from "../components/Home/Info";
 import Logos from "../components/Home/Logos";
+// import { EditorState } from "draft-js";
+// import { Editor } from "react-draft-wysiwyg";
 
 const Index = () => {
   return (
