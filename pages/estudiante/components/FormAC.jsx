@@ -119,6 +119,14 @@ const FormAC = () => {
             hover="bg-green-700 mt-4"
             disabled={!dataA}
           />
+          <button
+              type="button"
+              // onClick={handleChangeActualizar}
+              className="ml-0 sm:ml-2 rounded-md w-full mt-4 px-4 py-2 font-medium text-white focus:outline-none bg-blue-600"
+
+            >
+              Manual de adaptaciones
+            </button>
           {router.query.id ? (
             ""
           ) : (
