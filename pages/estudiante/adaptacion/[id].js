@@ -2,6 +2,7 @@ import axios from "axios";
 import Navigation from "/components/Global/Navigation.jsx";
 import Layout from "/components/Global/Layout.jsx";
 import { PaperClipIcon } from "@heroicons/react/solid";
+import PrevSol from "../components/PrevSol";
 import {
   APISTUDENT,
   EDITADAPT,
@@ -13,6 +14,7 @@ import { states } from "../../data";
 import { useRouter } from "next/router";
 import { createPDF } from "../../../hooks/createPDF";
 import Footer from "/components/Global/Footer";
+import { useEffect, useState } from "react";
 
 const Box = ({ title, description, btnText, comentarioRecuperado }) => {
   return (
@@ -26,7 +28,9 @@ const Box = ({ title, description, btnText, comentarioRecuperado }) => {
       <span className="flex-shrink-0">
         {btnText && comentarioRecuperado ? (
           <div className="">
-            <h3 className="text-sm font-medium text-green-700 mt-4">Comentario</h3>
+            <h3 className="text-sm font-medium text-green-700 mt-4">
+              Comentario
+            </h3>
             <p className="mt-1 flex text-sm text-gray-900 sm:col-span-2 sm:mt-0">
               {comentarioRecuperado}
             </p>
@@ -38,12 +42,15 @@ const Box = ({ title, description, btnText, comentarioRecuperado }) => {
     </div>
   );
 };
-
-const Id = ({ data, infoUser, comentarioRecuperado }) => {
-  console.log(comentarioRecuperado);
+const loc = (key) => {
+  if (typeof window !== "undefined") {
+    return JSON.parse(sessionStorage.getItem(`${key}`));
+  }
+};
+const Id = ({ data, comentarioRecuperado }) => {
+  const [dataStorage, setDataStorage] = useState();
   const {
     idSolicitud,
-    username,
     informacion,
     respuesta,
     tiempoHorario,
@@ -54,7 +61,6 @@ const Id = ({ data, infoUser, comentarioRecuperado }) => {
     estadoSolicitud,
   } = data;
   const stateSol = states.find((item) => item[estadoSolicitud]);
-  // console.log("rr", stateSol[estadoSolicitud]);
   const dataAdaptacion = [
     {
       title: "Estado",
@@ -89,17 +95,21 @@ const Id = ({ data, infoUser, comentarioRecuperado }) => {
       description: motSolicitud || "",
     },
   ];
+  // Obtener sessionStorage
+  useEffect(() => {
+    setDataStorage(JSON.parse(sessionStorage.getItem("idU")));
+  }, []);
   const { push } = useRouter();
+  const [showPDF, setShowPDF] = useState();
   const handleClick = () => {
     push(EDITADAPT + idSolicitud);
   };
   const downloadPDF = () => {
     const prev = true;
-    const pdf = createPDF(data, infoUser, prev);
+    const pdf = createPDF(data, dataStorage, prev);
   };
   const previewPDF = () => {
-    const prev = true;
-    const pdf = createPDF({ data }, infoUser, prev);
+    setShowPDF(!showPDF);
   };
   return (
     <>
@@ -110,7 +120,7 @@ const Id = ({ data, infoUser, comentarioRecuperado }) => {
             Detalles de la solicitud
           </h3>
           <p className="mt-1 max-w-2xl text-sm text-gray-500">
-            {infoUser.nombreCompleto}
+            {dataStorage === undefined ? "" : dataStorage.nombreCompleto}
           </p>
         </div>
         <div className="mt-5 border-t border-gray-200">
@@ -167,7 +177,16 @@ const Id = ({ data, infoUser, comentarioRecuperado }) => {
                     </div>
                   </li>
                 </ul>
-                <iframe id="frame" src=""></iframe>
+                <div>
+                  {showPDF ? (
+                    <PrevSol
+                      data={{ data }}
+                      dataSt={dataStorage === undefined ? "" : dataStorage}
+                    />
+                  ) : (
+                    ""
+                  )}
+                </div>
               </dd>
             </div>
           </dl>
