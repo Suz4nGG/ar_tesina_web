@@ -7,18 +7,19 @@ import { useRouter } from "next/router";
 import { GroupForm } from "../../../components/Forms/GroupForm";
 import { dataSolicitudF, dataProfesores } from "../../data";
 import { normalizeText } from "../../registro/validations";
-import UploadDoc from "./UploadDoc";
 
 const FormAC = () => {
   const router = useRouter();
   const [dataA, setDataA] = useState({});
+  const [dataStorage, setDataStorage] = useState();
   const dataSolicitud = dataSolicitudF(dataA);
   const [errors, setErrors] = useState({
     message: "",
   });
-
-  // ! Archivo
-  const [selectFile, setSelectFile] = useState({});
+  // Obtener sessionStorage
+  useEffect(() => {
+    setDataStorage(JSON.parse(sessionStorage.getItem("idU")));
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,11 +33,13 @@ const FormAC = () => {
         (dataA.informacion || dataA.respuesta || dataA.tiempoHorario)
       ) {
         if (router.query.id) {
-          console.log("sss");
           await axios.put(APISTUDENT + "/adaptacion/" + router.query.id, dataA);
           router.push(GETADAPT + router.query.id);
         } else {
-          const res = await axios.post(SOLADAPT, dataA);
+          const res = await axios.post(SOLADAPT, {
+            dataSolicitud: dataA,
+            username: dataStorage.usernameA,
+          });
           console.log(res);
           router.push(ADAPSTUDENT);
         }
@@ -45,17 +48,6 @@ const FormAC = () => {
       }
     } catch (err) {
       setErrors({ message: "Error Server" });
-    }
-  };
-  const handleChangeFile = ({ target: { files } }) => {
-    try {
-      if (!(files[0].type === "application/pdf")) {
-        console.log("fff", files[0].type);
-        setSelectFile({ message: "* Sube archivos de tipo PDF" });
-      }
-    } catch (err) {
-      console.log(err);
-      setSelectFile({});
     }
   };
 
@@ -108,8 +100,6 @@ const FormAC = () => {
             value={dataA.experienciaR}
           />
         </div>
-        <UploadDoc handleChange={handleChangeFile} />
-        <p className="text-red-600">{selectFile.message}</p>
         <div className="block sm:flex justify-between">
           <Button
             bg="bg-green-600 w-full"
@@ -119,14 +109,6 @@ const FormAC = () => {
             hover="bg-green-700 mt-4"
             disabled={!dataA}
           />
-          <button
-              type="button"
-              // onClick={handleChangeActualizar}
-              className="ml-0 sm:ml-2 rounded-md w-full mt-4 px-4 py-2 font-medium text-white focus:outline-none bg-blue-600"
-
-            >
-              Manual de adaptaciones
-            </button>
           {router.query.id ? (
             ""
           ) : (
