@@ -12,6 +12,7 @@ import {
 import { dateParse, normalizeText } from "../../registro/validations";
 import { states } from "../../data";
 import Router, { useRouter } from "next/router";
+import { useEffect } from "react";
 import { createPDF } from "../../../hooks/createPDF";
 import Footer from "/components/Global/Footer";
 import { useState } from "react";
@@ -32,7 +33,7 @@ const Box = ({
   const [comentarios, setComentarios] = useState({ idSolicitud: id });
   const [getComentarios, setGetComentarios] = useState();
   const handleChange = ({ target: { name, value } }) => {
-    console.log(name)
+    console.log(name);
     setComentarios({ ...comentarios, [name]: value });
   };
   const handleSubmit = async (e) => {
@@ -60,18 +61,17 @@ const Box = ({
                   : getComentarios}
               </p>
             </div>
-                <form onSubmit={handleSubmit}>
-                  <TextArea
-                    label="Deja tus comentarios"
-                    name={nameInput}
-                    placeholder="Comenta sobre tus observaciones"
-                    // value={comentarioRecuperado}
-                    handleChange={handleChange}
-                  />
-                  <button className="rounded-md bg-green-600 px-4 py-2 my-2 font-medium text-white hover:bg-green-700 focus:outline-none">
-                    Enviar
-                  </button>
-                </form>
+            <form onSubmit={handleSubmit}>
+              <TextArea
+                label="Comentarios para el estudiante"
+                name={nameInput}
+                placeholder="Comenta sobre tus observaciones"
+                handleChange={handleChange}
+              />
+              <button className="rounded-md bg-green-600 px-4 py-2 my-2 font-medium text-white hover:bg-green-700 focus:outline-none">
+                Enviar
+              </button>
+            </form>
           </div>
         ) : (
           ""
@@ -82,21 +82,19 @@ const Box = ({
 };
 
 const Id = ({ data, infoUser, comentarioRecuperado }) => {
-  const {
-    idSolicitud,
-    experienciaR,
-    createdAt,
-    estadoSolicitud,
-  } = data;
+  const { idSolicitud, experienciaR, createdAt, estadoSolicitud } = data;
   // ! Estado de la solicitud
   const stateSol = states.find((item) => item[estadoSolicitud]);
   // ! Responsables
-  const experienciaE = normalizeText(experienciaR).toLowerCase()
-  const responsablesS = dataProfesores.find(item => item.ee === experienciaE).profesor
-
+  const experienciaE = normalizeText(experienciaR).toLowerCase();
+  const responsablesS = dataProfesores.find(
+    (item) => item.ee === experienciaE
+  ).profesor;
+  const [showMessage, setShowMessage] = useState(false);
   const [estado, setEstado] = useState({});
   const [nuevoEstado, setNuevoEstado] = useState();
   const [contrato, setShowContrato] = useState(false);
+  const [message, setMessage] = useState("");
 
   const dataAdaptacion = [
     {
@@ -119,8 +117,8 @@ const Id = ({ data, infoUser, comentarioRecuperado }) => {
       title: "Mensajes Previos",
       description: comentarioRecuperado.comentarios,
       btnText: true,
-      nameInput: "comentarios"
-    }
+      nameInput: "comentarios",
+    },
   ];
   const router = useRouter();
   const downloadPDF = () => {
@@ -132,9 +130,20 @@ const Id = ({ data, infoUser, comentarioRecuperado }) => {
     const pdf = createPDF({ data }, { infoUser }, prev);
   };
   const handleChangeEstados = (e) => {
+    if (e.name === "Terminada" || e.name === "Cancelada") {
+      console.log("estado", e.name);
+      setShowMessage(!showMessage);
+      setMessage([
+        `¡ADVERTENCIA! El estado de la solicitud cambiará a '${e.name.toUpperCase()}' La solicitud dejará de ser visible`,
+        "bg-red-200 text-red-700",
+      ]);
+    }
     setEstado({ ...estado, e });
   };
   const handleChangeActualizar = async () => {
+    setShowMessage(!showMessage);
+    setMessage(["El estado de la solicitud cambio"]);
+
     const res = await axios.post(INITIAL + CHANGESTATE, {
       estado,
       idSolicitud: router.query.id,
@@ -144,6 +153,14 @@ const Id = ({ data, infoUser, comentarioRecuperado }) => {
   const showContrato = () => {
     setShowContrato(!contrato);
   };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowMessage(false);
+    }, 5000);
+    return () => clearTimeout(timer);
+  }, [showMessage]);
+
   return (
     <>
       <Navigation actState="session" />
@@ -175,6 +192,19 @@ const Id = ({ data, infoUser, comentarioRecuperado }) => {
             >
               Actualizar
             </button>
+            <div>
+              {showMessage ? (
+                <p
+                  className={`mt-4 text-green-700 bg-green-200 p-4 rounded ${
+                    message[1] ? message[1] : ""
+                  }`}
+                >
+                  {message[0]}
+                </p>
+              ) : (
+                ""
+              )}
+            </div>
           </div>
         </div>
         <div className="mt-5 border-t border-gray-200">
@@ -233,9 +263,7 @@ const Id = ({ data, infoUser, comentarioRecuperado }) => {
             </div>
           </dl>
           <dl className="divide-y divide-gray-200">
-            {
-              contrato ? <Contrato/> : ''
-            }
+            {contrato ? <Contrato /> : ""}
           </dl>
         </div>
         <Footer />
