@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Layout from "../../components/Global/Layout";
 import Navigation from "../../components/Global/Navigation";
 import FormAC from "./components/FormAC";
 import { useRouter } from "next/router";
-import { ADAPSTUDENT, APISTUDENT } from "../constants";
+import { ADAPSTUDENT } from "../constants";
 import Link from "next/link";
-import axios from "axios";
+import EjemploSolicitud from "./ejemplo-solicitud";
 import { usePageContext } from "../context/pagesContext";
-
-const TEXT = `loribus dolores nostrum quia qui natus officia quod Doloribus dolores nostrum quia qui natus officia quod Doloribus dolores nostrum quia qui natus officia quod Doloribus dolores nostrum quia qui natus officia quod Doloribus dolores nostrum quia qui natus officia quod.`;
+const TEXT = `Son secuencias de acciones sobre el currículum escolar diseñado para una población dada, que conducen a la modificación de uno o más de sus elementos básicos (que, cómo, cuándo, enseñar y evaluar), cuya finalidad es la de posibilitar el máximo de individualización didáctica en el contexto más normalizado posible para aquellos alumnos que presenten cualquier tipo de necesidad educativa especial.`;
 
 const dataButtons = [
   {
@@ -73,10 +72,16 @@ const AlertBox = ({ title, text, Component, downData, handleClick }) => {
 
 const SolicitarAdaptacion = () => {
   const [show, setShow] = useState(false);
+  const [showEjemplo, setShowEjemplo] = useState(false);
+
   const router = useRouter();
 
   const handleClick = () => {
     setShow(!show);
+  };
+
+  const handleClickEjemplo = () => {
+    setShowEjemplo(!showEjemplo);
   };
   return (
     <>
@@ -98,7 +103,7 @@ const SolicitarAdaptacion = () => {
             }}
           >
             <AlertBox
-              title="¿Cómo puedo solicitar una adaptación curricular?"
+              title="¿Qué es una adaptación curricular?"
               text={TEXT}
               Component={Button}
               downData={dataButtons}
@@ -106,7 +111,18 @@ const SolicitarAdaptacion = () => {
             />
           </div>
         )}
-        {show ? <FormAC /> : ""}
+        {show ? (
+          <>
+            <Button
+              classes="bg-green-600 max-w-fit"
+              text={showEjemplo ? "Cerrar" : "Ver ejemplo de solicitud"}
+              handleClick={handleClickEjemplo}
+            />
+            {showEjemplo ? <EjemploSolicitud /> : <FormAC />}
+          </>
+        ) : (
+          ""
+        )}
       </Layout>
     </>
   );
