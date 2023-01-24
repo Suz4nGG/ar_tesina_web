@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import { actions } from "../data";
 import Layout from "../../components/Global/Layout";
 import Footer from "../../components/Global/Footer";
-import { usePageContext } from "../context/pagesContext";
 import ArrowRedirect from "../../components/icons/ArrowRedirect";
 import { APISTUDENT } from "../constants";
 import axios from "axios";
@@ -16,12 +15,34 @@ function classNames(...classes) {
 const Dashboard = ({
   usernameA,
   nombreCompleto,
+  id,
+  tel,
+  tipoDiscapacidad,
+  sobreDiscapacidad,
+  carrera,
+  correo,
 }) => {
+  // * Guardar usuario localStorage
+  useEffect(() => {
+    sessionStorage.setItem(
+      "idU",
+      JSON.stringify({
+        usernameA,
+        nombreCompleto,
+        id,
+        tel,
+        tipoDiscapacidad,
+        sobreDiscapacidad,
+        carrera,
+        correo,
+      })
+    );
+  }, [id]);
   const router = useRouter();
   return (
     <>
       <Navigation actState="session" />
-      <Layout data={{ title: `Bienvenido(a)` }}>
+      <Layout data={{ title: `Bienvenido(a) ${nombreCompleto}` }}>
         <div className="divide-y divide-gray-200 overflow-hidden rounded-lg bg-gray-200 shadow sm:grid sm:grid-cols-2 sm:gap-px sm:divide-y-0 my-4 mb-10">
           {actions.map((action, actionIdx) => (
             <div
@@ -84,43 +105,32 @@ export async function getServerSideProps(context) {
     authTokenUser,
   });
   try {
-  const {
-    usernameA,
-    nombreCompleto,
-    nombreResponsable,
-    fecNacimiento,
-    edad,
-    tel,
-    ciudad,
-    cp,
-    municipio,
-    tipoDiscapacidad,
-    sobreDiscapacidad,
-    carrera,
-    tiempoDisc,
-  } = data[0];
-  return {
-    props: {
+    const {
+      id,
       usernameA,
       nombreCompleto,
-      nombreResponsable,
-      fecNacimiento,
-      edad,
       tel,
-      ciudad,
-      cp,
-      municipio,
       tipoDiscapacidad,
       sobreDiscapacidad,
       carrera,
-      tiempoDisc,
-    },
-  };
+      correo,
+    } = data;
+    return {
+      props: {
+        id,
+        usernameA,
+        nombreCompleto,
+        tel,
+        tipoDiscapacidad,
+        sobreDiscapacidad,
+        carrera,
+        correo,
+      },
+    };
   } catch (err) {
     return {
-    props: {
-    },
-  };
+      props: {},
+    };
   }
 }
 
