@@ -2,12 +2,9 @@ import { validateToken } from "../../../hooks/validateToken";
 import { pool } from "../../../config/db";
 
 export default async function solicitudAdaptaciones(req, res) {
-  const { authTokenUser } = req.cookies;
   switch (req.method) {
     case "POST":
-      // const { authTokenUser } = req.cookies;
-      const usernamePost = validateToken(authTokenUser);
-      return await insertData(req, res, usernamePost);
+      return await insertData(req, res);
     case "GET":
       const tk = req.headers.authorization.split(" ")[1]
       const usernameGet = validateToken(tk)
@@ -15,12 +12,17 @@ export default async function solicitudAdaptaciones(req, res) {
   }
 }
 
-const insertData = async (req, res, username) => {
-  const [result] = await pool.query("INSERT INTO solicitudAdaptacion SET ?", {
-    username,
-    ...req.body,
-  });
-  return res.status(200).json({ message: "Adaptación enviada con exito" });
+const insertData = async (req, res) => {
+  const {dataSolicitud, username} = req.body
+  try {
+    const [result] = await pool.query("INSERT INTO solicitudAdaptacion SET ?", {
+      username,
+      ...dataSolicitud,
+    });
+    return res.status(200).json({ message: "Adaptación enviada con exito" });
+  } catch (err) {
+    console.log(err)
+  }
 };
 
 const getData = async (req, res, username) => {
