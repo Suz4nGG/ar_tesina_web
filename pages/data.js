@@ -33,29 +33,6 @@ export const dataForm = [
   },
   {
     colQuery: 3,
-    type: "text",
-    name: "nombreResponsable",
-    text: "Nombre del tutor o responsable",
-    placeholder: "Nombre del tutor o responsable",
-  },
-  {
-    colQuery: 3,
-    colSM: 2,
-    type: "date",
-    name: "fecNacimiento",
-    text: "Fecha de nacimiento",
-    placeholder: "Fecha de nacimiento",
-  },
-  {
-    colQuery: 1,
-    colSM: 1,
-    type: "number",
-    name: "edad",
-    text: "Edad",
-    placeholder: "Edad",
-  },
-  {
-    colQuery: 3,
     type: "tel",
     name: "tel",
     text: "Teléfono",
@@ -63,26 +40,11 @@ export const dataForm = [
   },
   {
     colQuery: 3,
-    type: "text",
-    name: "ciudad",
-    text: "Ciudad",
-    placeholder: "Ciudad",
-  },
-  {
-    colQuery: 1,
     colSM: 1,
-    type: "number",
-    name: "cp",
-    text: "C.P.",
-    placeholder: "Código Postal",
-  },
-  {
-    colQuery: 3,
-    colSM: 2,
-    type: "text",
-    name: "municipio",
-    text: "Municipio",
-    placeholder: "Municipio",
+    type: "email",
+    name: "correo",
+    text: "Correo Electrónico",
+    placeholder: "Correo Electrónico",
   },
 ];
 
@@ -173,7 +135,7 @@ export const actions = [
     iconBackground: "bg-sky-50",
   },
   {
-    title: "Documentación Obligatoria",
+    title: "Documentación Necesarios",
     href: DOCREQUIRED,
     description: "Doloribus dolores nostrum quia qui natus",
     icon: <PaperClip />,
@@ -235,7 +197,7 @@ export const dataSolicitudF = (dataA) => {
       label: "PRESENTACIÓN DE LA INFORMACIÓN",
       name: "informacion",
       description:
-        "Información táctil, auditiva, visual o la mixtura de estas.",
+        "Para realizar una adecuación de acceso eficaz, es de suma importancia presentar la información de tal manera que los y las estudiantes accedan a ella a través de diversos modos alternativos, los cuales incluyen información táctil, auditiva, visual o la mixtura de estas",
       placeholder: "1. Ampliación de la letra o imagen...",
       value: dataA.informacion || "",
     },
@@ -243,14 +205,14 @@ export const dataSolicitudF = (dataA) => {
       label: "FORMAS DE RESPUESTA",
       name: "respuesta",
       description:
-        "Permitir ejecutar actividades, tareas o evaluaciones a través de diversas formas: dispositivos o ayudas técnicas",
+        "La forma de respuesta debe permitir a los y las estudiantes ejecutar actividades, tareas o evaluaciones a través de diversas formas, utilizando si es necesario dispositivos o ayudas técnicas que disminuyan las barreras que pueden interferir en la participación del o la estudiante en el proceso enseñanza aprendizaje.",
       placeholder: "1. Respuesta a través de computador adaptado...",
       value: dataA.respuesta || "",
     },
     {
       label: "ORGANIZACIÓN DEL TIEMPO Y EL HORARIO",
       name: "tiempoHorario",
-      description: "Estructura de la clase o desarrollo de evaluaciones.",
+      description: "La organización de tiempo y horario debe permitir el acceso autónomo de los y las estudiantes a través de adecuaciones en la forma en que se estructura una clase o desarrollan evaluaciones.",
       placeholder:
         "1. Adecuar el tiempo utilizado en una actividad o evaluación...",
       value: dataA.tiempoHorario || "",
