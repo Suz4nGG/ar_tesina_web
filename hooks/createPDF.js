@@ -19,21 +19,14 @@ export const createPDF = async (data, infoUser, prev) => {
   // ! revisar sobre los datos de la discapcidad que briunda el estudiante en el registro, conservar solo la de la solicitud (adapatciones)
   const {
     nombreCompleto,
-    nombreResponsable,
-    fecNacimiento,
-    edad,
     tel,
-    ciudad,
-    cp,
-    municipio,
     tipoDiscapacidad,
+    correo,
     sobreDiscapacidad,
     carrera,
-    tiempoDisc,
   } = infoUser;
   const stateSol = states.find((item) => item[estadoSolicitud]);
   const cr = dateParse(createdAt);
-  const cr1 = dateParse(fecNacimiento);
   const PDF = new jsPDF({
     orientation: "landscape",
     unit: "mm",
@@ -57,16 +50,10 @@ export const createPDF = async (data, infoUser, prev) => {
   PDF.setFontSize(16);
   PDF.setFont("helvetica", "semibold");
   PDF.text(`Nombre estudiante: ${nombreCompleto}`, 10, 74);
-  PDF.text(`Nombre responsable: ${nombreResponsable}`, 10, 80);
-  PDF.text(`Fecha de nacimiento: ${cr1}`, 10, 86);
-  PDF.text(`Edad: ${edad}`, 10, 92);
   PDF.text(`Contacto: ${tel}`, 10, 98);
-  PDF.text(`Ciudad: ${ciudad}`, 10, 104);
-  PDF.text(`Código postal: ${cp}`, 10, 110);
-  PDF.text(`Municipio: ${municipio}`, 10, 116);
+  PDF.text(`Correo: ${correo}`, 10, 100);
   PDF.text(`Tipo de discapacidad: ${tipoDiscapacidad}`, 10, 122);
   PDF.text(`Licenciatura: ${carrera}`, 10, 128);
-  PDF.text(`Tiempo discapacidad: ${tiempoDisc}`, 10, 134);
   PDF.text(`Experiencia recepcional: ${experienciaR}`, 10, 140);
   PDF.line(0, 145, docWidth, 145);
   PDF.setFontSize(18);
