@@ -11,20 +11,15 @@ import FormTwo from "./FormTwo";
 import FormThree from "./FormThree";
 import FormAcount from "./FormAcount";
 import { LOGIN } from "../../constants";
+
 const FormRegister = () => {
   const [data, setData] = useState({
     nombreCompleto: "",
-    nombreResponsable: "",
-    fecNacimiento: dateNow(),
-    edad: 17,
     tel: "",
-    ciudad: "",
-    cp: "",
-    municipio: "",
+    correo: "",
     tipoDiscapacidad: "",
     sobreDiscapacidad: "",
     carrera: "",
-    tiempoDisc: "",
     usernameA: "",
     password: "",
   });

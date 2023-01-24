@@ -26,7 +26,7 @@ const FormTwo = ({ data, handleChange }) => {
           classNamePrefix="select"
         />
       </div>
-      <div className="col-span-3 md:col-span-2 flex items-center">
+      {/* <div className="col-span-3 md:col-span-2 flex items-center">
         <fieldset className="block md:flex items-center">
           <legend></legend>
           {boxOption.map((opt) => (
@@ -41,7 +41,7 @@ const FormTwo = ({ data, handleChange }) => {
             />
           ))}
         </fieldset>
-      </div>
+      </div> */}
       <div className="col-span-3">
         <label
           htmlFor="sobreDiscapacidad"
