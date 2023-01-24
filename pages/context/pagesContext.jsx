@@ -8,7 +8,7 @@ export const PageProvider = ({ children }) => {
   const [contextValue, setContextValue] = useState([]);
 
   // ! Añadir datos al contexto
-  const createAdaptacion = (data) => {
+  const saveData = (data) => {
     setContextValue([...contextValue, { data }]);
   };
   // !Obtener id del estudiante actual
@@ -17,7 +17,7 @@ export const PageProvider = ({ children }) => {
   }
 
   return (
-    <PageContext.Provider value={{ contextValue, createAdaptacion, getID }}>
+    <PageContext.Provider value={{ contextValue, saveData, getID }}>
       {children}
     </PageContext.Provider>
   );
