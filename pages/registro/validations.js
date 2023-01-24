@@ -100,29 +100,14 @@ const cpValidationF = (string, stringName, errors) => {
 export const validations = (data) => {
   const {
     nombreCompleto,
-    nombreResponsable,
     tel,
-    edad,
-    ciudad,
-    cp,
-    municipio,
-    fecNacimiento,
-    tipoDiscapacidad,
-    sobreDiscapacidad,
     usernameA,
     password
   } = data;
   let errors = [];
   switch (
     nombreCompleto ||
-    nombreResponsable ||
-    municipio ||
-    ciudad ||
     tel ||
-    edad ||
-    cp ||
-    fecNacimiento ||
-    tipoDiscapacidad ||
     usernameA ||
     password
   ) {
@@ -133,25 +118,8 @@ export const validations = (data) => {
         "nombreCompleto",
         errors
       );
-    case nombreResponsable:
-      stringsValidation(
-        nombreValidation,
-        nombreResponsable,
-        "nombreResponsable",
-        errors
-      );
-    case municipio:
-      stringsValidation(nombreValidation, municipio, "municipio", errors);
-    case ciudad:
-      stringsValidation(nombreValidation, ciudad, "ciudad", errors);
     case tel:
       telValidationF(tel, "tel", errors);
-    case edad:
-      edadValidationF(edad, "edad", errors);
-    case fecNacimiento:
-      dateValidation(fecNacimiento, "fecNacimiento", errors);
-    case cp:
-      cpValidationF(cp, "cp", errors);
     case usernameA:
       textValidation.map((item) => {
         if (!item.pattern.test(usernameA))
