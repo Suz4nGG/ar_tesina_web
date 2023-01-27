@@ -28,25 +28,10 @@ const telValidation = [
   },
 ];
 
-const edadValidation = [
+const correo = [
   {
-    message: "Edad no valida",
-    pattern: /^[0-9]{2}$/,
-  },
-];
-
-const cpValidation = [
-  {
-    message: "C.P. no valido",
-    pattern: /^[0-9]{5}$/,
-  },
-];
-
-const fechaNacValidation = [
-  {
-    message: "Fecha no valida",
-    pattern:
-      /^(19|20)(((([02468][048])|([13579][26]))-02-29)|(\d{2})-((02-((0[1-9])|1\d|2[0-8]))|((((0[13456789])|1[012]))-((0[1-9])|((1|2)\d)|30))|(((0[13578])|(1[02]))-31)))$/,
+    message: "El correo debe contener caracteres especiales como '@' o '.'",
+    pattern: /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i,
   },
 ];
 
@@ -62,16 +47,8 @@ const stringsValidation = (arr, string, stringName, errors) => {
   });
 };
 
-const edadValidationF = (string, stringName, errors) => {
-  return edadValidation.map((item) => {
-    if (!item.pattern.test(string) || !(string >= 17 && string <= 30)) {
-      return errors.push(`${stringName}: ${item.message}`);
-    }
-  });
-};
-
-const dateValidation = (string, stringName, errors) => {
-  fechaNacValidation.map((item) => {
+const correoValidation = (string, stringName, errors) => {
+  correo.map((item) => {
     if (!item.pattern.test(string)) {
       return errors.push(`${stringName}: ${item.message}`);
     }
@@ -89,28 +66,13 @@ const telValidationF = (string, stringName, errors) => {
   });
 };
 
-const cpValidationF = (string, stringName, errors) => {
-  cpValidation.map((item) => {
-    if (!item.pattern.test(string)) {
-      return errors.push(`${stringName}: ${item.message}`);
-    }
-  });
-};
-
 export const validations = (data) => {
-  const {
-    nombreCompleto,
-    tel,
-    usernameA,
-    password
-  } = data;
+  const { nombreCompleto, tel, usernameA, password, correo } = data;
   let errors = [];
-  switch (
-    nombreCompleto ||
-    tel ||
-    usernameA ||
-    password
-  ) {
+  console.log("DD", data)
+  switch (correo || nombreCompleto || tel || usernameA || password) {
+    case correo:
+      correoValidation(correo, "correo", errors);
     case nombreCompleto:
       stringsValidation(
         nombreValidation,
@@ -137,10 +99,9 @@ export const validations = (data) => {
 export const validationsLogin = (data, serverErrors) => {
   // const { usernameA } = data
   let errors = [];
-  errors.push(`password: ${serverErrors}`)
-  return errors
-}
-
+  errors.push(`password: ${serverErrors}`);
+  return errors;
+};
 
 export const dateParse = (createdAt) => {
   return new Date(createdAt).toLocaleDateString("es-es", {
@@ -148,4 +109,4 @@ export const dateParse = (createdAt) => {
     month: "short",
     year: "numeric",
   });
-}
+};
