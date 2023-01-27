@@ -36,15 +36,17 @@ const Navigation = ({ actState, initialData }) => {
     }
   };
   return (
+    <>
     <header>
       <Popover className="bg-transparent">
         <div
-          className="
+            className="
+          bg-white
           grid
           p-5
           grid-cols-1
           md:grid-cols-[300px,_1fr]
-          mx-auto bg-white max-w-md- mx-auto-
+          mx-auto max-w-md- mx-auto-
         "
         >
           {/* Navegación: LOGO */}
@@ -83,14 +85,14 @@ const Navigation = ({ actState, initialData }) => {
               </Popover.Button>
             </div>
           </div>
-          <div>
+          <div className="z-auto">
             {/* * Primary Menu */}
             <Popover.Group
               as="nav"
               className="
                 container hidden md:flex
                 flex-wrap justify-end items-center
-                space-x-7 max-w-screen-xl px-3 py-5 mx-auto
+                space-x-7 max-w-screen-xl px-3 py-5 mx-auto z-auto
             "
             >
               {secondaryNavigation.map((item) =>
@@ -127,7 +129,7 @@ const Navigation = ({ actState, initialData }) => {
                 container hidden md:flex
                 flex-wrap justify-end items-center
                 space-x-7 max-w-screen-xl px-3 py-5 mx-auto
-                border-solid border-t-2 border-t-gray-200
+                border-solid border-t-2 border-t-gray-200 z-auto
             "
             >
               {actState ? (
@@ -138,7 +140,7 @@ const Navigation = ({ actState, initialData }) => {
                         <Popover.Button
                           className={classNames(
                             open ? "text-gray-800" : "text-gray-600",
-                            "group inline-flex items-center rounded-md bg-white text-base font-medium hover:text-gray-600 focus:outline-none hover:underline"
+                            "group inline-flex items-center rounded-md text-base font-medium hover:text-gray-600 focus:outline-none hover:underline z-10"
                           )}
                         >
                           <ArrowDown />
@@ -154,8 +156,8 @@ const Navigation = ({ actState, initialData }) => {
                           leaveTo="opacity-0 translate-y-1"
                         >
                           <Popover.Panel className="absolute left-1/2 z-10 mt-9 w-screen max-w-xs -translate-x-1/2 transform px-2 sm:px-0">
-                            <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
-                              <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8 text-gray-100 hover:text-gray-900">
+                            <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 z-10">
+                              <div className="relative grid gap-6 px-5 py-6 sm:gap-8 sm:p-8 text-gray-100 hover:text-gray-900 z-10">
                                 {nav.map((item) => (
                                   <a
                                     key={item.name}
@@ -184,7 +186,7 @@ const Navigation = ({ actState, initialData }) => {
                       href={item.href}
                       className="
                     text-gray-600 flex flex-row
-                      space-x-8 text-base font-medium items-center hover:underline"
+                      space-x-8 text-base font-medium items-center hover:underline z-10"
                     >
                       {item.name}
                     </Link>
@@ -198,7 +200,7 @@ const Navigation = ({ actState, initialData }) => {
                       href={item.href}
                       className="
                     text-gray-600 flex flex-row
-                      space-x-8 text-base font-medium items-center hover:underline"
+                      space-x-8 text-base font-medium items-center hover:underline z-10"
                     >
                       {item.name}
                     </Link>
@@ -288,7 +290,8 @@ const Navigation = ({ actState, initialData }) => {
           </Transition>
         </div>
       </Popover>
-    </header>
+      </header>
+      </>
   );
 };
 
