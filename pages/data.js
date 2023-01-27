@@ -112,7 +112,7 @@ export const dataAcount = [
 export const actions = [
   {
     title: "Solicitar adaptación curricular",
-    description: "Doloribus dolores nostrum quia qui natus",
+    description: "En este apartado podrás solicitar una adaptación curricular acorde a tus necesidades.",
     href: SOLSTUDENT,
     icon: <AcademicCap />,
     iconForeground: "text-teal-700",
@@ -121,7 +121,7 @@ export const actions = [
   {
     title: "Adaptaciones curriculares ",
     href: ADAPSTUDENT,
-    description: "Doloribus dolores nostrum quia qui natus",
+    description: "En este apartado encontrarás las adaptaciones curriculares que has realizado y el estado en el que se encuentra.",
     icon: <Settings />,
     iconForeground: "text-purple-700",
     iconBackground: "bg-purple-50",
@@ -129,7 +129,7 @@ export const actions = [
   {
     title: "Herramientas accesibles",
     href: HERRACCESS,
-    description: "Doloribus dolores nostrum quia qui natus",
+    description: "En este apartado encontrarás diferentes tipos de herramientas que te servirán como apoyo para tu adaptación.",
     icon: <Document />,
     iconForeground: "text-sky-700",
     iconBackground: "bg-sky-50",
@@ -137,7 +137,7 @@ export const actions = [
   {
     title: "Documentación Necesarios",
     href: DOCREQUIRED,
-    description: "Doloribus dolores nostrum quia qui natus",
+    description: "En este apartado seleccionarás con qué documentos cuentas para demostrar tu situación de discapacidad.",
     icon: <PaperClip />,
     iconForeground: "text-yellow-700",
     iconBackground: "bg-yellow-50",
