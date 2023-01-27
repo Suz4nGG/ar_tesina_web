@@ -16,6 +16,31 @@ import { createPDF } from "../../../hooks/createPDF";
 import Footer from "/components/Global/Footer";
 import { useEffect, useState } from "react";
 
+const Comments = ({ comentarioRecuperado: { comentarios, createdAt } }) => {
+  const date = dateParse(createdAt);
+  return (
+    <div className="flow-root w-full">
+      <span className="text-blue-500">Comentarios</span>
+      <ul role="list" className="-mb-8">
+        <li>
+          <div className="relative pb-8">
+            <div className="relative flex space-x-3">
+              <div className="flex justify-between min-w-0 flex-1 space-x-4 pt-1.5">
+                <div>
+                  <p className="text-sm text-gray-800">{comentarios}</p>
+                </div>
+                <div className="whitespace-nowrap text-right text-sm text-green-600">
+                  <time dateTime={date}>Comentada el {date}</time>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  );
+};
+
 const Box = ({ title, description, btnText, comentarioRecuperado }) => {
   return (
     <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
@@ -42,11 +67,7 @@ const Box = ({ title, description, btnText, comentarioRecuperado }) => {
     </div>
   );
 };
-const loc = (key) => {
-  if (typeof window !== "undefined") {
-    return JSON.parse(sessionStorage.getItem(`${key}`));
-  }
-};
+
 const Id = ({ data, comentarioRecuperado }) => {
   const [dataStorage, setDataStorage] = useState();
   const {
@@ -135,12 +156,16 @@ const Id = ({ data, comentarioRecuperado }) => {
               />
             ))}
             <div className="py-4 sm:grid sm:grid-cols-2 sm:gap-4 sm:py-5">
-              <dd className="mt-1 mb-2 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+              <Comments comentarioRecuperado={comentarioRecuperado} />
+            </div>
+
+            <div className="py-4 sm:grid sm:grid-cols-2 sm:gap-4 sm:py-5">
+              <dd className="text-sm text-gray-900 sm:col-span-2">
                 <button
                   onClick={handleClick}
-                  className="rounded-md bg-blue-600 px-4 py-2 font-medium text-white hover:bg-blue-700 focus:outline-none"
+                  className="rounded-md bg-blue-600 px-4 py-2 my-4 font-medium text-white hover:bg-blue-700 focus:outline-none"
                 >
-                  Editar Solicitud
+                  Editar
                 </button>
               </dd>
               <dt className="text-sm font-medium text-gray-500">Archivos</dt>
@@ -149,17 +174,25 @@ const Id = ({ data, comentarioRecuperado }) => {
                   role="list"
                   className="divide-y divide-gray-200 rounded-md border border-gray-200"
                 >
-                  <li className="flex items-center justify-between py-3 pl-3 pr-4 text-sm">
+                  <li
+                    className="grid grid-cols-1
+          md:grid-cols-[300px,_1fr] py-3 pl-3 pr-4 text-sm"
+                  >
                     <div className="flex w-0 flex-1 items-center">
                       <PaperClipIcon
                         className="h-5 w-5 flex-shrink-0 text-gray-400"
                         aria-hidden="true"
                       />
-                      <span className="ml-2 w-0 flex-1 truncate">
-                        adaptacion_curricular_nombre.pdf
+                      <span className="ml-2 w-0 flex-1">
+                        {dataStorage === undefined
+                          ? ""
+                          : `AC_${dataStorage.nombreCompleto}`
+                              .toLowerCase()
+                              .split(" ")
+                              .join("_")}
                       </span>
                     </div>
-                    <div className="ml-4 flex flex-shrink-0 space-x-4">
+                    <div className="ml-4 mt-4 flex flex-shrink-0 space-x-4 col-span-2">
                       <button
                         type="button"
                         onClick={downloadPDF}
@@ -178,6 +211,7 @@ const Id = ({ data, comentarioRecuperado }) => {
                   </li>
                 </ul>
                 <div>
+                  {/* PREVISUALIZACIÓN Renderizada por el navegador */}
                   {showPDF ? (
                     <PrevSol
                       data={{ data }}
@@ -209,7 +243,6 @@ export const getServerSideProps = async (context) => {
   const { data: comentarioRecuperado } = await axios.get(
     INITIAL + GETCOMENTARIOS + context.query.id
   );
-  console.log("IF", comentarioRecuperado);
   return {
     props: { data, infoUser, comentarioRecuperado },
   };
