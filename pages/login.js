@@ -41,7 +41,6 @@ const Login = () => {
         if (message === "Inicio exitoso") {router.push(DASHSPERSONAL)};
       } else {
         const resEstudiante = await axios.post(LOGINAUTH, data);
-        console.log("RR", resEstudiante);
         const { message } = resEstudiante.data;
         if (message === "Inicio exitoso") router.push(DASHSTUDENT);
       }
