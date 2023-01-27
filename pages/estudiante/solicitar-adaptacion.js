@@ -7,7 +7,8 @@ import { ADAPSTUDENT } from "../constants";
 import Link from "next/link";
 import EjemploSolicitud from "./ejemplo-solicitud";
 import { usePageContext } from "../context/pagesContext";
-const TEXT = `Son secuencias de acciones sobre el currículum escolar diseñado para una población dada, que conducen a la modificación de uno o más de sus elementos básicos (que, cómo, cuándo, enseñar y evaluar), cuya finalidad es la de posibilitar el máximo de individualización didáctica en el contexto más normalizado posible para aquellos alumnos que presenten cualquier tipo de necesidad educativa especial.`;
+
+const TEXT = `Una adaptación curricular es el conjunto de precisiones y cambios en los componentes del proyecto curricular de centro o la programación para ajustar la respuesta educativa a las necesidades educativas especiales de un alumno.`;
 
 const dataButtons = [
   {
