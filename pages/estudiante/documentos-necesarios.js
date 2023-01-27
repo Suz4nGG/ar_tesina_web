@@ -5,7 +5,8 @@ import { useEffect, useState } from "react";
 import Footer from "/components/Global/Footer";
 import { documentosNecesarios } from "./utils/dataDocumentos";
 import axios from "axios";
-
+import Router from "next/router";
+import { DASHSTUDENT } from "../constants";
 const DocumentosObligatorios = () => {
   const [clicBox, setClicBox] = useState(
     new Array(documentosNecesarios.length).fill(false)
@@ -29,19 +30,25 @@ const DocumentosObligatorios = () => {
     );
     setClicBox(updatedCheckedState);
   };
+
+  const handleCancel = (e) => {
+    e.preventDefault()
+    Router.push(DASHSTUDENT)
+  }
   return (
     <>
       <Navigation actState="session" />
       <Layout data={{ title: `Documentos Obligatorios` }}>
         <div className="mb-10">
+          <p className="pb-4 text-gray-800">
+            Selecciona la documentación que haz proporcionado a tu institución
+          </p>
           <form
-            className="relative rounded text-gray-500 grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2 xl:gap-x-8"
+            className="relative rounded text-gray-500"
             onSubmit={handleSubmit}
           >
-            <p className="pb-4 text-gray-800">
-              Selecciona la documentación que haz proporcionado a tu institución
-            </p>
-            {documentosNecesarios.map((item, index) => (
+            <ul>
+              {documentosNecesarios.map((item, index) => (
                 <li
                   key={item.name}
                   style={{ listStyle: "none" }}
@@ -72,10 +79,14 @@ const DocumentosObligatorios = () => {
                     </div>
                   </div>
                 </li>
-            ))}
-            <div>
-              <button className="bg-green-600 py-2 px-5 rounded text-gray-50 ">
+              ))}
+            </ul>
+            <div className="mt-4">
+              <button className="w-full sm:w-36 bg-green-600 py-2 px-5 rounded text-gray-50 ">
                 Enviar
+              </button>
+              <button onClick={handleCancel} className="w-full sm:w-36 mt-4 sm:mt-0 bg-red-600 ml-0 sm:ml-2 py-2 px-5 rounded text-gray-50 ">
+                Cancelar
               </button>
             </div>
           </form>
