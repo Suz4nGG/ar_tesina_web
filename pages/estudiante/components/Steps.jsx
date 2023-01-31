@@ -1,19 +1,40 @@
-import { CheckIcon } from "@heroicons/react/outline"
-
-const steps = [
-  { id: '01', name: 'Job Details', description: 'Vitae sed mi luctus laoreet.', href: '#', status: 'complete' },
-  { id: '02', name: 'Application form', description: 'Cursus semper viverra.', href: '#', status: 'current' },
-  { id: '03', name: 'Preview', description: 'Penatibus eu quis ante.', href: '#', status: 'upcoming' },
-]
+import { CheckIcon } from "@heroicons/react/outline";
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
+  return classes.filter(Boolean).join(" ");
 }
 
-export default function Steps() {
+export default function Steps({ place }) {
+  const steps = [
+    {
+      id: "01",
+      name: "Paso 1",
+      description: "Solicitar una adaptación",
+      href: "#",
+      status: place ? "complete" : "current",
+    },
+    {
+      id: "02",
+      name: "Paso 2",
+      description: "Contestar formulario",
+      href: "#",
+      status: place ? "current" : "complete",
+    },
+    {
+      id: "03",
+      name: "Paso 3",
+      description: "Enviar Solicitud",
+      href: "#",
+      status: "upcoming",
+    },
+  ];
+  console.log("PLCAE", place);
   return (
     <div className="lg:border-t lg:border-b lg:border-gray-200">
-      <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" aria-label="Progress">
+      <nav
+        className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"
+        aria-label="Progress"
+      >
         <ol
           role="list"
           className="overflow-hidden rounded-md lg:flex lg:rounded-none lg:border-l lg:border-r lg:border-gray-200"
@@ -22,12 +43,12 @@ export default function Steps() {
             <li key={step.id} className="relative overflow-hidden lg:flex-1">
               <div
                 className={classNames(
-                  stepIdx === 0 ? 'border-b-0 rounded-t-md' : '',
-                  stepIdx === steps.length - 1 ? 'border-t-0 rounded-b-md' : '',
-                  'border border-gray-200 overflow-hidden lg:border-0'
+                  stepIdx === 0 ? "border-b-0 rounded-t-md" : "",
+                  stepIdx === steps.length - 1 ? "border-t-0 rounded-b-md" : "",
+                  "border border-gray-200 overflow-hidden lg:border-0"
                 )}
               >
-                {step.status === 'complete' ? (
+                {step.status === "complete" ? (
                   <a href={step.href} className="group">
                     <span
                       className="absolute top-0 left-0 h-full w-1 bg-transparent group-hover:bg-gray-200 lg:bottom-0 lg:top-auto lg:h-1 lg:w-full"
@@ -35,41 +56,50 @@ export default function Steps() {
                     />
                     <span
                       className={classNames(
-                        stepIdx !== 0 ? 'lg:pl-9' : '',
-                        'px-6 py-5 flex items-start text-sm font-medium'
+                        stepIdx !== 0 ? "lg:pl-9" : "",
+                        "px-6 py-5 flex items-start text-sm font-medium"
                       )}
                     >
                       <span className="flex-shrink-0">
                         <span className="flex h-10 w-10 items-center justify-center rounded-full bg-green-600">
-                          <CheckIcon className="h-6 w-6 text-white" aria-hidden="true" />
+                          <CheckIcon
+                            className="h-6 w-6 text-white"
+                            aria-hidden="true"
+                          />
                         </span>
                       </span>
                       <span className="mt-0.5 ml-4 flex min-w-0 flex-col">
                         <span className="text-sm font-medium">{step.name}</span>
-                        <span className="text-sm font-medium text-gray-500">{step.description}</span>
+                        <span className="text-sm font-medium text-gray-500">
+                          {step.description}
+                        </span>
                       </span>
                     </span>
                   </a>
-                ) : step.status === 'current' ? (
+                ) : step.status === "current" ? (
                   <a href={step.href} aria-current="step">
                     <span
-                      className="absolute top-0 left-0 h-full w-1 bg-indigo-600 lg:bottom-0 lg:top-auto lg:h-1 lg:w-full"
+                      className="absolute top-0 left-0 h-full w-1 bg-blue-600 lg:bottom-0 lg:top-auto lg:h-1 lg:w-full"
                       aria-hidden="true"
                     />
                     <span
                       className={classNames(
-                        stepIdx !== 0 ? 'lg:pl-9' : '',
-                        'px-6 py-5 flex items-start text-sm font-medium'
+                        stepIdx !== 0 ? "lg:pl-9" : "",
+                        "px-6 py-5 flex items-start text-sm font-medium"
                       )}
                     >
                       <span className="flex-shrink-0">
-                        <span className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-indigo-600">
-                          <span className="text-indigo-600">{step.id}</span>
+                        <span className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-blue-600">
+                          <span className="text-blue-600">{step.id}</span>
                         </span>
                       </span>
                       <span className="mt-0.5 ml-4 flex min-w-0 flex-col">
-                        <span className="text-sm font-medium text-indigo-600">{step.name}</span>
-                        <span className="text-sm font-medium text-gray-500">{step.description}</span>
+                        <span className="text-sm font-medium text-blue-600">
+                          {step.name}
+                        </span>
+                        <span className="text-sm font-medium text-gray-500">
+                          {step.description}
+                        </span>
                       </span>
                     </span>
                   </a>
@@ -81,8 +111,8 @@ export default function Steps() {
                     />
                     <span
                       className={classNames(
-                        stepIdx !== 0 ? 'lg:pl-9' : '',
-                        'px-6 py-5 flex items-start text-sm font-medium'
+                        stepIdx !== 0 ? "lg:pl-9" : "",
+                        "px-6 py-5 flex items-start text-sm font-medium"
                       )}
                     >
                       <span className="flex-shrink-0">
@@ -91,8 +121,12 @@ export default function Steps() {
                         </span>
                       </span>
                       <span className="mt-0.5 ml-4 flex min-w-0 flex-col">
-                        <span className="text-sm font-medium text-gray-500">{step.name}</span>
-                        <span className="text-sm font-medium text-gray-500">{step.description}</span>
+                        <span className="text-sm font-medium text-gray-500">
+                          {step.name}
+                        </span>
+                        <span className="text-sm font-medium text-gray-500">
+                          {step.description}
+                        </span>
                       </span>
                     </span>
                   </a>
@@ -101,14 +135,21 @@ export default function Steps() {
                 {stepIdx !== 0 ? (
                   <>
                     {/* Separator */}
-                    <div className="absolute inset-0 top-0 left-0 hidden w-3 lg:block" aria-hidden="true">
+                    <div
+                      className="absolute inset-0 top-0 left-0 hidden w-3 lg:block"
+                      aria-hidden="true"
+                    >
                       <svg
                         className="h-full w-full text-gray-300"
                         viewBox="0 0 12 82"
                         fill="none"
                         preserveAspectRatio="none"
                       >
-                        <path d="M0.5 0V31L10.5 41L0.5 51V82" stroke="currentcolor" vectorEffect="non-scaling-stroke" />
+                        <path
+                          d="M0.5 0V31L10.5 41L0.5 51V82"
+                          stroke="currentcolor"
+                          vectorEffect="non-scaling-stroke"
+                        />
                       </svg>
                     </div>
                   </>
@@ -119,5 +160,5 @@ export default function Steps() {
         </ol>
       </nav>
     </div>
-  )
+  );
 }

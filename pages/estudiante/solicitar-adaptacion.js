@@ -97,7 +97,7 @@ const SolicitarAdaptacion = () => {
           <FormAC />
         ) : (
           <>
-            <Steps />
+              <Steps place={show} />
             <div
               className="h-96 grid place-content-center"
               style={{
@@ -126,9 +126,9 @@ const SolicitarAdaptacion = () => {
               </p>
               <Link
                 className="flex items-center justify-center
-          rounded px-4 py-3
-          text-base font-medium
-          shadow hover:bg-orange-700 sm:px-8 max-w-fit text-gray-100 bg-orange-600 mt-4"
+                rounded px-4 py-3
+                text-base font-medium
+                shadow hover:bg-orange-700 sm:px-8 max-w-fit text-gray-100 bg-orange-600 mt-4"
                 href="/pdf/tipos_adaptaciones.pdf"
                 download="tipos_adaptaciones.pdf"
                 target="_blank"
@@ -136,12 +136,6 @@ const SolicitarAdaptacion = () => {
                 Descargar ejemplos de tipos de adaptación
               </Link>
             </div>
-            {/* <Button
-              classes="bg-green-600 max-w-fit"
-              text={showEjemplo ? "Cerrar" : "Ver ejemplo de solicitud"}
-              handleClick={handleClickEjemplo}
-            /> */}
-            {/*             {showEjemplo ? <EjemploSolicitud /> : <FormAC />} */}
             <FormAC />
           </>
         ) : (

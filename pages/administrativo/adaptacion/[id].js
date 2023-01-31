@@ -20,7 +20,6 @@ import { useState } from "react";
 import TextArea from "../../estudiante/components/TextArea";
 import Select from "react-select";
 import { statesPersonal, dataProfesores } from "../../data";
-import Contrato from "../components/Contrato";
 import { Adaptacion } from "../../../components/pdf/Adaptacion";
 
 const Box = ({
@@ -49,7 +48,7 @@ const Box = ({
       <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 break-words">
         <dt className="text-sm font-medium text-gray-600">{title}</dt>
         <dd className="mt-1 flex text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-          <span className="flex-grow text-ellipsis overflow-auto" style={{ whiteSpace: "normal" }}>
+          <span className="flex-grow text-ellipsis overflow-auto">
             {array
               ? description.map((item) => (
                   <p key={item.doc}>
@@ -68,10 +67,10 @@ const Box = ({
         {btnText ? (
           <div className="">
             <div className="">
-              <div className="flex flex-col text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+              <div className="flex flex-col text-sm text-gray-900 sm:col-span-2 sm:mt-0 overflow-auto">
                 {getComentarios === undefined
                   ? <p>{comentarioRecuperado}</p>
-                  : <><p className="text-gray-700">Nuevo Mensaje</p><p>{getComentarios}</p></>}
+                  : <><p className="text-gray-700">Nuevo Mensaje</p><p className="text-ellipsis">{getComentarios}</p></>}
               </div>
             </div>
             <form onSubmit={handleSubmit}>
@@ -245,38 +244,7 @@ const Id = ({ data, infoUser, comentarioRecuperado, docs }) => {
               />
             ))}
             <div className="py-4 sm:grid sm:grid-cols-2 sm:gap-4 sm:py-5">
-              <dt className="text-sm font-medium text-gray-500">
-                Adaptación curricular del estudiante
-              </dt>
               <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                {/* <ul
-                  role="list"
-                  className="divide-y divide-gray-200 rounded-md border border-gray-200"
-                >
-                  <li className="flex items-center justify-between py-3 pl-3 pr-4 text-sm">
-                    <div className="flex w-0 flex-1 items-center">
-                      <PaperClipIcon
-                        className="h-5 w-5 flex-shrink-0 text-gray-400"
-                        aria-hidden="true"
-                      />
-                      <span className="ml-2 w-0 flex-1 truncate">
-                        {`AC_${infoUser.nombreCompleto}`
-                          .toLowerCase()
-                          .split(" ")
-                          .join("_")}
-                      </span>
-                    </div>
-                    <div className="ml-4 flex flex-shrink-0 space-x-4">
-                      <button
-                        type="button"
-                        onClick={downloadPDF}
-                        className="rounded-md bg-white font-medium text-green-600 hover:text-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 px-3 py-2"
-                      >
-                        Visualizar
-                      </button>
-                    </div>
-                  </li>
-                </ul> */}
               </dd>
               <dd className="mt-1 mb-2 text-gray-900 sm:col-span-2 sm:mt-0">
                 <button
