@@ -30,3 +30,6 @@ export const TOKENJWT = 'authTokenUser'
 
 export const APIPERSONAL = "http://localhost:3000/api/administrativo"
 export const APISTUDENT = "http://localhost:3000/api/estudiante"
+
+export const DOCS = "api/estudiante/docs-solicitados"
+export const GETDOCS = "api/administrativo/get-docs-solicitados"
