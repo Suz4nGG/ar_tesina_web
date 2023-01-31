@@ -114,12 +114,33 @@ const SolicitarAdaptacion = () => {
         )}
         {show ? (
           <>
-            <Button
+            <div className="py-4">
+              <p>
+                El siguiente botón incluye un archivo PDF, el cual contiene los
+                diferentes tipos de adaptaciones que puedes solicitar, estas te
+                servirán para que puedas determinar cuál es la que necesitas
+                para tu adaptación, podrás tomar las pautas proporcionadas y
+                escribirlas en las cajas de texto de esta página.
+              </p>
+              <Link
+                className="flex items-center justify-center
+          rounded px-4 py-3
+          text-base font-medium
+          shadow hover:bg-orange-700 sm:px-8 max-w-fit text-gray-100 bg-orange-600 mt-4"
+                href="/pdf/tipos_adaptaciones.pdf"
+                download="tipos_adaptaciones.pdf"
+                target="_blank"
+              >
+                Descargar ejemplos de tipos de adaptación
+              </Link>
+            </div>
+            {/* <Button
               classes="bg-green-600 max-w-fit"
               text={showEjemplo ? "Cerrar" : "Ver ejemplo de solicitud"}
               handleClick={handleClickEjemplo}
-            />
-            {showEjemplo ? <EjemploSolicitud /> : <FormAC />}
+            /> */}
+            {/*             {showEjemplo ? <EjemploSolicitud /> : <FormAC />} */}
+            <FormAC />
           </>
         ) : (
           ""
