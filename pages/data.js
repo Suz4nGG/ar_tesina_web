@@ -135,7 +135,7 @@ export const actions = [
     iconBackground: "bg-sky-50",
   },
   {
-    title: "Documentación Necesarios",
+    title: "Documentación necesaria",
     href: DOCREQUIRED,
     description: "En este apartado seleccionarás con qué documentos cuentas para demostrar tu situación de discapacidad.",
     icon: <PaperClip />,
@@ -197,7 +197,7 @@ export const dataSolicitudF = (dataA) => {
       label: "PRESENTACIÓN DE LA INFORMACIÓN",
       name: "informacion",
       description:
-        "Para realizar una adecuación de acceso eficaz, es de suma importancia presentar la información de tal manera que los y las estudiantes accedan a ella a través de diversos modos alternativos, los cuales incluyen información táctil, auditiva, visual o la mixtura de estas",
+        "Para realizar una adecuación de acceso eficaz, es de suma importancia presentar la información de tal manera que los y las estudiantes accedan a ella a través de diversos modos alternativos, los cuales incluyen información táctil, auditiva, visual o la combinación de estas",
       placeholder: "1. Ampliación de la letra o imagen...",
       value: dataA.informacion || "",
     },
@@ -278,8 +278,6 @@ export const states = [
 export const statesPersonal = [
   { 2: "Revision", name: "Revision", value: "2", label: "Revisión", id: '2' },
   { 3: "Aceptada", name: "Aceptada", value: "3", label: "Aceptada", id: '3' },
-  { 4: "Pendiente Firma", name: "Pendiente", value: "4", label: "Pendiente Firma", id: '4' },
-  { 5: "Terminada", name: "Terminada", value: "5", label: "Terminada", id: '5' },
   { 6: "Cancelada", name: "Cancelada", value: "6", label: "Cancelada", id: '6' },
   {
     7: "Suspendida",
