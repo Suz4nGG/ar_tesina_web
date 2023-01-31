@@ -15,7 +15,6 @@ import { useRouter } from "next/router";
 import { createPDF } from "../../../hooks/createPDF";
 import Footer from "/components/Global/Footer";
 import { useEffect, useState } from "react";
-import { downloadPDF as pdf } from "../../../hooks/html-pdf";
 import { Adaptacion } from "../../../components/pdf/Adaptacion";
 
 const Comments = ({ comentarioRecuperado: { comentarios, createdAt } }) => {
@@ -31,15 +30,15 @@ const Comments = ({ comentarioRecuperado: { comentarios, createdAt } }) => {
                 <div>
                   <p className="text-sm text-gray-800">{comentarios}</p>
                 </div>
-                <div className="whitespace-nowrap text-right text-sm text-green-600">
+              </div>
+            </div>
+            <div className="whitespace-nowrap text-right text-sm text-green-600">
                   <time dateTime={date}>
                     {date === "Invalid Date"
                       ? "Aún no has recibido comentarios"
                       : `Comentada el ${date}`}
                   </time>
                 </div>
-              </div>
-            </div>
           </div>
         </li>
       </ul>
@@ -122,6 +121,7 @@ const Id = ({ data, comentarioRecuperado }) => {
       description: motSolicitud || "",
     },
   ];
+  console.log("DD", dataStorage)
   // Obtener sessionStorage
   useEffect(() => {
     setDataStorage(JSON.parse(sessionStorage.getItem("idU")));
@@ -147,7 +147,7 @@ const Id = ({ data, comentarioRecuperado }) => {
             Detalles de la solicitud
           </h3>
           <p className="mt-1 max-w-2xl text-sm text-gray-500">
-            {dataStorage === undefined ? "" : dataStorage.nombreCompleto}
+            {dataStorage === undefined || dataStorage === null ? "" : dataStorage.nombreCompleto}
           </p>
         </div>
         <div className="mt-5 border-t border-gray-200">
@@ -161,7 +161,7 @@ const Id = ({ data, comentarioRecuperado }) => {
                 btnText={item.btnText}
               />
             ))}
-            <div className="py-4 sm:grid sm:grid-cols-2 sm:gap-4 sm:py-5">
+            <div className="py-4 sm:grid sm:grid-cols-1 sm:gap-4 sm:py-5">
               <Comments comentarioRecuperado={comentarioRecuperado} />
             </div>
 
@@ -190,7 +190,7 @@ const Id = ({ data, comentarioRecuperado }) => {
                         aria-hidden="true"
                       />
                       <span className="ml-2 w-0 flex-1">
-                        {dataStorage === undefined
+                        {dataStorage === undefined || dataStorage === null
                           ? ""
                           : `AC_${dataStorage.nombreCompleto}`
                               .toLowerCase()
