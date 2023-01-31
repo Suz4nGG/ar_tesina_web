@@ -1,6 +1,13 @@
 import { pool } from "/config/db";
 
 export default async function docsSolicitados(req, res) {
+  switch (req.method) {
+    case "POST":
+      return await enviarDocumentacion(req, res)
+  }
+}
+
+const enviarDocumentacion = async (req, res) => {
   const { docs, idEstudiante } = req.body;
   try {
     // ! Validar que no existe el IDESTUDIANTE

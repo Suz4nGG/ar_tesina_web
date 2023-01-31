@@ -6,22 +6,39 @@ import Footer from "/components/Global/Footer";
 import { documentosNecesarios } from "./utils/dataDocumentos";
 import axios from "axios";
 import Router from "next/router";
-import { DASHSTUDENT } from "../constants";
+import { DASHSTUDENT, DOCS, INITIAL } from "../constants";
 const DocumentosObligatorios = () => {
   const [clicBox, setClicBox] = useState(
     new Array(documentosNecesarios.length).fill(false)
   );
+  const [error, setError] = useState();
   const [idEstudiante, setIdEstudiante] = useState();
   useEffect(() => {
-    setIdEstudiante(localStorage.getItem("idU"));
-  }, [idEstudiante]);
+    const getSessionStorage = async () => {
+      setIdEstudiante(JSON.parse(sessionStorage.getItem("idU")));
+    }
+    getSessionStorage()
+  }, []);
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const re = await axios.post(
-      "http://localhost:3000/api/estudiante/docs-solicitados",
-      { docs: clicBox, idEstudiante }
-    );
-    console.log(re);
+    const validateChecks = clicBox.filter((item) => item === false);
+    console.log(validateChecks.includes(false) && validateChecks.length > 1)
+    if (!(validateChecks.includes(false) && validateChecks.length > 1)) {
+      setError("");
+      try {
+        await axios.post(
+          INITIAL+DOCS,
+          { docs: clicBox, idEstudiante: idEstudiante.id || ''}
+        );
+      } catch (err) {
+        console.log(err)
+        setError("Error en el Servidor");
+      }
+    } else {
+      setError(
+        "Debes marcar los documentos que haz proporcionado a tu institución"
+      );
+    }
   };
 
   const handleChange = (position) => {
@@ -32,14 +49,14 @@ const DocumentosObligatorios = () => {
   };
 
   const handleCancel = (e) => {
-    e.preventDefault()
-    Router.push(DASHSTUDENT)
-  }
+    e.preventDefault();
+    Router.push(DASHSTUDENT);
+  };
   return (
     <>
       <Navigation actState="session" />
-      <Layout data={{ title: `Documentos Obligatorios` }}>
-        <div className="mb-10">
+      <Layout data={{ title: `Documentación Necesaria` }}>
+        <div className="mb-10 text-base">
           <p className="pb-4 text-gray-800">
             Selecciona la documentación con la que cuentas actualmente
           </p>
@@ -54,6 +71,7 @@ const DocumentosObligatorios = () => {
                   style={{ listStyle: "none" }}
                   className="col-span-1 divide-y mt-4 divide-gray-200 rounded bg-white shadow
               px-4 py-4
+              my-2
               "
                 >
                   <div className="flex-1 truncate py-4">
@@ -86,12 +104,22 @@ const DocumentosObligatorios = () => {
                   </div> */}
                 </li>
               ))}
+              {error ? (
+                <div className="text-sm p-2 bg-red-200 rounded text-red-900">
+                  <p>{error}</p>
+                </div>
+              ) : (
+                ""
+              )}
             </ul>
             <div className="mt-4">
               <button className="w-full sm:w-36 bg-green-600 py-2 px-5 rounded text-gray-50 ">
                 Enviar
               </button>
-              <button onClick={handleCancel} className="w-full sm:w-36 mt-4 sm:mt-0 bg-red-600 ml-0 sm:ml-2 py-2 px-5 rounded text-gray-50 ">
+              <button
+                onClick={handleCancel}
+                className="w-full sm:w-36 mt-2 sm:mt-0 bg-red-500 ml-0 sm:ml-2 py-2 px-5 rounded text-gray-50 "
+              >
                 Cancelar
               </button>
             </div>
