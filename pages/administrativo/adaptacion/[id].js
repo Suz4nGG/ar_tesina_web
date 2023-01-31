@@ -21,6 +21,7 @@ import TextArea from "../../estudiante/components/TextArea";
 import Select from "react-select";
 import { statesPersonal, dataProfesores } from "../../data";
 import Contrato from "../components/Contrato";
+import { Adaptacion } from "../../../components/pdf/Adaptacion";
 
 const Box = ({
   title,
@@ -48,16 +49,18 @@ const Box = ({
       <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 break-words">
         <dt className="text-sm font-medium text-gray-600">{title}</dt>
         <dd className="mt-1 flex text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-          <span className="flex-grow truncate" style={{ whiteSpace: "pre" }}>
+          <span className="flex-grow text-ellipsis overflow-auto" style={{ whiteSpace: "normal" }}>
             {array
-              ? description.map(item => (
-                <p key={item.doc}>
-                  {item.doc.split(':')[1] === '1' ? item.doc.split(':')[0]: ''}
-                </p>
-              ))
-              : (title === "Estado" && changeState
+              ? description.map((item) => (
+                  <p key={item.doc}>
+                    {item.doc.split(":")[1] === "1"
+                      ? item.doc.split(":")[0]
+                      : ""}
+                  </p>
+                ))
+              : title === "Estado" && changeState
               ? changeState
-              : description)}
+              : description}
           </span>
         </dd>
       </div>
@@ -65,11 +68,11 @@ const Box = ({
         {btnText ? (
           <div className="">
             <div className="">
-              <p className="flex text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+              <div className="flex flex-col text-sm text-gray-900 sm:col-span-2 sm:mt-0">
                 {getComentarios === undefined
-                  ? comentarioRecuperado
-                  : getComentarios}
-              </p>
+                  ? <p>{comentarioRecuperado}</p>
+                  : <><p className="text-gray-700">Nuevo Mensaje</p><p>{getComentarios}</p></>}
+              </div>
             </div>
             <form onSubmit={handleSubmit}>
               <TextArea
@@ -124,10 +127,10 @@ const Id = ({ data, infoUser, comentarioRecuperado, docs }) => {
       description: dateParse(createdAt),
     },
     {
-      title: "Documentos entregados",
+      title: "Documentos con los que cuenta",
       description: [
-        { "doc": `Certificado Médico:${docs.certificadoMedico}` },
-        { "doc": `Comprobante De Estudios:${docs.comprobanteEstudios}` },
+        { doc: `Certificado Médico:${docs.certificadoMedico}` },
+        { doc: `Comprobante De Estudios:${docs.comprobanteEstudios}` },
       ],
       array: true,
     },
@@ -141,6 +144,7 @@ const Id = ({ data, infoUser, comentarioRecuperado, docs }) => {
   const router = useRouter();
   const downloadPDF = () => {
     const prev = true;
+    setShowContrato(!contrato);
     createPDF(data, infoUser, prev);
   };
   const previewPDF = () => {
@@ -245,7 +249,7 @@ const Id = ({ data, infoUser, comentarioRecuperado, docs }) => {
                 Adaptación curricular del estudiante
               </dt>
               <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                <ul
+                {/* <ul
                   role="list"
                   className="divide-y divide-gray-200 rounded-md border border-gray-200"
                 >
@@ -268,24 +272,30 @@ const Id = ({ data, infoUser, comentarioRecuperado, docs }) => {
                         onClick={downloadPDF}
                         className="rounded-md bg-white font-medium text-green-600 hover:text-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 px-3 py-2"
                       >
-                        Descargar
+                        Visualizar
                       </button>
                     </div>
                   </li>
-                </ul>
+                </ul> */}
               </dd>
               <dd className="mt-1 mb-2 text-gray-900 sm:col-span-2 sm:mt-0">
                 <button
                   onClick={showContrato}
-                  className="rounded-md bg-green-600 mt-4 px-4 py-3 font-medium text-white hover:bg-green-700 focus:outline-none"
+                  className="rounded-md bg-blue-600 mt-4 px-4 py-3 font-medium text-white hover:bg-blue-700 focus:outline-none"
                 >
-                  {contrato ? "Cerrar contrato" : "Vista previa del contrato"}
+                  {contrato ? "Cerrar contrato" : "Vista previa de la solicitud"}
                 </button>
               </dd>
             </div>
           </dl>
           <dl className="divide-y divide-gray-200">
-            {contrato ? <Contrato /> : ""}
+            {contrato ? (
+              <div className="w-full h-screen">
+                <Adaptacion dataS={data} dataSol={infoUser} />
+              </div>
+            ) : (
+              ""
+            )}
           </dl>
         </div>
         <Footer />
