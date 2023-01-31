@@ -13,25 +13,27 @@ const DocumentosObligatorios = () => {
   );
   const [error, setError] = useState();
   const [idEstudiante, setIdEstudiante] = useState();
+  const [message, setMessage] = useState();
   useEffect(() => {
     const getSessionStorage = async () => {
       setIdEstudiante(JSON.parse(sessionStorage.getItem("idU")));
-    }
-    getSessionStorage()
+    };
+    getSessionStorage();
   }, []);
   const handleSubmit = async (e) => {
     e.preventDefault();
     const validateChecks = clicBox.filter((item) => item === false);
-    console.log(validateChecks.includes(false) && validateChecks.length > 1)
+    console.log(validateChecks.includes(false) && validateChecks.length > 1);
     if (!(validateChecks.includes(false) && validateChecks.length > 1)) {
       setError("");
       try {
-        await axios.post(
-          INITIAL+DOCS,
-          { docs: clicBox, idEstudiante: idEstudiante.id || ''}
-        );
+        await axios.post(INITIAL + DOCS, {
+          docs: clicBox,
+          idEstudiante: idEstudiante.id || "",
+        });
+        setMessage("Datos almacenados correctamente");
       } catch (err) {
-        console.log(err)
+        console.log(err);
         setError("Error en el Servidor");
       }
     } else {
@@ -77,10 +79,10 @@ const DocumentosObligatorios = () => {
                   <div className="flex-1 truncate py-4">
                     <div className="flex items-center space-x-3">
                       <CheckBox
-                          name={item.name}
-                          value={item.value}
-                          handleChange={() => handleChange(index, item.name)}
-                          col="mt-0"
+                        name={item.name}
+                        value={item.value}
+                        handleChange={() => handleChange(index, item.name)}
+                        col="mt-0"
                       />
                       <h3 className="truncate text-sm font-medium text-gray-900">
                         {item.title}
@@ -90,23 +92,15 @@ const DocumentosObligatorios = () => {
                       </span>
                     </div>
                   </div>
-                  {/* <div>
-                    <div className="flex w-0 flex-1">
-                      <div className="relative inline-flex w-0 flex-1 rounded-bl-lg border border-transparent py-4 text-sm font-medium text-gray-700 hover:text-gray-500">
-                        <CheckBox
-                          text=""
-                          name={item.name}
-                          value={item.value}
-                          handleChange={() => handleChange(index, item.name)}
-                        />
-                      </div>
-                    </div>
-                  </div> */}
                 </li>
               ))}
               {error ? (
-                <div className="text-sm p-2 bg-red-200 rounded text-red-900">
+                <div className="text-sm px-2 py-4 bg-red-200 rounded text-red-900">
                   <p>{error}</p>
+                </div>
+              ) : message ? (
+                <div className="text-sm px-2 py-4 bg-green-200 rounded text-green-900">
+                  <p>{message}</p>
                 </div>
               ) : (
                 ""
