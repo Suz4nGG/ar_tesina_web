@@ -8,10 +8,11 @@ import {
   INITIAL,
   CHANGESTATE,
   GETCOMENTARIOS,
+  GETDOCS,
 } from "../../constants";
 import { dateParse, normalizeText } from "../../registro/validations";
 import { states } from "../../data";
-import Router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { createPDF } from "../../../hooks/createPDF";
 import Footer from "/components/Global/Footer";
@@ -29,6 +30,7 @@ const Box = ({
   id,
   changeState,
   comentarioRecuperado,
+  array,
 }) => {
   const [comentarios, setComentarios] = useState({ idSolicitud: id });
   const [getComentarios, setGetComentarios] = useState();
@@ -47,7 +49,15 @@ const Box = ({
         <dt className="text-sm font-medium text-gray-600">{title}</dt>
         <dd className="mt-1 flex text-sm text-gray-900 sm:col-span-2 sm:mt-0">
           <span className="flex-grow truncate" style={{ whiteSpace: "pre" }}>
-            {title === "Estado" && changeState ? changeState : description}
+            {array
+              ? description.map(item => (
+                <p key={item.doc}>
+                  {item.doc.split(':')[1] === '1' ? item.doc.split(':')[0]: ''}
+                </p>
+              ))
+              : (title === "Estado" && changeState
+              ? changeState
+              : description)}
           </span>
         </dd>
       </div>
@@ -81,7 +91,7 @@ const Box = ({
   );
 };
 
-const Id = ({ data, infoUser, comentarioRecuperado }) => {
+const Id = ({ data, infoUser, comentarioRecuperado, docs }) => {
   const { idSolicitud, experienciaR, createdAt, estadoSolicitud } = data;
   // ! Estado de la solicitud
   const stateSol = states.find((item) => item[estadoSolicitud]);
@@ -112,6 +122,14 @@ const Id = ({ data, infoUser, comentarioRecuperado }) => {
     {
       title: "Creación",
       description: dateParse(createdAt),
+    },
+    {
+      title: "Documentos entregados",
+      description: [
+        { "doc": `Certificado Médico:${docs.certificadoMedico}` },
+        { "doc": `Comprobante De Estudios:${docs.comprobanteEstudios}` },
+      ],
+      array: true,
     },
     {
       title: "Mensajes Previos",
@@ -219,6 +237,7 @@ const Id = ({ data, infoUser, comentarioRecuperado }) => {
                 id={router.query.id}
                 changeState={nuevoEstado}
                 comentarioRecuperado={item.comentarioRec}
+                array={item.array}
               />
             ))}
             <div className="py-4 sm:grid sm:grid-cols-2 sm:gap-4 sm:py-5">
@@ -237,7 +256,10 @@ const Id = ({ data, infoUser, comentarioRecuperado }) => {
                         aria-hidden="true"
                       />
                       <span className="ml-2 w-0 flex-1 truncate">
-                        adaptacion_curricular_nombre.pdf
+                        {`AC_${infoUser.nombreCompleto}`
+                          .toLowerCase()
+                          .split(" ")
+                          .join("_")}
                       </span>
                     </div>
                     <div className="ml-4 flex flex-shrink-0 space-x-4">
@@ -257,7 +279,7 @@ const Id = ({ data, infoUser, comentarioRecuperado }) => {
                   onClick={showContrato}
                   className="rounded-md bg-green-600 mt-4 px-4 py-3 font-medium text-white hover:bg-green-700 focus:outline-none"
                 >
-                  {contrato ? "Cerrar contrato" : "Realizar contrato"}
+                  {contrato ? "Cerrar contrato" : "Vista previa del contrato"}
                 </button>
               </dd>
             </div>
@@ -285,8 +307,12 @@ export const getServerSideProps = async (context) => {
   const { data: comentarioRecuperado } = await axios.get(
     INITIAL + GETCOMENTARIOS + context.query.id
   );
+  // * Documentación
+  const { data: docs } = await axios.post(INITIAL + GETDOCS, {
+    idEstudiante: infoUser.id,
+  });
   return {
-    props: { data, infoUser, comentarioRecuperado },
+    props: { data, infoUser, comentarioRecuperado, docs },
   };
 };
 export default Id;

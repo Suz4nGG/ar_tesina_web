@@ -2,7 +2,7 @@ import React from "react";
 import { dataProfesores, states } from "../../data";
 import { normalizeText, dateParse } from "../../registro/validations";
 import { useRouter } from "next/router";
-import { GETADAPTPERSONAL } from "../../constants";
+import { GETADAPTPERSONAL, INITIAL } from "../../constants";
 import PanelAdaptaciones from "/components/Dashboard/PanelAdaptaciones";
 
 const ShowAdaptaciones = ({
