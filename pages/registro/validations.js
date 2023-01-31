@@ -69,7 +69,6 @@ const telValidationF = (string, stringName, errors) => {
 export const validations = (data) => {
   const { nombreCompleto, tel, usernameA, password, correo } = data;
   let errors = [];
-  console.log("DD", data)
   switch (correo || nombreCompleto || tel || usernameA || password) {
     case correo:
       correoValidation(correo, "correo", errors);
