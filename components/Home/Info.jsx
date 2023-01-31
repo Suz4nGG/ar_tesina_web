@@ -3,7 +3,7 @@ import Document from "/components/icons/Document";
 import Translate from "/components/icons/Translate"
 import Clock from "/components/icons/Clock"
 import Button from "../Global/Button";
-
+import Link from "next/link";
 const infoAjustes = [
   {
     title: "Presentación de la información",
@@ -22,7 +22,7 @@ const infoAjustes = [
       "Utilizar otros sentidos para reforzar el aprendizaje mediante el uso de materiales táctiles tales como documentos tridimensionales (mapas y diagramas) y textos en relieve.",
     ],
     icon: <Document h="15" w="15" />,
-    headerColor: "bg-orange-300",
+    headerColor: "bg-orange-500",
     borderColor: "border-orange-200",
 
   },
@@ -35,7 +35,7 @@ const infoAjustes = [
       "Privilegiar los trabajos y las presentaciones orales.",
       "Considerar ayudas técnicas (Tecnológicas).",
     ],
-    headerColor: "bg-blue-300",
+    headerColor: "bg-blue-500",
     borderColor: "border-blue-200",
     icon: <Translate h="15" w="15"/>
   },
@@ -49,7 +49,7 @@ const infoAjustes = [
       "Otorgar mayor tiempo si es necesario para la realización de actividades y evaluaciones.",
       "Ofrecer tiempo adecuado para que el estudiante reconozca táctilmente los materiales con los que va a trabajar.",
     ],
-    headerColor: "bg-green-300",
+    headerColor: "bg-green-500",
     borderColor: "border-green-200",
     icon: <Clock h="15" w="15" />,
 
@@ -60,8 +60,8 @@ const ListAjustes = ({ title, info, adaptaciones, icon, headerColor, borderColor
   return (
     <li className={`col-span-1 flex flex-col bg-white mt-6 text-center divide-y divide-gray-20 rounded-md shadow-sm border ${borderColor}`}>
       <h1 className={`flex justify-center items-center h-36 flex-col ${headerColor}`}>
-        <p className="h-10 w-10 mb-4">{icon}</p>
-        <span className="text-center text-xl font-medium leading-8 tracking-tight text-gray-700 sm:text-2xl break-words px-2">
+        <p className="h-10 w-10 mb-4 text-gray-800">{icon}</p>
+        <span className="text-center text-xl font-medium leading-8 tracking-tight text-gray-800 sm:text-2xl break-words px-2">
           {title}
         </span>
       </h1>
@@ -135,12 +135,12 @@ const Info = () => {
           </ul>
         </div>
         <div className="mt-10 max-w-fit">
-          <Button
-            text="Descargar ejemplos de tipos de adaptación"
-            bg="bg-green-600 w-full"
-            textColor="text-gray-100"
-            hover="bg-green-700 mt-4"
-          />
+          <Link className="flex items-center justify-center
+        rounded px-4 py-3
+        text-base font-medium
+        shadow hover:bg-green-700 sm:px-8 w-full text-gray-100 bg-green-600 mt-4" href="/pdf/tipos_adaptaciones.pdf" download="tipos_adaptaciones.pdf" target='_blank'>
+            Descargar ejemplos de tipos de adaptación
+          </Link>
         </div>
       </div>
     </div>
