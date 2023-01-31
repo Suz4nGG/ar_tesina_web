@@ -5,8 +5,7 @@ import FormAC from "./components/FormAC";
 import { useRouter } from "next/router";
 import { ADAPSTUDENT } from "../constants";
 import Link from "next/link";
-import EjemploSolicitud from "./ejemplo-solicitud";
-import { usePageContext } from "../context/pagesContext";
+import Steps from "./components/Steps";
 
 const TEXT = `Una adaptación curricular es el conjunto de precisiones y cambios en los componentes del proyecto curricular de centro o la programación para ajustar la respuesta educativa a las necesidades educativas especiales de un alumno.`;
 
@@ -76,7 +75,7 @@ const SolicitarAdaptacion = () => {
   const [showEjemplo, setShowEjemplo] = useState(false);
 
   const router = useRouter();
-
+  console.log(router.pathname)
   const handleClick = () => {
     setShow(!show);
   };
@@ -97,20 +96,23 @@ const SolicitarAdaptacion = () => {
         {router.query.id ? (
           <FormAC />
         ) : (
-          <div
-            className="h-96 grid place-content-center"
-            style={{
-              display: show ? "none" : "grid",
-            }}
-          >
-            <AlertBox
-              title="¿Qué es una adaptación curricular?"
-              text={TEXT}
-              Component={Button}
-              downData={dataButtons}
-              handleClick={handleClick}
-            />
-          </div>
+          <>
+            <Steps />
+            <div
+              className="h-96 grid place-content-center"
+              style={{
+                display: show ? "none" : "grid",
+              }}
+            >
+              <AlertBox
+                title="¿Qué es una adaptación curricular?"
+                text={TEXT}
+                Component={Button}
+                downData={dataButtons}
+                handleClick={handleClick}
+              />
+            </div>
+          </>
         )}
         {show ? (
           <>
