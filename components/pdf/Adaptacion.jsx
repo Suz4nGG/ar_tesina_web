@@ -6,9 +6,14 @@ import {
   Document,
   StyleSheet,
   Font,
-  Svg,
   Image,
 } from "@react-pdf/renderer";
+
+Font.register({
+  family: 'Oswald',
+  src: 'https://fonts.gstatic.com/s/oswald/v13/Y_TKV6o8WovbUd3m_X9aAA.ttf',
+});
+
 // Create styles
 const styles = StyleSheet.create({
   section: {
@@ -21,6 +26,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+    padding: 10,
   },
   headerTable: {
     backgroundColor: "#098137",
@@ -46,6 +52,7 @@ const styles = StyleSheet.create({
     width: "100%",
     padding: 30,
     flexDirection: "column",
+    fontFamily: 'Times-Roman',
   },
   image: {
     width: "30%",
@@ -150,7 +157,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ultrices metus ma
 );
 
 export const Adaptacion = (dataS, dataSol) => {
-  // console.log("DD",carrera, correo, nombreCompleto, sobreDiscapacidad, tel, tipoDiscapacidad)
+  // console.log("DS", dataS, "DSS", dataSol)
   return (
     <PDFViewer className="w-full h-screen mt-4">
       <PDF {...dataS} {...dataSol} />
