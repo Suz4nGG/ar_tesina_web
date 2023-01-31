@@ -38,7 +38,7 @@ const FormAC = () => {
         } else {
           const res = await axios.post(SOLADAPT, {
             dataSolicitud: dataA,
-            username: dataStorage.usernameA,
+            username: dataStorage.usernameA || '',
           });
           console.log(res);
           router.push(ADAPSTUDENT);
@@ -93,9 +93,9 @@ const FormAC = () => {
         <div className="mt-4">
           <GroupForm
             name="experienciaR"
-            text="Experiencia Recepcional"
+            text="Experiencia Educativa"
             handleChange={handleChange}
-            placeholder="Experiencia Recepcional"
+            placeholder="Experiencia Educativa"
             type="text"
             value={dataA.experienciaR}
           />
@@ -113,7 +113,7 @@ const FormAC = () => {
             ""
           ) : (
             <Button
-              bg="bg-red-600 w-full ml-0 sm:ml-2"
+              bg="bg-red-500 w-full ml-0 sm:ml-2"
               textColor="text-gray-100"
               text={"Cancelar Solicitud"}
               hover="bg-red-700 mt-4"
