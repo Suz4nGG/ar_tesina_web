@@ -15,6 +15,8 @@ import { useRouter } from "next/router";
 import { createPDF } from "../../../hooks/createPDF";
 import Footer from "/components/Global/Footer";
 import { useEffect, useState } from "react";
+import { downloadPDF as pdf } from "../../../hooks/html-pdf";
+import { Adaptacion } from "../../../components/pdf/Adaptacion";
 
 const Comments = ({ comentarioRecuperado: { comentarios, createdAt } }) => {
   const date = dateParse(createdAt);
@@ -30,7 +32,11 @@ const Comments = ({ comentarioRecuperado: { comentarios, createdAt } }) => {
                   <p className="text-sm text-gray-800">{comentarios}</p>
                 </div>
                 <div className="whitespace-nowrap text-right text-sm text-green-600">
-                  <time dateTime={date}>Comentada el {date}</time>
+                  <time dateTime={date}>
+                    {date === "Invalid Date"
+                      ? "Aún no has recibido comentarios"
+                      : `Comentada el ${date}`}
+                  </time>
                 </div>
               </div>
             </div>
@@ -195,7 +201,7 @@ const Id = ({ data, comentarioRecuperado }) => {
                     <div className="ml-4 mt-4 flex flex-shrink-0 space-x-4 col-span-2">
                       <button
                         type="button"
-                        onClick={downloadPDF}
+                        // onClick={pdf}
                         className="rounded-md bg-white font-medium text-green-600 hover:text-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 px-3 py-2"
                       >
                         Descargar
@@ -213,10 +219,9 @@ const Id = ({ data, comentarioRecuperado }) => {
                 <div>
                   {/* PREVISUALIZACIÓN Renderizada por el navegador */}
                   {showPDF ? (
-                    <PrevSol
-                      data={{ data }}
-                      dataSt={dataStorage === undefined ? "" : dataStorage}
-                    />
+                    <div className="w-full h-screen">
+                      <Adaptacion dataS={dataStorage} dataSol={data} />
+                    </div>
                   ) : (
                     ""
                   )}
