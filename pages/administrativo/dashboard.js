@@ -9,13 +9,13 @@ const Dashboard = (data) => {
   const dataS = data.data;
   return (
     <>
-      <Navigation />
+      <Navigation actState="session" />
       <Layout data={{ title: `Ajustes curriculares pendientes` }}>
         <div className="mb-20">
           <div className="sm:flex sm:items-center">
             <div className="sm:flex-auto">
               <p className="text-sm text-gray-700">
-                Aqui se encuentran las adaptaciones pendientes
+                Aquí se encuentran las adaptaciones pendientes
               </p>
             </div>
           </div>
