@@ -41,7 +41,7 @@ const DocumentosObligatorios = () => {
       <Layout data={{ title: `Documentos Obligatorios` }}>
         <div className="mb-10">
           <p className="pb-4 text-gray-800">
-            Selecciona la documentación que haz proporcionado a tu institución
+            Selecciona la documentación con la que cuentas actualmente
           </p>
           <form
             className="relative rounded text-gray-500"
@@ -52,32 +52,38 @@ const DocumentosObligatorios = () => {
                 <li
                   key={item.name}
                   style={{ listStyle: "none" }}
-                  className="col-span-1 divide-y divide-gray-200 rounded bg-white shadow
+                  className="col-span-1 divide-y mt-4 divide-gray-200 rounded bg-white shadow
               px-4 py-4
               "
                 >
                   <div className="flex-1 truncate py-4">
                     <div className="flex items-center space-x-3">
+                      <CheckBox
+                          name={item.name}
+                          value={item.value}
+                          handleChange={() => handleChange(index, item.name)}
+                          col="mt-0"
+                      />
                       <h3 className="truncate text-sm font-medium text-gray-900">
                         {item.title}
                       </h3>
-                      <span className="inline-block flex-shrink-0 rounded bg-green-200 px-2 py-2 text-xs font-semibold text-green-900">
+                      <span className="flex-shrink-0 rounded bg-green-200 px-2 py-2 text-xs font-semibold text-green-900">
                         Necesario
                       </span>
                     </div>
                   </div>
-                  <div>
+                  {/* <div>
                     <div className="flex w-0 flex-1">
                       <div className="relative inline-flex w-0 flex-1 rounded-bl-lg border border-transparent py-4 text-sm font-medium text-gray-700 hover:text-gray-500">
                         <CheckBox
-                          text="Entregado"
+                          text=""
                           name={item.name}
                           value={item.value}
                           handleChange={() => handleChange(index, item.name)}
                         />
                       </div>
                     </div>
-                  </div>
+                  </div> */}
                 </li>
               ))}
             </ul>
