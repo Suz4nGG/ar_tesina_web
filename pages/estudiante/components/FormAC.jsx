@@ -7,12 +7,14 @@ import { useRouter } from "next/router";
 import { GroupForm } from "../../../components/Forms/GroupForm";
 import { dataSolicitudF, dataProfesores } from "../../data";
 import { normalizeText } from "../../registro/validations";
+import { Link, animateScroll as scroll } from "react-scroll";
 
-const FormAC = () => {
+const FormAC = ({ endSolicitud, idTopTop }) => {
   const router = useRouter();
   const [dataA, setDataA] = useState({});
   const [dataStorage, setDataStorage] = useState();
   const dataSolicitud = dataSolicitudF(dataA);
+  const [messageC, setMessageC] = useState("");
   const [errors, setErrors] = useState({
     message: "",
   });
@@ -38,15 +40,29 @@ const FormAC = () => {
         } else {
           const res = await axios.post(SOLADAPT, {
             dataSolicitud: dataA,
-            username: dataStorage.usernameA || '',
+            username: dataStorage.usernameA || "",
           });
           console.log(res);
-          router.push(ADAPSTUDENT);
+          // * Volver al inicio despues de que todo vaya bien
+          const scrollToTop = () => {
+            scroll.scrollToTop();
+          };
+          scrollToTop();
+          setErrors("");
+          setMessageC(
+            "Seras redirigido a la página 'Adaptaciones Curriculares'"
+          );
+          // ! Poner un timer para que rediriga
+          const timer = setTimeout(() => {
+            router.push(ADAPSTUDENT);
+          }, 2000)
+          return () => clearTimeout(timer);
         }
       } else {
         setErrors({ message: "* Introduce todos los campos necesarios" });
       }
     } catch (err) {
+      console.log(err);
       setErrors({ message: "Error Server" });
     }
   };
@@ -72,12 +88,18 @@ const FormAC = () => {
   }, [router.query.id]);
 
   return (
-    <div>
+    <div id="upPage">
+      {messageC ? (
+        <p className="px-4 py-4 mt-8 bg-yellow-200 rounded text-yellow-800 w-fit">
+          {messageC}
+        </p>
+      ) : (
+        ""
+      )}
       <form
         className="w-full flex flex-col justify-center pt-2 pb-12 "
         onSubmit={handleSubmit}
       >
-        <p className="text-red-600">{errors.message}</p>
         {dataSolicitud.map((item) => (
           <TextArea
             key={item.name}
@@ -100,15 +122,28 @@ const FormAC = () => {
             value={dataA.experienciaR}
           />
         </div>
+        <p className="text-red-600 mt-4">{errors.message}</p>
         <div className="block sm:flex justify-between">
-          <Button
-            bg="bg-green-600 w-full"
-            textColor="text-gray-100"
-            text={router.query.id ? "Editar" : "Guardar Solicitud"}
-            href="#"
-            hover="bg-green-700 mt-4"
+          <button
             disabled={!dataA}
-          />
+            onClick={errors.message ? null : endSolicitud}
+            className="
+              flex items-center justify-center
+              rounded px-4 py-3 mt-4
+              text-base font-medium
+              shadow hover:bg-green-700 sm:px-8
+            text-gray-100 bg-green-600 w-full"
+          >
+            {/* <Link
+            activeClass="active"
+            to={idTopTop}
+            spy={true}
+            smooth={true}
+            offset={-70}
+            duration={500}> */}
+            {router.query.id ? "Editar" : "Guardar Solicitud"}
+            {/* </Link> */}
+          </button>
           {router.query.id ? (
             ""
           ) : (

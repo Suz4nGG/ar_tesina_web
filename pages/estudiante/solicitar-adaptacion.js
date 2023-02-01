@@ -3,7 +3,7 @@ import Layout from "../../components/Global/Layout";
 import Navigation from "../../components/Global/Navigation";
 import FormAC from "./components/FormAC";
 import { useRouter } from "next/router";
-import { ADAPSTUDENT } from "../constants";
+import { ADAPSTUDENT, FORMSOL } from "../constants";
 import Link from "next/link";
 import Steps from "./components/Steps";
 
@@ -13,7 +13,7 @@ const dataButtons = [
   {
     text: "Solicitar una adaptación",
     classes: "bg-green-600 hover:bg-green-700",
-    href: "",
+    href: FORMSOL,
   },
   {
     text: "Adaptaciones realizadas",
@@ -33,12 +33,13 @@ const Button = ({ text, handleClick, classes, href }) => {
           {text}
         </Link>
       ) : (
-        <button
+        <Link
+          href={href}
           onClick={handleClick}
           className={`inline-flex items-center justify-center rounded border border-transparent px-4 py-3 font-medium text-gray-100 focus:outline-none text-sm sm:text-base ${classes}`}
         >
           {text}
-        </button>
+        </Link>
       )}
     </>
   );
@@ -72,17 +73,16 @@ const AlertBox = ({ title, text, Component, downData, handleClick }) => {
 
 const SolicitarAdaptacion = () => {
   const [show, setShow] = useState(false);
-  const [showEjemplo, setShowEjemplo] = useState(false);
-
+  const [endS, setEndS] = useState(false);
   const router = useRouter();
-  console.log(router.pathname)
   const handleClick = () => {
     setShow(!show);
   };
 
-  const handleClickEjemplo = () => {
-    setShowEjemplo(!showEjemplo);
+  const endSolicitud = (e) => {
+    setEndS(!endS);
   };
+
   return (
     <>
       <Navigation actState="session" />
@@ -97,11 +97,14 @@ const SolicitarAdaptacion = () => {
           <FormAC />
         ) : (
           <>
-              <Steps place={show} />
+            <Steps endSolicitud={endS} />
             <div
               className="h-96 grid place-content-center"
               style={{
-                display: show ? "none" : "grid",
+                display:
+                  router.pathname === "/estudiante/formulario-adaptacion"
+                    ? "none"
+                    : "grid",
               }}
             >
               <AlertBox
@@ -114,29 +117,34 @@ const SolicitarAdaptacion = () => {
             </div>
           </>
         )}
-        {show ? (
+        {router.pathname === "/estudiante/formulario-adaptacion" ? (
           <>
-            <div className="py-4">
-              <p>
-                El siguiente botón incluye un archivo PDF, el cual contiene los
-                diferentes tipos de adaptaciones que puedes solicitar, estas te
-                servirán para que puedas determinar cuál es la que necesitas
-                para tu adaptación, podrás tomar las pautas proporcionadas y
-                escribirlas en las cajas de texto de esta página.
-              </p>
-              <Link
-                className="flex items-center justify-center
+            {endS ? (
+              ""
+            ) : (
+              <div className="py-4 text-gray-600">
+                <p>
+                  El siguiente botón incluye un archivo PDF, el cual contiene
+                  los diferentes tipos de adaptaciones que puedes solicitar,
+                  estas te servirán para que puedas determinar cuál es la que
+                  necesitas para tu adaptación, podrás tomar las pautas
+                  proporcionadas y escribirlas en las cajas de texto de esta
+                  página.
+                </p>
+                <Link
+                  className="flex items-center justify-center
                 rounded px-4 py-3
                 text-base font-medium
                 shadow hover:bg-orange-700 sm:px-8 max-w-fit text-gray-100 bg-orange-600 mt-4"
-                href="/pdf/tipos_adaptaciones.pdf"
-                download="tipos_adaptaciones.pdf"
-                target="_blank"
-              >
-                Descargar ejemplos de tipos de adaptación
-              </Link>
-            </div>
-            <FormAC />
+                  href="/pdf/tipos_adaptaciones.pdf"
+                  download="tipos_adaptaciones.pdf"
+                  target="_blank"
+                >
+                  Descargar ejemplos de tipos de adaptación
+                </Link>
+              </div>
+            )}
+            <FormAC endSolicitud={endSolicitud} idTopTop="step" />
           </>
         ) : (
           ""

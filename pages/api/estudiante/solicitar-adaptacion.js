@@ -19,6 +19,7 @@ const insertData = async (req, res) => {
       username,
       ...dataSolicitud,
     });
+    console.log(result)
     return res.status(200).json({ message: "Adaptación enviada con exito" });
   } catch (err) {
     console.log(err)

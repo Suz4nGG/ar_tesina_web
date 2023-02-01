@@ -4,6 +4,7 @@ export const LOGIN = "/login"
 export const REGISTRO = "/registro/formulario"
 export const RECURSOS = "/recursos"
 export const CONTACTO = "/contacto"
+export const FORMSOL = "/estudiante/formulario-adaptacion"
 
 export const INITIAL = "http://localhost:3000/"
 export const REGISTROADMIN = "/api/registro/administrador"

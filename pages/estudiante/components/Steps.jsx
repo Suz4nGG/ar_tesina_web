@@ -1,36 +1,41 @@
 import { CheckIcon } from "@heroicons/react/outline";
-
+import { useRouter } from "next/router";
+import { useState } from "react";
+import { FORMSOL, SOLSTUDENT } from "../../constants";
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Steps({ place }) {
+export default function Steps({ endSolicitud }) {
+  const router = useRouter();
   const steps = [
     {
       id: "01",
       name: "Paso 1",
-      description: "Solicitar una adaptación",
-      href: "#",
-      status: place ? "complete" : "current",
+      description: "¿Qué es una adaptación curricular?",
+      href: SOLSTUDENT,
+      status: router.pathname === FORMSOL ? "complete" : "current",
     },
     {
       id: "02",
       name: "Paso 2",
-      description: "Contestar formulario",
-      href: "#",
-      status: place ? "current" : "complete",
+      description: "Solicitar adaptación curricular",
+      href: FORMSOL,
+      status:
+        router.pathname === SOLSTUDENT
+          ? "upcoming"
+          : "current" && (!endSolicitud ? "current" : "complete"),
     },
     {
       id: "03",
       name: "Paso 3",
-      description: "Enviar Solicitud",
+      description: "Enviar solicitud",
       href: "#",
-      status: "upcoming",
+      status: endSolicitud ? "complete" : "upcoming",
     },
   ];
-  console.log("PLCAE", place);
   return (
-    <div className="lg:border-t lg:border-b lg:border-gray-200">
+    <div className="lg:border-t lg:border-b lg:border-gray-200" id="step">
       <nav
         className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"
         aria-label="Progress"
