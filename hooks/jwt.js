@@ -1,15 +1,15 @@
 import { sign } from "jsonwebtoken";
 import { serialize } from "cookie";
-import { TOKENJWT } from "../pages/constants";
+import { TOKENJWT } from "/constants";
 const SECRET = process.env.SECRET;
 
 export default function generateToken(data) {
-  const { username } = data;
+  const { usernameA } = data;
   // ! Establecemos el JWT
   const token = sign(
     {
       exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 30,
-      username,
+      usernameA,
     },
     SECRET
   );

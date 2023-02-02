@@ -1,11 +1,10 @@
-import Navigation from "../../components/Global/Navigation";
+import Navigation from "/components/Global/Navigation";
 import { useRouter } from "next/router";
-import { actions } from "../data";
-import Layout from "../../components/Global/Layout";
-import Footer from "../../components/Global/Footer";
-import { usePageContext } from "../context/pagesContext";
-import ArrowRedirect from "../../components/icons/ArrowRedirect";
-import { APISTUDENT } from "../constants";
+import { actions } from "/data";
+import Layout from "/components/Global/Layout";
+import Footer from "/components/Global/Footer";
+import ArrowRedirect from "/components/icons/ArrowRedirect";
+import { APISTUDENT } from "/constants";
 import axios from "axios";
 import { useEffect } from "react";
 
@@ -14,20 +13,46 @@ function classNames(...classes) {
 }
 
 const Dashboard = ({
-  username,
+  usernameA,
   nombreCompleto,
+  id,
+  tel,
+  tipoDiscapacidad,
+  sobreDiscapacidad,
+  carrera,
+  correo,
 }) => {
-  // const { contextValue, getID } = usePageContext();
-  // useEffect(() => {
-  //   const idVal = contextValue.find(item => item.id)
-  //   !idVal && getID({ username });
-  // }, [username]);
+  // * Guardar usuario localStorage
+  useEffect(() => {
+    sessionStorage.setItem(
+      "idU",
+      JSON.stringify({
+        usernameA,
+        nombreCompleto,
+        id,
+        tel,
+        tipoDiscapacidad,
+        sobreDiscapacidad,
+        carrera,
+        correo,
+      })
+    );
+  }, [
+    id,
+    carrera,
+    correo,
+    nombreCompleto,
+    sobreDiscapacidad,
+    tel,
+    tipoDiscapacidad,
+    usernameA,
+  ]);
   const router = useRouter();
   return (
     <>
       <Navigation actState="session" />
-      <Layout data={{ title: `Bienvenido(a) ${username}` }}>
-        <div className="divide-y divide-gray-200 overflow-hidden rounded-lg bg-gray-200 shadow sm:grid sm:grid-cols-2 sm:gap-px sm:divide-y-0 my-4">
+      <Layout data={{ title: `Portal de Ajustes Curriculares` }}>
+        <div className="divide-y divide-gray-200 overflow-hidden rounded-lg bg-gray-200 shadow sm:grid sm:grid-cols-2 sm:gap-px sm:divide-y-0 my-4 mb-10">
           {actions.map((action, actionIdx) => (
             <div
               key={action.title}
@@ -46,8 +71,8 @@ const Dashboard = ({
               <div>
                 <span
                   className={classNames(
-                    action.iconBackground,
-                    action.iconForeground,
+                    action.iconBack,
+                    action.iconText,
                     "rounded-lg inline-flex p-3 ring-4 ring-white"
                   )}
                 >
@@ -88,40 +113,34 @@ export async function getServerSideProps(context) {
   const { data } = await axios.post(APISTUDENT, {
     authTokenUser,
   });
-  const {
-    username,
-    nombreCompleto,
-    nombreResponsable,
-    fecNacimiento,
-    edad,
-    tel,
-    ciudad,
-    cp,
-    municipio,
-    tipoDiscapacidad,
-    sobreDiscapacidad,
-    carrera,
-    adaptaciones,
-    tiempoDisc,
-  } = data[0];
-  return {
-    props: {
-      username,
+  try {
+    const {
+      id,
+      usernameA,
       nombreCompleto,
-      nombreResponsable,
-      fecNacimiento,
-      edad,
       tel,
-      ciudad,
-      cp,
-      municipio,
       tipoDiscapacidad,
       sobreDiscapacidad,
       carrera,
-      adaptaciones,
-      tiempoDisc,
-    },
-  };
+      correo,
+    } = data;
+    return {
+      props: {
+        id,
+        usernameA,
+        nombreCompleto,
+        tel,
+        tipoDiscapacidad,
+        sobreDiscapacidad,
+        carrera,
+        correo,
+      },
+    };
+  } catch (err) {
+    return {
+      props: {},
+    };
+  }
 }
 
 export default Dashboard;

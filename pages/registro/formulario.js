@@ -1,10 +1,9 @@
-import PageTitle from "/components/Global/PageTitle.jsx";
-import { PageProvider } from "../context/pagesContext";
-import FormRegister from "./components/FormRegister";
+import PageTitle from "../../components/Global/PageTitle"
+import FormRegister from "../../components/Registro/components/FormRegister";
 import Navigation from "../../components/Global/Navigation";
 const FormularioRegistroTemplate = () => {
   return (
-    <PageProvider>
+    <>
       <Navigation />
       <div
         className="
@@ -17,7 +16,7 @@ const FormularioRegistroTemplate = () => {
         />
         <FormRegister />
       </div>
-    </PageProvider>
+    </>
   );
 };
 

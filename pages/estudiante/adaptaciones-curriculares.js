@@ -1,9 +1,9 @@
 import axios from "axios";
 import React from "react";
-import Layout from "../../components/Global/Layout";
-import Navigation from "../../components/Global/Navigation";
-import { SOLADAPT, APISTUDENT } from "../constants";
-import ShowAdaptaciones from "./components/ShowAdaptaciones";
+import Layout from "components/Global/Layout";
+import Navigation from "components/Global/Navigation";
+import ShowAdaptaciones from "components/Estudiante/components/ShowAdaptaciones";
+import Footer from "components/Global/Footer"
 
 const AdaptacionesCurriculares = (adaptaciones) => {
   const data = adaptaciones.adaptaciones;
@@ -11,7 +11,7 @@ const AdaptacionesCurriculares = (adaptaciones) => {
     <>
       <Navigation actState="session" />
       <Layout data={{ title: "Adaptaciones curriculares" }}>
-        <div className="">
+        <div className="mb-8">
           <div className="sm:flex sm:items-center">
             <div className="sm:flex-auto">
               <p className="mt-2 text-sm text-gray-700">
@@ -35,6 +35,7 @@ const AdaptacionesCurriculares = (adaptaciones) => {
             />
           ))}
         </div>
+        <Footer/>
       </Layout>
     </>
   );
@@ -42,21 +43,28 @@ const AdaptacionesCurriculares = (adaptaciones) => {
 
 export async function getServerSideProps(context) {
   const { authTokenUser } = context.req.cookies;
-  let headers = {
-    "Content-Type": "application/json",
-    Authorization: "Bearer " + authTokenUser,
-  };
-  const { data: adaptaciones } = await axios.get(
-    "http://localhost:3000/api/estudiante/solicitar-adaptacion",
-    {
-      headers,
-    }
-  );
-  return {
-    props: {
-      adaptaciones,
-    },
-  };
+  try {
+    let headers = {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + authTokenUser,
+    };
+    const { data: adaptaciones } = await axios.get(
+      "http://localhost:3000/api/estudiante/solicitar-adaptacion",
+      {
+        headers,
+      }
+    );
+    return {
+      props: {
+        adaptaciones,
+      },
+    };
+  } catch (err) {
+    console.log(err)
+    return {
+      props: {},
+    };
+  }
 }
 
 export default AdaptacionesCurriculares;

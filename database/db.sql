@@ -4,21 +4,14 @@ USE ar_data;
 
 CREATE TABLE estudiantes (
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  username VARCHAR(5) NOT NULL,
+  usernameA VARCHAR(5) NOT NULL,
   passwordU VARCHAR(400) NOT NULL,
   nombreCompleto VARCHAR(200) NOT NULL,
-  nombreResponsable VARCHAR(200) NOT NULL,
-  fecNacimiento DATE NOT NULL,
-  edad INT NOT NULL,
+  correo VARCHAR(400) NOT NULL,
   tel VARCHAR(10) NOT NULL,
-  ciudad VARCHAR(30) NOT NULL,
-  cp VARCHAR(5) NOT NULL,
-  municipio VARCHAR(100) NOT NULL,
-  tipoDiscapacidad VARCHAR(100) NOT NULL,
-  sobreDiscapacidad VARCHAR(100) NOT NULL,
   carrera VARCHAR(100) NOT NULL,
-  adaptaciones VARCHAR(100) NOT NULL,
-  tiempoDisc VARCHAR(20) NOT NULL,
+  tipoDiscapacidad VARCHAR(300) NOT NULL,
+  sobreDiscapacidad VARCHAR(400) NOT NULL,
   createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -35,5 +28,27 @@ CREATE TABLE solicitudAdaptacion (
   createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-DROP TABLE solicitudAdaptacion;
+CREATE TABLE personalAdministrativo (
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  usernameP VARCHAR(5) NOT NULL,
+  passwordP VARCHAR(400) NOT NULL,
+  nombreCompleto VARCHAR(200) NOT NULL,
+  edad INT NOT NULL,
+  tel VARCHAR(10) NOT NULL,
+  createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE comentarioSolicitud (
+  idSolicitud INT NOT NULL PRIMARY KEY,
+  comentarios VARCHAR(400),
+  createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE documentosEntregados (
+  idEstudiante INT NOT NULL PRIMARY KEY,
+  certificadoMedico Boolean,
+  comprobanteEstudios Boolean,
+  createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 DESCRIBE estudiantes solicitudAdaptacion;

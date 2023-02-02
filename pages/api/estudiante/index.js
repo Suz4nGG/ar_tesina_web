@@ -13,10 +13,10 @@ const validateTK = async (req, res) => {
   const { authTokenUser } = req.body
   const username = validateToken(authTokenUser)
   const [result] = await pool.query(
-      "SELECT * FROM estudiantes WHERE username = ?",
+      "SELECT * FROM estudiantes WHERE usernameA = ?",
       [username]
-    );
+  );
       return res.json(
-      result
+      result[0]
     );
 }

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { jwtVerify } from "jose";
-import { TOKENJWT } from "./pages/constants";
+import { TOKENJWT } from "constants";
 const SECRET = process.env.SECRET
 
 export async function middleware(request) {
@@ -15,5 +15,5 @@ export async function middleware(request) {
 }
 
 export const config = {
-  matcher: ["/estudiante/:path*",],
+  matcher: ["/estudiante/:path*","/administrativo/:path*"],
 };

@@ -8,18 +8,13 @@ const logos = [
   {
     name: "Cendhiu2", src: Cendhiu, alt: "Centro para el desarrollo humano intregral de los universitarios"
   },
-  {
-    name: "Cendhiu3", src: Cendhiu, alt: "Centro para el desarrollo humano intregral de los universitarios"
-  },
-  {
-    name: "Cendhiu4", src: Cendhiu, alt: "Centro para el desarrollo humano intregral de los universitarios"
-  }
+
 ]
 
 const Logos = () => {
   return (
-    <div className="mx-auto w-full py-16 px-4 sm:px-6 lg:px-8 bg-white">
-      <div className="mx-auto max-w-prose px-4 sm:px-6 lg:px-8">
+    <div className="mx-auto w-full py-4 px-4 sm:px-6 lg:px-8 bg-white">
+      <div className="mx-auto max-w-prose px-4 sm:px-6 lg:px-8 border-t-2 py-4 border-grey-200">
         <h2>
           <span className="block text-center text-2xl font-medium leading-8 tracking-tight text-gray-800 sm:text-3xl break-words">
               CENTROS DE AYUDA AL ESTUDIANTE EN LA UNIVERSIDAD VERACRUZANA

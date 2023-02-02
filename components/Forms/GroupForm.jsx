@@ -4,7 +4,7 @@ export const GroupForm = ({
   name,
   text,
   type,
-  value = '',
+  value,
   colSM = "1",
   colQuery,
   placeholder,
@@ -48,7 +48,7 @@ export const GroupForm = ({
             err.split(":")[0] === name && err.split(':')[0] === event ? (
               <p key={err.split(":")[1]}>{err.split(":")[1]}</p>
             ) : (
-              ""
+              ''
             )
             )
           : ''

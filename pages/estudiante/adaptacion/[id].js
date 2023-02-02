@@ -2,42 +2,80 @@ import axios from "axios";
 import Navigation from "/components/Global/Navigation.jsx";
 import Layout from "/components/Global/Layout.jsx";
 import { PaperClipIcon } from "@heroicons/react/solid";
-import { APISTUDENT,EDITADAPT } from "../../constants";
-import { useState } from "react";
-import { dateParse } from "../../registro/validations";
-import { states } from "../../data";
+import {
+  APISTUDENT,
+  EDITADAPT,
+  INITIAL,
+  GETCOMENTARIOS,
+} from "/constants";
+import { dateParse } from "validations";
+import { states } from "data";
 import { useRouter } from "next/router";
+import { createPDF } from "/hooks/createPDF";
+import Footer from "/components/Global/Footer";
+import { useEffect, useState } from "react";
+// import { Adaptacion } from "/components/pdf/Adaptacion";
 
-const Box = ({ title, description, btnText }) => {
-  // if (description.split("\n")) {
-  //   console.log(description.split("\n").length)
-  // }
+const Comments = ({ comentarioRecuperado: { comentarios, createdAt } }) => {
+  const date = dateParse(createdAt);
   return (
-    <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
-      <dt className="text-sm font-medium text-gray-500">{title}</dt>
-      <dd className="mt-1 flex text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-        <span className="flex-grow truncate" style={{ whiteSpace: "pre" }}>{description}</span>
-        <span className="ml-4 flex-shrink-0">
-          {btnText ? (
-            <button
-              type="button"
-              className="rounded-md bg-blue-600 px-4 py-2 font-medium text-white hover:bg-blue-700 focus:outline-none"
-            >
-              Editar
-            </button>
-          ) : (
-            ""
-          )}
-        </span>
-      </dd>
+    <div className="flow-root w-full">
+      <span className="text-blue-500">Comentarios</span>
+      <ul role="list" className="-mb-8">
+        <li>
+          <div className="relative pb-8">
+            <div className="relative flex space-x-3">
+              <div className="flex justify-between min-w-0 flex-1 space-x-4 pt-1.5">
+                <div>
+                  <p className="text-sm text-gray-800">{comentarios}</p>
+                </div>
+              </div>
+            </div>
+            <div className="whitespace-nowrap text-right text-sm text-green-600">
+                  <time dateTime={date}>
+                    {date === "Invalid Date"
+                      ? "Aún no has recibido comentarios"
+                      : `Comentada el ${date}`}
+                  </time>
+                </div>
+          </div>
+        </li>
+      </ul>
     </div>
   );
 };
 
-const Id = ({ data }) => {
+const Box = ({ title, description, btnText, comentarioRecuperado }) => {
+  return (
+    <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
+      <dt className="text-sm font-medium text-gray-500">{title}</dt>
+      <dd className="mt-1 flex text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+        <span className="flex-grow truncate" style={{ whiteSpace: "pre" }}>
+          {description}
+        </span>
+      </dd>
+      <span className="flex-shrink-0">
+        {btnText && comentarioRecuperado ? (
+          <div className="">
+            <h3 className="text-sm font-medium text-green-700 mt-4">
+              Comentario
+            </h3>
+            <p className="mt-1 flex text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+              {comentarioRecuperado}
+            </p>
+          </div>
+        ) : (
+          ""
+        )}
+      </span>
+    </div>
+  );
+};
+
+const Id = ({ data, comentarioRecuperado }) => {
+  const [dataStorage, setDataStorage] = useState();
   const {
     idSolicitud,
-    username,
     informacion,
     respuesta,
     tiempoHorario,
@@ -51,11 +89,11 @@ const Id = ({ data }) => {
   const dataAdaptacion = [
     {
       title: "Estado",
-      description: stateSol[estadoSolicitud] || '',
+      description: stateSol[estadoSolicitud],
     },
     {
       title: "Experiencia Educativa",
-      description: experienciaR || '',
+      description: experienciaR || "",
     },
     {
       title: "Creación",
@@ -63,33 +101,42 @@ const Id = ({ data }) => {
     },
     {
       title: "Presentación de la información",
-      description: informacion || '',
-      btnText: true,
+      description: informacion || "",
     },
     {
       title: "Formas de respuesta",
-      description: respuesta || '',
-      btnText: true,
+      description: respuesta || "",
     },
     {
       title: "Tiempo y horario",
-      description: tiempoHorario || '',
-      btnText: true,
+      description: tiempoHorario || "",
     },
     {
       title: "Adaptaciones anteriores",
-      description: adapAnteriores || '',
-      btnText: true,
+      description: adapAnteriores || "",
     },
     {
       title: "Motivo de la solicitud",
-      description: motSolicitud || '',
+      description: motSolicitud || "",
     },
   ];
-  const {push} = useRouter()
+  console.log("DD", dataStorage)
+  // Obtener sessionStorage
+  useEffect(() => {
+    setDataStorage(JSON.parse(sessionStorage.getItem("idU")));
+  }, []);
+  const { push } = useRouter();
+  const [showPDF, setShowPDF] = useState();
   const handleClick = () => {
-    push(EDITADAPT+idSolicitud)
-  }
+    push(EDITADAPT + idSolicitud);
+  };
+  const downloadPDF = () => {
+    const prev = true;
+    const pdf = createPDF(data, dataStorage, prev);
+  };
+  const previewPDF = () => {
+    setShowPDF(!showPDF);
+  };
   return (
     <>
       <Navigation actState="session" />
@@ -99,7 +146,7 @@ const Id = ({ data }) => {
             Detalles de la solicitud
           </h3>
           <p className="mt-1 max-w-2xl text-sm text-gray-500">
-            Nombre Completo
+            {dataStorage === undefined || dataStorage === null ? "" : dataStorage.nombreCompleto}
           </p>
         </div>
         <div className="mt-5 border-t border-gray-200">
@@ -109,16 +156,21 @@ const Id = ({ data }) => {
                 key={item.title}
                 title={item.title}
                 description={item.description}
-                // btnText={item.btnText}
+                comentarioRecuperado={item.comentarioRec}
+                btnText={item.btnText}
               />
             ))}
-            <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
-              <dd className="mt-1 mb-2 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+            <div className="py-4 sm:grid sm:grid-cols-1 sm:gap-4 sm:py-5">
+              <Comments comentarioRecuperado={comentarioRecuperado} />
+            </div>
+
+            <div className="py-4 sm:grid sm:grid-cols-2 sm:gap-4 sm:py-5">
+              <dd className="text-sm text-gray-900 sm:col-span-2">
                 <button
                   onClick={handleClick}
-                  className="rounded-md bg-blue-600 px-4 py-2 font-medium text-white hover:bg-blue-700 focus:outline-none"
+                  className="rounded-md bg-blue-600 px-4 py-2 my-4 font-medium text-white hover:bg-blue-700 focus:outline-none"
                 >
-                  Editar Solicitud
+                  Editar
                 </button>
               </dd>
               <dt className="text-sm font-medium text-gray-500">Archivos</dt>
@@ -127,30 +179,57 @@ const Id = ({ data }) => {
                   role="list"
                   className="divide-y divide-gray-200 rounded-md border border-gray-200"
                 >
-                  <li className="flex items-center justify-between py-3 pl-3 pr-4 text-sm">
+                  <li
+                    className="grid grid-cols-1
+          md:grid-cols-[300px,_1fr] py-3 pl-3 pr-4 text-sm"
+                  >
                     <div className="flex w-0 flex-1 items-center">
                       <PaperClipIcon
                         className="h-5 w-5 flex-shrink-0 text-gray-400"
                         aria-hidden="true"
                       />
-                      <span className="ml-2 w-0 flex-1 truncate">
-                        adaptacion_curricular_nombre.pdf
+                      <span className="ml-2 w-0 flex-1">
+                        {dataStorage === undefined || dataStorage === null
+                          ? ""
+                          : `AC_${dataStorage.nombreCompleto}`
+                              .toLowerCase()
+                              .split(" ")
+                              .join("_")}
                       </span>
                     </div>
-                    <div className="ml-4 flex flex-shrink-0 space-x-4">
+                    <div className="ml-4 mt-4 flex flex-shrink-0 space-x-4 col-span-2">
                       <button
                         type="button"
-                        className="rounded-md bg-white font-medium text-green-600 hover:text-green-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+                        // onClick={pdf}
+                        className="rounded-md bg-white font-medium text-green-600 hover:text-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 px-3 py-2"
                       >
                         Descargar
+                      </button>
+                      <button
+                        type="button"
+                        onClick={previewPDF}
+                        className="rounded-md bg-white font-medium text-green-600 hover:text-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 px-3 py-2"
+                      >
+                        Visualizar
                       </button>
                     </div>
                   </li>
                 </ul>
+                <div>
+                  {/* PREVISUALIZACIÓN Renderizada por el navegador */}
+                  {showPDF ? (
+                    <div className="w-full h-screen">
+                      {/* <Adaptacion dataS={dataStorage} dataSol={data} /> */}
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                </div>
               </dd>
             </div>
           </dl>
         </div>
+        <Footer />
       </Layout>
     </>
   );
@@ -160,8 +239,16 @@ export const getServerSideProps = async (context) => {
   const { data } = await axios.get(
     APISTUDENT + "/adaptacion/" + context.query.id
   );
+  const { authTokenUser } = context.req.cookies;
+  const { data: infoUser } = await axios.post(APISTUDENT, {
+    authTokenUser,
+  });
+  // * Comentarios
+  const { data: comentarioRecuperado } = await axios.get(
+    INITIAL + GETCOMENTARIOS + context.query.id
+  );
   return {
-    props: { data },
+    props: { data, infoUser, comentarioRecuperado },
   };
 };
 export default Id;

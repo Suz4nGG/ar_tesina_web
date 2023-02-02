@@ -4,7 +4,6 @@ export default async function handler(req, res) {
     case "GET":
       return await getAdaptacion(req, res);
     case "DELETE":
-      // await deleteProduct(req, res);
       break;
     case "PUT":
       return await updateAdaptacion(req, res);
