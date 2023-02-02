@@ -70,8 +70,11 @@ const Dashboard = ({
             >
               <div>
                 <span
-                  className={`${action.iconBackground} ${action.iconForeground} rounded-lg inline-flex p-3 ring-4 ring-white
-                  `}
+                  className={classNames(
+                    action.iconBack,
+                    action.iconText,
+                    "rounded-lg inline-flex p-3 ring-4 ring-white"
+                  )}
                 >
                   {action.icon}
                 </span>

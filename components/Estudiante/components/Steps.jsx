@@ -38,8 +38,8 @@ export default function Steps({ endSolicitud }) {
   return (
     <div className="lg:border-t lg:border-b lg:border-gray-200" id="step">
       <nav
-        className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"
-        aria-label="Progress"
+        className="mx-auto max-w-7xl lg:px-8"
+        aria-label="Progreso"
       >
         <ol
           role="list"

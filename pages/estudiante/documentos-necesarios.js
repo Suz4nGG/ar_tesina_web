@@ -3,10 +3,11 @@ import Navigation from "components/Global/Navigation";
 import CheckBox from "components/Forms/CheckBox";
 import { useEffect, useState } from "react";
 import Footer from "components/Global/Footer";
-import { documentosNecesarios } from "data";
+import { documentosNecesarios } from "/data";
 import axios from "axios";
 import Router from "next/router";
-import { DASHSTUDENT, DOCS, INITIAL } from "constants";
+import { DASHSTUDENT, DOCS, INITIAL } from "/constants";
+
 const DocumentosObligatorios = () => {
   const [clicBox, setClicBox] = useState(
     new Array(documentosNecesarios.length).fill(false)
@@ -14,16 +15,17 @@ const DocumentosObligatorios = () => {
   const [error, setError] = useState();
   const [idEstudiante, setIdEstudiante] = useState();
   const [message, setMessage] = useState();
+
   useEffect(() => {
     const getSessionStorage = async () => {
       setIdEstudiante(JSON.parse(sessionStorage.getItem("idU")));
     };
     getSessionStorage();
   }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const validateChecks = clicBox.filter((item) => item === false);
-    console.log(validateChecks.includes(false) && validateChecks.length > 1);
     if (!(validateChecks.includes(false) && validateChecks.length > 1)) {
       setError("");
       try {
@@ -33,7 +35,6 @@ const DocumentosObligatorios = () => {
         });
         setMessage("Datos almacenados correctamente");
       } catch (err) {
-        console.log(err);
         setError("Error en el Servidor");
       }
     } else {
