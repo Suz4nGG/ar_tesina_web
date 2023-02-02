@@ -20,6 +20,8 @@ import TextArea from "components/Estudiante/components/TextArea";
 import Select from "react-select";
 import { statesPersonal, dataProfesores } from "/data";
 import { Adaptacion } from "components/pdf/Adaptacion";
+import PDFLayout from "../../../components/pdf/PDFLayout";
+import componentToPDFBuffer from "../../../lib/PDFHelper";
 
 const Box = ({
   title,
@@ -39,10 +41,9 @@ const Box = ({
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("dd", !comentarios.comentarios);
     try {
       if (!comentarios.comentarios) {
-        setMessage("Introduce un mensaje");
+        setMessage("Debes escribir un mensaje");
       } else {
         const enviarCom = await axios.post(INITIAL + COMENTARADAP, comentarios);
         setGetComentarios(enviarCom.data);
@@ -81,9 +82,9 @@ const Box = ({
       <span className=" mb-4 flex-shrink-0 w-full">
         {btnText ? (
           <div className="">
-            <div className="">
-              <div className="flex flex-col text-sm text-gray-900 sm:col-span-2 sm:mt-0 overflow-auto">
-                <div className="text-gray-700">
+            <div className="min-w-max min-h-max">
+              <div className="flex flex-col text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                <div className="text-gray-700 overflow-auto">
                   {comentarioRecuperado || (
                     <>
                       Nuevo Mensaje: <p>{getComentarios}</p>
@@ -295,7 +296,9 @@ const Id = ({ data, infoUser, comentarioRecuperado, docs }) => {
           <dl className="divide-y divide-gray-200">
             {contrato ? (
               <div className="w-full h-screen">
-                {/* <Adaptacion dataS={data} dataSol={infoUser} /> */}
+                <PDFLayout>
+                  <Adaptacion dataS={data} dataSol={infoUser} />
+                </PDFLayout>
               </div>
             ) : (
               ""
@@ -306,6 +309,15 @@ const Id = ({ data, infoUser, comentarioRecuperado, docs }) => {
       </Layout>
     </>
   );
+};
+
+export const getInitialProps = async ({ req, res, query }) => {
+  const buffer = await componentToPDFBuffer(
+    <PDFLayout>
+      <Adaptacion />
+    </PDFLayout>
+  );
+  console.log(buffer);
 };
 
 export const getServerSideProps = async (context) => {
