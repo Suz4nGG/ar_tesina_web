@@ -7,12 +7,6 @@ module.exports = {
   ],
   theme: {
     extend: {
-    colors: {
-      "pr-1": "#F5F5F5",
-      "pr-2": "#333333",
-      "pr-3": "#098137",
-      "pr-4": "#1B539E"
-    },
       screens: {
         'mo': '300px',
         'mob': '400px',

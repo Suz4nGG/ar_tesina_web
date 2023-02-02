@@ -1,9 +1,9 @@
 import axios from "axios";
 import React from "react";
-import Layout from "../../components/Global/Layout";
-import Navigation from "../../components/Global/Navigation";
-import ShowAdaptaciones from "./components/ShowAdaptaciones";
-import Footer from "/components/Global/Footer"
+import Layout from "components/Global/Layout";
+import Navigation from "components/Global/Navigation";
+import ShowAdaptaciones from "components/Estudiante/components/ShowAdaptaciones";
+import Footer from "components/Global/Footer"
 
 const AdaptacionesCurriculares = (adaptaciones) => {
   const data = adaptaciones.adaptaciones;
@@ -43,21 +43,28 @@ const AdaptacionesCurriculares = (adaptaciones) => {
 
 export async function getServerSideProps(context) {
   const { authTokenUser } = context.req.cookies;
-  let headers = {
-    "Content-Type": "application/json",
-    Authorization: "Bearer " + authTokenUser,
-  };
-  const { data: adaptaciones } = await axios.get(
-    "http://localhost:3000/api/estudiante/solicitar-adaptacion",
-    {
-      headers,
-    }
-  );
-  return {
-    props: {
-      adaptaciones,
-    },
-  };
+  try {
+    let headers = {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + authTokenUser,
+    };
+    const { data: adaptaciones } = await axios.get(
+      "http://localhost:3000/api/estudiante/solicitar-adaptacion",
+      {
+        headers,
+      }
+    );
+    return {
+      props: {
+        adaptaciones,
+      },
+    };
+  } catch (err) {
+    console.log(err)
+    return {
+      props: {},
+    };
+  }
 }
 
 export default AdaptacionesCurriculares;

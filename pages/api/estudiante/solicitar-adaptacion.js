@@ -8,6 +8,7 @@ export default async function solicitudAdaptaciones(req, res) {
     case "GET":
       const tk = req.headers.authorization.split(" ")[1]
       const usernameGet = validateToken(tk)
+      console.log(usernameGet)
       return await getData(req, res, usernameGet);
   }
 }

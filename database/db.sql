@@ -10,7 +10,7 @@ CREATE TABLE estudiantes (
   correo VARCHAR(400) NOT NULL,
   tel VARCHAR(10) NOT NULL,
   carrera VARCHAR(100) NOT NULL,
-  tipoDiscapacidad VARCHAR(100) NOT NULL,
+  tipoDiscapacidad VARCHAR(300) NOT NULL,
   sobreDiscapacidad VARCHAR(400) NOT NULL,
   createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

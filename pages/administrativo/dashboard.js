@@ -1,10 +1,10 @@
 import React from 'react';
-import Navigation from "/components/Global/Navigation";
-import Layout from '../../components/Global/Layout';
-import ShowAdaptaciones from "./components/ShowAdaptaciones";
+import Navigation from "components/Global/Navigation";
+import Layout from 'components/Global/Layout';
+import ShowAdaptaciones from "components/Administrativo/components/ShowAdaptaciones";
 import axios from 'axios';
-import { GETADAPTACIONES, INITIAL } from '../constants';
-import Footer from "/components/Global/Footer.jsx"
+import { GETADAPTACIONES, INITIAL } from '/constants';
+import Footer from "components/Global/Footer.jsx"
 const Dashboard = (data) => {
   const dataS = data.data;
   return (

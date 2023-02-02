@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Button from "../Global/Button";
 import HeroImg from "/public/uv_hero.png";
-import { LOGIN, REGISTRO } from "../../pages/constants";
+import { LOGIN, REGISTRO } from "constants";
 export default function Hero() {
   return (
     <div className="bg-white">

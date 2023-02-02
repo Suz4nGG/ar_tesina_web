@@ -6,12 +6,12 @@ import {
   primaryNavigation,
   secondaryNavigation,
   sessionNav,
-} from "../../pages/data";
+} from "../../data.js";
 import Link from "next/link";
 import Image from "next/image";
 import { Fragment, useState } from "react";
 import axios from "axios";
-import { LOGOUT } from "../../pages/constants";
+import { LOGOUT } from "/constants";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import ArrowDown from "../icons/ArrowDown";
@@ -36,11 +36,10 @@ const Navigation = ({ actState, initialData }) => {
     }
   };
   return (
-    <>
     <header>
       <Popover className="bg-transparent">
         <div
-            className="
+          className="
           bg-white
           grid
           p-5
@@ -51,7 +50,7 @@ const Navigation = ({ actState, initialData }) => {
         >
           {/* Navegación: LOGO */}
           <div className="flex items-center justify-between space-x-3">
-            <Link href="/" className="flex">
+            <Link href="/" className="flex" passHref>
               <Image
                 src={LogoUv}
                 alt="Universidad Veracruzana Logo"
@@ -290,8 +289,7 @@ const Navigation = ({ actState, initialData }) => {
           </Transition>
         </div>
       </Popover>
-      </header>
-      </>
+    </header>
   );
 };
 

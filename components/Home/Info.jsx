@@ -2,7 +2,6 @@ import React from "react";
 import Document from "/components/icons/Document";
 import Translate from "/components/icons/Translate"
 import Clock from "/components/icons/Clock"
-import Button from "../Global/Button";
 import Link from "next/link";
 const infoAjustes = [
   {

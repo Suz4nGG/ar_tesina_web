@@ -1,13 +1,12 @@
-import { Container } from "../components/Global/Container";
+import { Container } from "/components/Global/Container";
 import Image from "next/image";
 import LogoUv from "/public/universidad_veracruzana_logo.svg";
-import Button from "../components/Global/Button";
-import { REGISTRO } from "./constants";
-import { GroupForm } from "../components/Forms/GroupForm";
-import { dataAcount } from "../pages/data";
-import { validationsLogin } from "./registro/validations";
+import Button from "/components/Global/Button";
+import { GroupForm } from "/components/Forms/GroupForm";
+import { dataAcount } from "/data";
+import { validationsLogin } from "/validations";
 import { useState } from "react";
-import { LOGINAUTH, DASHSTUDENT, LOGINAUTHPERSONAL, DASHSPERSONAL } from "./constants";
+import { LOGINAUTH, DASHSTUDENT, LOGINAUTHPERSONAL, DASHSPERSONAL,REGISTRO } from "../constants";
 import axios from "axios";
 import { useRouter } from "next/router";
 /*
@@ -23,9 +22,7 @@ const Login = () => {
     usernameA: "",
     password: "",
   });
-  const [dataA, setDataA] = useState({
 
-  });
   const handleChange = ({ target: { name, value } }) => {
       setData({ ...data, [name]: value });
   };
@@ -34,7 +31,6 @@ const Login = () => {
     e.preventDefault();
     try {
       if (actual) {
-        console.log("rees", dataA);
         const resPersonal = await axios.post(LOGINAUTHPERSONAL, data);
         console.log(resPersonal);
         const { message } = resPersonal.data;

@@ -1,8 +1,8 @@
 import { jsPDF } from "jspdf";
 import { uvLogo } from "./IMAGES/LOGOUV";
-import { dateParse } from "/pages/registro/validations";
+import { dateParse } from "validations";
 import "jspdf-autotable";
-import { states } from "../pages/data";
+import { states } from "data";
 
 export const createPDF = async (data, infoUser, prev) => {
   const {

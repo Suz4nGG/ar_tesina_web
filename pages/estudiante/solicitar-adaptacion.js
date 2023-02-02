@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import Layout from "../../components/Global/Layout";
-import Navigation from "../../components/Global/Navigation";
-import FormAC from "./components/FormAC";
+import Layout from "/components/Global/Layout";
+import Navigation from "/components/Global/Navigation";
+import FormAC from "components/Estudiante/components/FormAC";
 import { useRouter } from "next/router";
-import { ADAPSTUDENT, FORMSOL } from "../constants";
+import { ADAPSTUDENT, FORMSOL } from "/constants";
 import Link from "next/link";
-import Steps from "./components/Steps";
+import Steps from "/components/Estudiante/components/Steps";
 
 const TEXT = `Una adaptación curricular es el conjunto de precisiones y cambios en los componentes del proyecto curricular de centro o la programación para ajustar la respuesta educativa a las necesidades educativas especiales de un alumno.`;
 
@@ -70,7 +70,6 @@ const AlertBox = ({ title, text, Component, downData, handleClick }) => {
     </div>
   );
 };
-
 const SolicitarAdaptacion = () => {
   const [show, setShow] = useState(false);
   const [endS, setEndS] = useState(false);

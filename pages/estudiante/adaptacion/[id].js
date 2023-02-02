@@ -2,20 +2,19 @@ import axios from "axios";
 import Navigation from "/components/Global/Navigation.jsx";
 import Layout from "/components/Global/Layout.jsx";
 import { PaperClipIcon } from "@heroicons/react/solid";
-import PrevSol from "../components/PrevSol";
 import {
   APISTUDENT,
   EDITADAPT,
   INITIAL,
   GETCOMENTARIOS,
-} from "../../constants";
-import { dateParse } from "../../registro/validations";
-import { states } from "../../data";
+} from "/constants";
+import { dateParse } from "validations";
+import { states } from "data";
 import { useRouter } from "next/router";
-import { createPDF } from "../../../hooks/createPDF";
+import { createPDF } from "/hooks/createPDF";
 import Footer from "/components/Global/Footer";
 import { useEffect, useState } from "react";
-import { Adaptacion } from "../../../components/pdf/Adaptacion";
+// import { Adaptacion } from "/components/pdf/Adaptacion";
 
 const Comments = ({ comentarioRecuperado: { comentarios, createdAt } }) => {
   const date = dateParse(createdAt);
@@ -220,7 +219,7 @@ const Id = ({ data, comentarioRecuperado }) => {
                   {/* PREVISUALIZACIÓN Renderizada por el navegador */}
                   {showPDF ? (
                     <div className="w-full h-screen">
-                      <Adaptacion dataS={dataStorage} dataSol={data} />
+                      {/* <Adaptacion dataS={dataStorage} dataSol={data} /> */}
                     </div>
                   ) : (
                     ""

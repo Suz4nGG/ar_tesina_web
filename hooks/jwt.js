@@ -1,6 +1,6 @@
 import { sign } from "jsonwebtoken";
 import { serialize } from "cookie";
-import { TOKENJWT } from "../pages/constants";
+import { TOKENJWT } from "/constants";
 const SECRET = process.env.SECRET;
 
 export default function generateToken(data) {

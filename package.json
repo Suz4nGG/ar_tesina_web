@@ -7,7 +7,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "deploy": "next build && next start"
   },
   "author": "Susana Gómez",
   "license": "ISC",
@@ -30,6 +31,7 @@
     "jspdf-autotable": "^3.5.28",
     "mysql2": "^2.3.3",
     "next": "13.0.5",
+    "pspdfkit": "^2023.1.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-dom-pseudo": "^1.1.21",

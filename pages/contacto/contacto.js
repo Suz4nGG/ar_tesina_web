@@ -1,7 +1,7 @@
 import React from 'react';
-import { Container } from '../../components/Global/Container';
-import PageTitle from "../../components/Global/PageTitle"
-import Footer from '../../components/Global/Footer';
+import { Container } from 'components/Global/Container';
+import PageTitle from "components/Global/PageTitle"
+import Footer from 'components/Global/Footer';
 
 const Contacto = () => {
   return (

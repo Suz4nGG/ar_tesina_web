@@ -1,10 +1,10 @@
-import Navigation from "../../components/Global/Navigation";
+import Navigation from "/components/Global/Navigation";
 import { useRouter } from "next/router";
-import { actions } from "../data";
-import Layout from "../../components/Global/Layout";
-import Footer from "../../components/Global/Footer";
-import ArrowRedirect from "../../components/icons/ArrowRedirect";
-import { APISTUDENT } from "../constants";
+import { actions } from "/data";
+import Layout from "/components/Global/Layout";
+import Footer from "/components/Global/Footer";
+import ArrowRedirect from "/components/icons/ArrowRedirect";
+import { APISTUDENT } from "/constants";
 import axios from "axios";
 import { useEffect } from "react";
 
@@ -37,7 +37,16 @@ const Dashboard = ({
         correo,
       })
     );
-  }, [id]);
+  }, [
+    id,
+    carrera,
+    correo,
+    nombreCompleto,
+    sobreDiscapacidad,
+    tel,
+    tipoDiscapacidad,
+    usernameA,
+  ]);
   const router = useRouter();
   return (
     <>
@@ -61,11 +70,8 @@ const Dashboard = ({
             >
               <div>
                 <span
-                  className={classNames(
-                    action.iconBackground,
-                    action.iconForeground,
-                    "rounded-lg inline-flex p-3 ring-4 ring-white"
-                  )}
+                  className={`${action.iconBackground} ${action.iconForeground} rounded-lg inline-flex p-3 ring-4 ring-white
+                  `}
                 >
                   {action.icon}
                 </span>

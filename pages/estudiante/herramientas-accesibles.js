@@ -1,8 +1,8 @@
 import Navigation from "/components/Global/Navigation";
 import Layout from "/components/Global/Layout";
-import Herramientas from "../../components/Global/Herramientas";
-import Footer from "../../components/Global/Footer";
-import {herramientasRecursos} from "/pages/recursos/data"
+import Herramientas from "/components/Global/Herramientas";
+import Footer from "/components/Global/Footer";
+import {herramientasRecursos} from "data"
 const HerramientasAccesibles = () => {
   return (
     <div>

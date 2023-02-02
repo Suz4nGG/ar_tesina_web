@@ -31,7 +31,7 @@ const Herramientas = ({ data, showTitle }) => {
             </div>
             <dl className="mt-16 grid grid-cols-1 gap-16 sm:grid-cols-2 sm:gap-x-12 lg:col-span-2 lg:mt-0">
               {item.herramientas.map((her) => (
-                <Link href={her.href} key={her.nameHerramienta} passHref target="_blank">
+                <Link href={her.href || ''} key={her.nameHerramienta} passHref target="_blank">
                 <div>
                   <dt>
                     <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-green-600 text-white">

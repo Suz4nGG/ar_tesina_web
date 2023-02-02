@@ -1,7 +1,6 @@
 import axios from "axios";
-import Navigation from "/components/Global/Navigation.jsx";
-import Layout from "/components/Global/Layout.jsx";
-import { PaperClipIcon } from "@heroicons/react/solid";
+import Navigation from "components/Global/Navigation.jsx";
+import Layout from "components/Global/Layout.jsx";
 import {
   APIPERSONAL,
   COMENTARADAP,
@@ -9,18 +8,18 @@ import {
   CHANGESTATE,
   GETCOMENTARIOS,
   GETDOCS,
-} from "../../constants";
-import { dateParse, normalizeText } from "../../registro/validations";
-import { states } from "../../data";
+} from "/constants";
+import { dateParse, normalizeText } from "/validations";
+import { states } from "/data";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { createPDF } from "../../../hooks/createPDF";
+import { createPDF } from "/hooks/createPDF";
 import Footer from "/components/Global/Footer";
 import { useState } from "react";
-import TextArea from "../../estudiante/components/TextArea";
+import TextArea from "components/Estudiante/components/TextArea";
 import Select from "react-select";
-import { statesPersonal, dataProfesores } from "../../data";
-import { Adaptacion } from "../../../components/pdf/Adaptacion";
+import { statesPersonal, dataProfesores } from "/data";
+import { Adaptacion } from "components/pdf/Adaptacion";
 
 const Box = ({
   title,
@@ -33,16 +32,32 @@ const Box = ({
   array,
 }) => {
   const [comentarios, setComentarios] = useState({ idSolicitud: id });
+  const [message, setMessage] = useState("");
   const [getComentarios, setGetComentarios] = useState();
   const handleChange = ({ target: { name, value } }) => {
-    console.log(name);
     setComentarios({ ...comentarios, [name]: value });
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const enviarCom = await axios.post(INITIAL + COMENTARADAP, comentarios);
-    setGetComentarios(enviarCom.data);
+    console.log("dd", !comentarios.comentarios);
+    try {
+      if (!comentarios.comentarios) {
+        setMessage("Introduce un mensaje");
+      } else {
+        const enviarCom = await axios.post(INITIAL + COMENTARADAP, comentarios);
+        setGetComentarios(enviarCom.data);
+        setMessage("Mensaje enviado");
+      }
+    } catch (err) {
+      setMessage("Error al enviar el mensaje");
+    }
   };
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setMessage("");
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, [comentarios]);
   return (
     <>
       <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 break-words">
@@ -68,9 +83,13 @@ const Box = ({
           <div className="">
             <div className="">
               <div className="flex flex-col text-sm text-gray-900 sm:col-span-2 sm:mt-0 overflow-auto">
-                {getComentarios === undefined
-                  ? <p>{comentarioRecuperado}</p>
-                  : <><p className="text-gray-700">Nuevo Mensaje</p><p className="text-ellipsis">{getComentarios}</p></>}
+                <div className="text-gray-700">
+                  {comentarioRecuperado || (
+                    <>
+                      Nuevo Mensaje: <p>{getComentarios}</p>
+                    </>
+                  )}
+                </div>
               </div>
             </div>
             <form onSubmit={handleSubmit}>
@@ -83,6 +102,21 @@ const Box = ({
               <button className="rounded-md bg-green-600 px-4 py-2 my-2 font-medium text-white hover:bg-green-700 focus:outline-none">
                 Enviar
               </button>
+              {message.includes("enviado") ? (
+                <div className="rounded px-2 py-4 bg-green-200 text-green-700 w-fit mb-4">
+                  <p>{message}</p>
+                </div>
+              ) : message.includes("error") ? (
+                <div className="rounded px-2 py-4 bg-red-200 text-red-700 w-fit mb-4">
+                  <p>{message}</p>
+                </div>
+              ) : message.includes("Introduce") ? (
+                <div className="rounded px-2 py-4 bg-yellow-200 text-yellow-700 w-fit mb-4">
+                  <p>{message}</p>
+                </div>
+              ) : (
+                ""
+              )}
             </form>
           </div>
         ) : (
@@ -163,7 +197,10 @@ const Id = ({ data, infoUser, comentarioRecuperado, docs }) => {
   };
   const handleChangeActualizar = async () => {
     setShowMessage(!showMessage);
-    setMessage(["El estado de la solicitud cambio"]);
+    setMessage([
+      "El estado de la solicitud cambio",
+      "text-green-700 bg-green-200",
+    ]);
 
     const res = await axios.post(INITIAL + CHANGESTATE, {
       estado,
@@ -216,9 +253,7 @@ const Id = ({ data, infoUser, comentarioRecuperado, docs }) => {
             <div>
               {showMessage ? (
                 <p
-                  className={`mt-4 text-green-700 bg-green-200 p-4 rounded ${
-                    message[1] ? message[1] : ""
-                  }`}
+                  className={`mt-4 p-4 rounded ${message[1] ? message[1] : ""}`}
                 >
                   {message[0]}
                 </p>
@@ -244,14 +279,15 @@ const Id = ({ data, infoUser, comentarioRecuperado, docs }) => {
               />
             ))}
             <div className="py-4 sm:grid sm:grid-cols-2 sm:gap-4 sm:py-5">
-              <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-              </dd>
+              <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0"></dd>
               <dd className="mt-1 mb-2 text-gray-900 sm:col-span-2 sm:mt-0">
                 <button
                   onClick={showContrato}
                   className="rounded-md bg-blue-600 mt-4 px-4 py-3 font-medium text-white hover:bg-blue-700 focus:outline-none"
                 >
-                  {contrato ? "Cerrar contrato" : "Vista previa de la solicitud"}
+                  {contrato
+                    ? "Cerrar contrato"
+                    : "Vista previa de la solicitud"}
                 </button>
               </dd>
             </div>
@@ -259,7 +295,7 @@ const Id = ({ data, infoUser, comentarioRecuperado, docs }) => {
           <dl className="divide-y divide-gray-200">
             {contrato ? (
               <div className="w-full h-screen">
-                <Adaptacion dataS={data} dataSol={infoUser} />
+                {/* <Adaptacion dataS={data} dataSol={infoUser} /> */}
               </div>
             ) : (
               ""
