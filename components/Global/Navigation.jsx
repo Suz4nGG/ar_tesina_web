@@ -4,14 +4,13 @@ import { Popover, Transition } from "@headlessui/react";
 import {
   dataNavigationSessionStudent,
   primaryNavigation,
-  secondaryNavigation,
   sessionNav,
 } from "../../data.js";
 import Link from "next/link";
 import Image from "next/image";
 import { Fragment, useState } from "react";
 import axios from "axios";
-import { LOGOUT } from "/constants";
+import { LOGOUT, LOGIN } from "/constants";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import ArrowDown from "../icons/ArrowDown";
@@ -19,6 +18,18 @@ import ArrowDown from "../icons/ArrowDown";
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
+const secondaryNavigation = [
+  {
+    name: "Contacto: (555) 412-1234",
+    href: "tel:5541251234",
+    text: "text-blue-600 text-sm font-medium hover:underline",
+  },
+  {
+    name: "Iniciar Sesión",
+    href: LOGIN,
+    text: "text-white focus:ring-4 font-medium rounded-lg text-base px-5 mt-5 mob:mt-0 w-full mob:w-auto py-2.5 text-center md:mr-0 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-blue-800",
+  },
+];
 
 const Navigation = ({ actState, initialData }) => {
   const [nav, setNav] = useState(primaryNavigation);

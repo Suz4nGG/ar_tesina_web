@@ -148,6 +148,7 @@ export const actions = [
 export const initialState = {
   username: "",
   nombreCompleto: "",
+  fecNacimiento: "",
   edad: "",
   tel: "",
   tipoDiscapacidad: "",
@@ -171,7 +172,7 @@ export const primaryNavigation = [
 ];
 
 // ! Items secondary menu
-export const secondaryNavigation = [
+const secondaryNavigation = [
   {
     name: "Contacto: (555) 412-1234",
     href: "tel:5541251234",
@@ -183,6 +184,8 @@ export const secondaryNavigation = [
     text: "text-white focus:ring-4 font-medium rounded-lg text-base px-5 mt-5 mob:mt-0 w-full mob:w-auto py-2.5 text-center md:mr-0 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-blue-800",
   },
 ];
+
+export default secondaryNavigation
 
 export const sessionNav = [{ name: "Herramientas Accesibles", href: "/" }];
 

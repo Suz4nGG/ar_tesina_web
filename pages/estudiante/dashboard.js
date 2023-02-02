@@ -1,12 +1,58 @@
 import Navigation from "/components/Global/Navigation";
 import { useRouter } from "next/router";
-import { actions } from "/data";
+// import { actions } from "/data";
 import Layout from "/components/Global/Layout";
 import Footer from "/components/Global/Footer";
 import ArrowRedirect from "/components/icons/ArrowRedirect";
 import { APISTUDENT } from "/constants";
 import axios from "axios";
 import { useEffect } from "react";
+import PaperClip from "components/icons/PaperClip";
+import AcademicCap from "components/icons/AcademicCap";
+import Document from "components/icons/Document";
+import Settings from "components/icons/Settings";
+import {
+  SOLSTUDENT,
+  ADAPSTUDENT,
+  HERRACCESS,
+  DOCREQUIRED,
+} from "constants";
+
+const actions = [
+  {
+    title: "Solicitar adaptación curricular",
+    description: "En este apartado podrás solicitar una adaptación curricular acorde a tus necesidades.",
+    href: SOLSTUDENT,
+    icon: <AcademicCap />,
+    iconText: "text-teal-700",
+    iconBack: "bg-teal-50",
+  },
+  {
+    title: "Adaptaciones curriculares ",
+    href: ADAPSTUDENT,
+    description: "En este apartado encontrarás las adaptaciones curriculares que has realizado y el estado en el que se encuentra.",
+    icon: <Settings />,
+    iconText: "text-purple-700",
+    iconBack: "bg-purple-50",
+  },
+  {
+    title: "Herramientas accesibles",
+    href: HERRACCESS,
+    description: "En este apartado encontrarás diferentes tipos de herramientas que te servirán como apoyo para tu adaptación.",
+    icon: <Document />,
+    iconText: "text-sky-700",
+    iconBack: "bg-sky-50",
+  },
+  {
+    title: "Documentación necesaria",
+    href: DOCREQUIRED,
+    description: "En este apartado seleccionarás con qué documentos cuentas para demostrar tu situación de discapacidad.",
+    icon: <PaperClip />,
+    iconText: "text-yellow-700",
+    iconBack: "bg-yellow-50",
+  },
+];
+
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
