@@ -134,7 +134,7 @@ const FormAC = ({ endSolicitud, idTopTop }) => {
               shadow hover:bg-green-700 sm:px-8
             text-gray-100 bg-green-600 w-full"
           >
-            {router.query.id ? "Editar" : "Guardar Solicitud"}
+            {router.query.id ? "Editar" : "Enviar Solicitud"}
           </button>
           {router.query.id ? (
             ""

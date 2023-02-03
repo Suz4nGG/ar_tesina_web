@@ -6,12 +6,18 @@ import { APISTUDENT, EDITADAPT, INITIAL, GETCOMENTARIOS } from "/constants";
 import { dateParse } from "validations";
 import { states } from "data";
 import { useRouter } from "next/router";
-import { createPDF } from "/hooks/createPDF";
 import Footer from "/components/Global/Footer";
 import { useEffect, useState } from "react";
 import { Adaptacion } from "/components/pdf/Adaptacion";
-import { usePDF } from "@react-pdf/renderer";
-import Link from "next/link";
+import {
+  usePDF,
+  pdf,
+  PDFDownloadLink,
+  BlobProvider,
+} from "@react-pdf/renderer";
+import { PDF } from "/components/pdf/Adaptacion";
+import dynamic from "next/dynamic";
+
 const Comments = ({ comentarioRecuperado: { comentarios, createdAt } }) => {
   const date = dateParse(createdAt);
   return (
@@ -60,7 +66,12 @@ const Box = ({ title, description, btnText, comentarioRecuperado }) => {
   );
 };
 
-const Id = ({ data, comentarioRecuperado }) => {
+/* const InvocePDF = dynamic(() => import("./pdf"), {
+  ssr: false,
+}); */
+
+const Id = ({ data, comentarioRecuperado, blob }) => {
+  const [client, setClient] = useState(false);
   const [dataStorage, setDataStorage] = useState();
   const {
     idSolicitud,
@@ -108,7 +119,6 @@ const Id = ({ data, comentarioRecuperado }) => {
       description: motSolicitud || "",
     },
   ];
-  console.log("DD", dataStorage);
   // Obtener sessionStorage
   useEffect(() => {
     setDataStorage(JSON.parse(sessionStorage.getItem("idU")));
@@ -118,23 +128,19 @@ const Id = ({ data, comentarioRecuperado }) => {
   const handleClick = () => {
     push(EDITADAPT + idSolicitud);
   };
-  const [instance, updateInstance] = usePDF({
-    document: <Adaptacion dataS={dataStorage} dataSol={data} />,
-  });
-  const handleDownloadPDF = () => {
-    if (instance.loading) {
-      return <div>Cargando</div>;
-    }
-    if (instance.error) {
-      console.log("II", instance.error);
-      return <div>Error</div>;
-    }
-    //ReactPDF.render(<Adaptacion dataS={dataStorage} dataSol={data} />);
+
+  const handleDownloadPDF = async () => {
+    const blob = await pdf(
+      <Adaptacion dataS={dataStorage} dataSol={data} />
+    ).toBlob();
+    console.log("BLOB", blob);
   };
-  console.log(instance);
   const previewPDF = () => {
     setShowPDF(!showPDF);
   };
+  useEffect(() => {
+    setClient(true);
+  }, []);
 
   return (
     <>
@@ -196,40 +202,42 @@ const Id = ({ data, comentarioRecuperado }) => {
                       </span>
                     </div>
                     <div className="ml-4 mt-4 flex flex-shrink-0 space-x-4 col-span-2">
-                      {/* <PDFDownloadLink
-                        document={
-                          <Adaptacion dataS={dataStorage} dataSol={data} />
-                        }
-                        fileName="example.pdf"
-                      >
-                        Descarga
-                      </PDFDownloadLink> */}
-                      <button
-                        type="button"
-                        onClick={handleDownloadPDF}
-                        className="rounded-md bg-white font-medium text-green-600 hover:text-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 px-3 py-2"
-                      >
-                        <Link to={instance.url}>Descargar</Link>
-                      </button>
+                      {client ? (
+                        <PDFDownloadLink
+                          document={<PDF dataS={dataStorage} dataSol={data} />}
+                          fileName={`AC_${dataStorage.nombreCompleto}`
+                            .toLowerCase()
+                            .split(" ")
+                            .join("_")}
+                        >
+                          <button
+                            type="button"
+                            className="rounded-md bg-white font-medium text-green-600 hover:text-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 px-3 py-2"
+                          >
+                            {"DESCARGAR"}
+                          </button>
+                        </PDFDownloadLink>
+                      ) : (
+                        ""
+                      )}
                       <button
                         type="button"
                         onClick={previewPDF}
                         className="hidden sm:block rounded-md bg-white font-medium text-green-600 hover:text-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 px-3 py-2"
                       >
-                        Visualizar
+                        VISUALIZAR
                       </button>
                     </div>
                   </li>
                 </ul>
                 <div>
-                  {/* PREVISUALIZACIÓN Renderizada por el navegador */}
                   {showPDF ? (
                     <div className="w-full h-screen">
                       <Adaptacion dataS={dataStorage} dataSol={data} />
                     </div>
                   ) : (
                     ""
-                  )}
+                  )}{" "}
                 </div>
               </dd>
             </div>

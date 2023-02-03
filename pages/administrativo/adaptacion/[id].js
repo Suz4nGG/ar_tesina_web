@@ -317,15 +317,6 @@ const Id = ({ data, infoUser, comentarioRecuperado, docs }) => {
   );
 };
 
-/* export const getInitialProps = async ({ req, res, query }) => {
-  const buffer = await componentToPDFBuffer(
-    <PDFLayout>
-      <Adaptacion />
-    </PDFLayout>
-  );
-  console.log(buffer);
-}; */
-
 export const getServerSideProps = async (context) => {
   // * Solicitud
   const { data } = await axios.get(APIPERSONAL + "/" + context.query.id);

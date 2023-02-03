@@ -8,6 +8,7 @@ import {
   Font,
   Image,
 } from "@react-pdf/renderer";
+import { useEffect, useState } from "react";
 
 Font.register({
   family: "Oswald",
@@ -77,7 +78,7 @@ const styles = StyleSheet.create({
 });
 
 // Create Document Component
-const PDF = ({
+export const PDF = ({
   dataS: {
     carrera,
     correo,
@@ -162,6 +163,10 @@ const PDF = ({
 );
 
 export const Adaptacion = (dataS) => {
+  const [client, setClient] = useState(false);
+  useEffect(() => {
+    setClient(true);
+  }, []);
   return (
     <PDFViewer className="w-full h-screen mt-4">
       <PDF {...dataS} />

@@ -16,12 +16,14 @@ import {
   ADAPSTUDENT,
   HERRACCESS,
   DOCREQUIRED,
-} from "constants";
+  INITIAL,
+} from "/constants";
 
 const actions = [
   {
     title: "Solicitar adaptación curricular",
-    description: "En este apartado podrás solicitar una adaptación curricular acorde a tus necesidades.",
+    description:
+      "En este apartado podrás solicitar una adaptación curricular acorde a tus necesidades.",
     href: SOLSTUDENT,
     icon: <AcademicCap />,
     iconText: "text-teal-700",
@@ -30,7 +32,8 @@ const actions = [
   {
     title: "Adaptaciones curriculares ",
     href: ADAPSTUDENT,
-    description: "En este apartado encontrarás las adaptaciones curriculares que has realizado y el estado en el que se encuentra.",
+    description:
+      "En este apartado encontrarás las adaptaciones curriculares que has realizado y el estado en el que se encuentra.",
     icon: <Settings />,
     iconText: "text-purple-700",
     iconBack: "bg-purple-50",
@@ -38,7 +41,8 @@ const actions = [
   {
     title: "Herramientas accesibles",
     href: HERRACCESS,
-    description: "En este apartado encontrarás diferentes tipos de herramientas que te servirán como apoyo para tu adaptación.",
+    description:
+      "En este apartado encontrarás diferentes tipos de herramientas que te servirán como apoyo para tu adaptación.",
     icon: <Document />,
     iconText: "text-sky-700",
     iconBack: "bg-sky-50",
@@ -46,28 +50,31 @@ const actions = [
   {
     title: "Documentación necesaria",
     href: DOCREQUIRED,
-    description: "En este apartado seleccionarás con qué documentos cuentas para demostrar tu situación de discapacidad.",
+    description:
+      "En este apartado seleccionarás con qué documentos cuentas para demostrar tu situación de discapacidad.",
     icon: <PaperClip />,
     iconText: "text-yellow-700",
     iconBack: "bg-yellow-50",
   },
 ];
 
-
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const Dashboard = ({
-  usernameA,
-  nombreCompleto,
-  id,
-  tel,
-  tipoDiscapacidad,
-  sobreDiscapacidad,
-  carrera,
-  correo,
-}) => {
+const Dashboard = (
+  {
+    usernameA,
+    nombreCompleto,
+    id,
+    tel,
+    tipoDiscapacidad,
+    sobreDiscapacidad,
+    carrera,
+    correo,
+  },
+  { errorMesage }
+) => {
   // * Guardar usuario localStorage
   useEffect(() => {
     sessionStorage.setItem(
@@ -156,7 +163,7 @@ const Dashboard = ({
 
 export async function getServerSideProps(context) {
   const { authTokenUser } = context.req.cookies;
-  const { data } = await axios.post(APISTUDENT, {
+  const { data } = await axios.post(INITIAL + APISTUDENT, {
     authTokenUser,
   });
   try {
@@ -183,8 +190,13 @@ export async function getServerSideProps(context) {
       },
     };
   } catch (err) {
+    console.log("DDD", data.message);
+    const { message } = data;
+    console.log(message);
     return {
-      props: {},
+      props: {
+        message,
+      },
     };
   }
 }
