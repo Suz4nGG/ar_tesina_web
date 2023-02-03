@@ -186,15 +186,21 @@ const Id = ({ data, infoUser, comentarioRecuperado, docs }) => {
     const pdf = createPDF({ data }, { infoUser }, prev);
   };
   const handleChangeEstados = (e) => {
-    if (e.name === "Terminada" || e.name === "Cancelada") {
-      console.log("estado", e.name);
-      setShowMessage(!showMessage);
+    try {
+      if (e.name === "Terminada" || e.name === "Cancelada") {
+        setShowMessage(!showMessage);
+        setMessage([
+          `¡ADVERTENCIA! El estado de la solicitud cambiará a '${e.name.toUpperCase()}' La solicitud dejará de ser visible`,
+          "bg-red-200 text-red-700",
+        ]);
+      }
+      setEstado({ ...estado, e });
+    } catch (err) {
       setMessage([
-        `¡ADVERTENCIA! El estado de la solicitud cambiará a '${e.name.toUpperCase()}' La solicitud dejará de ser visible`,
+        "Ha ocurrido un error al conectarse con el servidor, intente más tarde",
         "bg-red-200 text-red-700",
       ]);
     }
-    setEstado({ ...estado, e });
   };
   const handleChangeActualizar = async () => {
     setShowMessage(!showMessage);
@@ -297,7 +303,7 @@ const Id = ({ data, infoUser, comentarioRecuperado, docs }) => {
             {contrato ? (
               <div className="w-full h-screen">
                 <PDFLayout>
-                  <Adaptacion dataS={data} dataSol={infoUser} />
+                  <Adaptacion dataS={infoUser} dataSol={data} />
                 </PDFLayout>
               </div>
             ) : (
@@ -311,14 +317,14 @@ const Id = ({ data, infoUser, comentarioRecuperado, docs }) => {
   );
 };
 
-export const getInitialProps = async ({ req, res, query }) => {
+/* export const getInitialProps = async ({ req, res, query }) => {
   const buffer = await componentToPDFBuffer(
     <PDFLayout>
       <Adaptacion />
     </PDFLayout>
   );
   console.log(buffer);
-};
+}; */
 
 export const getServerSideProps = async (context) => {
   // * Solicitud

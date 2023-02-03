@@ -2,45 +2,33 @@ import axios from "axios";
 import Navigation from "/components/Global/Navigation.jsx";
 import Layout from "/components/Global/Layout.jsx";
 import { PaperClipIcon } from "@heroicons/react/solid";
-import {
-  APISTUDENT,
-  EDITADAPT,
-  INITIAL,
-  GETCOMENTARIOS,
-} from "/constants";
+import { APISTUDENT, EDITADAPT, INITIAL, GETCOMENTARIOS } from "/constants";
 import { dateParse } from "validations";
 import { states } from "data";
 import { useRouter } from "next/router";
 import { createPDF } from "/hooks/createPDF";
 import Footer from "/components/Global/Footer";
 import { useEffect, useState } from "react";
-// import { Adaptacion } from "/components/pdf/Adaptacion";
-
+import { Adaptacion } from "/components/pdf/Adaptacion";
+import { usePDF } from "@react-pdf/renderer";
+import Link from "next/link";
 const Comments = ({ comentarioRecuperado: { comentarios, createdAt } }) => {
   const date = dateParse(createdAt);
   return (
-    <div className="flow-root w-full">
-      <span className="text-blue-500">Comentarios</span>
-      <ul role="list" className="-mb-8">
-        <li>
-          <div className="relative pb-8">
-            <div className="relative flex space-x-3">
-              <div className="flex justify-between min-w-0 flex-1 space-x-4 pt-1.5">
-                <div>
-                  <p className="text-sm text-gray-800">{comentarios}</p>
-                </div>
-              </div>
-            </div>
-            <div className="whitespace-nowrap text-right text-sm text-green-600">
-                  <time dateTime={date}>
-                    {date === "Invalid Date"
-                      ? "Aún no has recibido comentarios"
-                      : `Comentada el ${date}`}
-                  </time>
-                </div>
-          </div>
-        </li>
-      </ul>
+    <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 break-words">
+      <dt className="text-sm font-medium text-gray-600">Comentarios</dt>
+      <dd className="mt-1 flex text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+        <span className="flex-grow text-ellipsis overflow-auto">
+          {comentarios}
+        </span>
+      </dd>
+      <dd className="mt-4 whitespace-nowrap w-full text-left text-sm text-green-600">
+        <time dateTime={date}>
+          {date === "Invalid Date"
+            ? "Aún no has recibido comentarios"
+            : `Comentario realizado el ${date}`}
+        </time>
+      </dd>
     </div>
   );
 };
@@ -120,7 +108,7 @@ const Id = ({ data, comentarioRecuperado }) => {
       description: motSolicitud || "",
     },
   ];
-  console.log("DD", dataStorage)
+  console.log("DD", dataStorage);
   // Obtener sessionStorage
   useEffect(() => {
     setDataStorage(JSON.parse(sessionStorage.getItem("idU")));
@@ -130,13 +118,24 @@ const Id = ({ data, comentarioRecuperado }) => {
   const handleClick = () => {
     push(EDITADAPT + idSolicitud);
   };
-  const downloadPDF = () => {
-    const prev = true;
-    const pdf = createPDF(data, dataStorage, prev);
+  const [instance, updateInstance] = usePDF({
+    document: <Adaptacion dataS={dataStorage} dataSol={data} />,
+  });
+  const handleDownloadPDF = () => {
+    if (instance.loading) {
+      return <div>Cargando</div>;
+    }
+    if (instance.error) {
+      console.log("II", instance.error);
+      return <div>Error</div>;
+    }
+    //ReactPDF.render(<Adaptacion dataS={dataStorage} dataSol={data} />);
   };
+  console.log(instance);
   const previewPDF = () => {
     setShowPDF(!showPDF);
   };
+
   return (
     <>
       <Navigation actState="session" />
@@ -146,7 +145,9 @@ const Id = ({ data, comentarioRecuperado }) => {
             Detalles de la solicitud
           </h3>
           <p className="mt-1 max-w-2xl text-sm text-gray-500">
-            {dataStorage === undefined || dataStorage === null ? "" : dataStorage.nombreCompleto}
+            {dataStorage === undefined || dataStorage === null
+              ? ""
+              : dataStorage.nombreCompleto}
           </p>
         </div>
         <div className="mt-5 border-t border-gray-200">
@@ -179,10 +180,7 @@ const Id = ({ data, comentarioRecuperado }) => {
                   role="list"
                   className="divide-y divide-gray-200 rounded-md border border-gray-200"
                 >
-                  <li
-                    className="grid grid-cols-1
-          md:grid-cols-[300px,_1fr] py-3 pl-3 pr-4 text-sm"
-                  >
+                  <li className="grid grid-cols-1 py-3 pl-3 pr-4 text-sm">
                     <div className="flex w-0 flex-1 items-center">
                       <PaperClipIcon
                         className="h-5 w-5 flex-shrink-0 text-gray-400"
@@ -198,17 +196,25 @@ const Id = ({ data, comentarioRecuperado }) => {
                       </span>
                     </div>
                     <div className="ml-4 mt-4 flex flex-shrink-0 space-x-4 col-span-2">
+                      {/* <PDFDownloadLink
+                        document={
+                          <Adaptacion dataS={dataStorage} dataSol={data} />
+                        }
+                        fileName="example.pdf"
+                      >
+                        Descarga
+                      </PDFDownloadLink> */}
                       <button
                         type="button"
-                        // onClick={pdf}
+                        onClick={handleDownloadPDF}
                         className="rounded-md bg-white font-medium text-green-600 hover:text-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 px-3 py-2"
                       >
-                        Descargar
+                        <Link to={instance.url}>Descargar</Link>
                       </button>
                       <button
                         type="button"
                         onClick={previewPDF}
-                        className="rounded-md bg-white font-medium text-green-600 hover:text-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 px-3 py-2"
+                        className="hidden sm:block rounded-md bg-white font-medium text-green-600 hover:text-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 px-3 py-2"
                       >
                         Visualizar
                       </button>
@@ -219,7 +225,7 @@ const Id = ({ data, comentarioRecuperado }) => {
                   {/* PREVISUALIZACIÓN Renderizada por el navegador */}
                   {showPDF ? (
                     <div className="w-full h-screen">
-                      {/* <Adaptacion dataS={dataStorage} dataSol={data} /> */}
+                      <Adaptacion dataS={dataStorage} dataSol={data} />
                     </div>
                   ) : (
                     ""
