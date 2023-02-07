@@ -95,13 +95,6 @@ export const validations = (data) => {
   }
 };
 
-export const validationsLogin = (data, serverErrors) => {
-  // const { usernameA } = data
-  let errors = [];
-  errors.push(`password: ${serverErrors}`);
-  return errors;
-};
-
 export const dateParse = (createdAt) => {
   return new Date(createdAt).toLocaleDateString("es-es", {
     day: "numeric",
