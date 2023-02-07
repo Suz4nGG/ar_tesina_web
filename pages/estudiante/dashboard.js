@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import Layout from "/components/Global/Layout";
 import Footer from "/components/Global/Footer";
 import ArrowRedirect from "/components/icons/ArrowRedirect";
-import { APISTUDENT } from "/constants";
+import { API_ESTUDIANTE } from "/constants";
 import axios from "axios";
 import { useEffect } from "react";
 import PaperClip from "components/icons/PaperClip";
@@ -12,11 +12,11 @@ import AcademicCap from "components/icons/AcademicCap";
 import Document from "components/icons/Document";
 import Settings from "components/icons/Settings";
 import {
-  SOLSTUDENT,
-  ADAPSTUDENT,
-  HERRACCESS,
-  DOCREQUIRED,
-  INITIAL,
+  SOLICITAR_ADAPTACION,
+  ADAPTACIONES_ESTUDIANTE,
+  HERRAMIENTAS_ACCESIBLES,
+  DOCUMENTOS_REQUERIDOS,
+  URL_INICIAL,
 } from "/constants";
 
 const actions = [
@@ -24,14 +24,14 @@ const actions = [
     title: "Solicitar adaptación curricular",
     description:
       "En este apartado podrás solicitar una adaptación curricular acorde a tus necesidades.",
-    href: SOLSTUDENT,
+    href: SOLICITAR_ADAPTACION,
     icon: <AcademicCap />,
     iconText: "text-teal-700",
     iconBack: "bg-teal-50",
   },
   {
     title: "Adaptaciones curriculares ",
-    href: ADAPSTUDENT,
+    href: ADAPTACIONES_ESTUDIANTE,
     description:
       "En este apartado encontrarás las adaptaciones curriculares que has realizado y el estado en el que se encuentra.",
     icon: <Settings />,
@@ -40,7 +40,7 @@ const actions = [
   },
   {
     title: "Herramientas accesibles",
-    href: HERRACCESS,
+    href: HERRAMIENTAS_ACCESIBLES,
     description:
       "En este apartado encontrarás diferentes tipos de herramientas que te servirán como apoyo para tu adaptación.",
     icon: <Document />,
@@ -49,7 +49,7 @@ const actions = [
   },
   {
     title: "Documentación necesaria",
-    href: DOCREQUIRED,
+    href: DOCUMENTOS_REQUERIDOS,
     description:
       "En este apartado seleccionarás con qué documentos cuentas para demostrar tu situación de discapacidad.",
     icon: <PaperClip />,
@@ -163,10 +163,11 @@ const Dashboard = (
 
 export async function getServerSideProps(context) {
   const { authTokenUser } = context.req.cookies;
-  const { data } = await axios.post(INITIAL + APISTUDENT, {
-    authTokenUser,
-  });
   try {
+    const { data } = await axios.post(URL_INICIAL + API_ESTUDIANTE, {
+      authTokenUser,
+    });
+    console.log("DDD", data);
     const {
       id,
       usernameA,
@@ -190,13 +191,9 @@ export async function getServerSideProps(context) {
       },
     };
   } catch (err) {
-    console.log("DDD", data.message);
-    const { message } = data;
-    console.log(message);
+    // const { message } = data;
     return {
-      props: {
-        message,
-      },
+      props: {},
     };
   }
 }

@@ -2,26 +2,26 @@ import axios from "axios";
 import Navigation from "components/Global/Navigation.jsx";
 import Layout from "components/Global/Layout.jsx";
 import {
-  APIPERSONAL,
-  COMENTARADAP,
-  INITIAL,
-  CHANGESTATE,
-  GETCOMENTARIOS,
-  GETDOCS,
+  API_PERSONAL,
+  COMENTAR_ADAPTACION,
+  URL_INICIAL,
+  GET_COMENTARIOS,
+  GET_DOCUMENTOS,
+  DASHBOARD_PERSONAL,
 } from "/constants";
 import { dateParse, normalizeText } from "/validations";
 import { states } from "/data";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { createPDF } from "/hooks/createPDF";
 import Footer from "/components/Global/Footer";
 import { useState } from "react";
 import TextArea from "components/Estudiante/components/TextArea";
-import Select from "react-select";
-import { statesPersonal, dataProfesores } from "/data";
-import { Adaptacion } from "components/pdf/Adaptacion";
-import PDFLayout from "../../../components/pdf/PDFLayout";
-import componentToPDFBuffer from "../../../lib/PDFHelper";
+import { dataProfesores } from "/data";
+import ErrorMessages from "components/Messages/ErrorMessages";
+import ButtonN from "components/Global/ButtonN";
+import { timeOut } from "/helpers";
+import SelectN from "components/Global/Select";
+import PDFComponent from "../../../components/PDF/PDFComponent";
 
 const Box = ({
   title,
@@ -43,26 +43,26 @@ const Box = ({
     e.preventDefault();
     try {
       if (!comentarios.comentarios) {
-        setMessage("Debes escribir un mensaje");
+        setMessage("Debes escribir un comentario");
       } else {
-        const enviarCom = await axios.post(INITIAL + COMENTARADAP, comentarios);
+        const enviarCom = await axios.post(
+          URL_INICIAL + COMENTAR_ADAPTACION,
+          comentarios
+        );
         setGetComentarios(enviarCom.data);
-        setMessage("Mensaje enviado");
+        setMessage("Comentario enviado");
       }
     } catch (err) {
-      setMessage("Error al enviar el mensaje");
+      setMessage("Error al enviar tu comentario");
     }
   };
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setMessage("");
-    }, 3000);
-    return () => clearTimeout(timer);
+    timeOut(3000, setMessage(""));
   }, [comentarios]);
   return (
     <>
       <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 break-words">
-        <dt className="text-sm font-medium text-gray-600">{title}</dt>
+        <dt className=" font-medium text-gray-600">{title}</dt>
         <dd className="mt-1 flex text-sm text-gray-900 sm:col-span-2 sm:mt-0">
           <span className="flex-grow text-ellipsis overflow-auto">
             {array
@@ -83,11 +83,11 @@ const Box = ({
         {btnText ? (
           <div className="">
             <div className="min-w-max min-h-max">
-              <div className="flex flex-col text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                <div className="text-gray-700 overflow-auto">
+              <div className="flex flex-col text-gray-900 sm:col-span-2 sm:mt-0">
+                <div className="text-gray-600 overflow-auto">
                   {comentarioRecuperado || (
                     <>
-                      Nuevo Mensaje: <p>{getComentarios}</p>
+                      Nuevo Comentario <p>{getComentarios}</p>
                     </>
                   )}
                 </div>
@@ -97,27 +97,27 @@ const Box = ({
               <TextArea
                 label="Comentarios para el estudiante"
                 name={nameInput}
-                placeholder="Comenta sobre tus observaciones"
+                placeholder="Comenta tus observaciones"
                 handleChange={handleChange}
               />
-              <button className="rounded-md bg-green-600 px-4 py-2 my-2 font-medium text-white hover:bg-green-700 focus:outline-none">
-                Enviar
-              </button>
-              {message.includes("enviado") ? (
-                <div className="rounded px-2 py-4 bg-green-200 text-green-700 w-fit mb-4">
-                  <p>{message}</p>
-                </div>
-              ) : message.includes("error") ? (
-                <div className="rounded px-2 py-4 bg-red-200 text-red-700 w-fit mb-4">
-                  <p>{message}</p>
-                </div>
-              ) : message.includes("Introduce") ? (
-                <div className="rounded px-2 py-4 bg-yellow-200 text-yellow-700 w-fit mb-4">
-                  <p>{message}</p>
-                </div>
-              ) : (
-                ""
-              )}
+              <ButtonN
+                styles={"bg-green-600 hover:bg-green-700 text-white"}
+                message="Enviar"
+              />
+              <ErrorMessages
+                errors={message}
+                show={
+                  message.includes("enviado") ||
+                  message.includes("Error") ||
+                  message.includes("Debes")
+                }
+                styles={
+                  (message.includes("enviado") &&
+                    "bg-green-200 text-green-700") ||
+                  (message.includes("Error") && "bg-red-200 text-red-700") ||
+                  (message.includes("Debes") && "bg-yellow-200 text-yellow-700")
+                }
+              />
             </form>
           </div>
         ) : (
@@ -169,23 +169,15 @@ const Id = ({ data, infoUser, comentarioRecuperado, docs }) => {
       array: true,
     },
     {
-      title: "Mensajes Previos",
+      title: "Comentarios Previos",
       description: comentarioRecuperado.comentarios,
       btnText: true,
       nameInput: "comentarios",
     },
   ];
   const router = useRouter();
-  const downloadPDF = () => {
-    const prev = true;
-    setShowContrato(!contrato);
-    createPDF(data, infoUser, prev);
-  };
-  const previewPDF = () => {
-    const prev = true;
-    const pdf = createPDF({ data }, { infoUser }, prev);
-  };
-  const handleChangeEstados = (e) => {
+
+  const handleChangeEstados = async (e) => {
     try {
       if (e.name === "Terminada" || e.name === "Cancelada") {
         setShowMessage(!showMessage);
@@ -208,17 +200,44 @@ const Id = ({ data, infoUser, comentarioRecuperado, docs }) => {
       "El estado de la solicitud cambio",
       "text-green-700 bg-green-200",
     ]);
-
-    const res = await axios.post(INITIAL + CHANGESTATE, {
-      estado,
-      idSolicitud: router.query.id,
-    });
-    setNuevoEstado(res.data);
+    if (estado.e === undefined) {
+      setMessage(["Selecciona un estado", "text-yellow-700 bg-yellow-200"]);
+    } else {
+      if (estado.e.name === "Cancelada") {
+        try {
+          await axios.delete(
+            URL_INICIAL + API_PERSONAL + "/" + router.query.id,
+            {
+              estado,
+            }
+          );
+        } catch (err) {
+          setMessage([
+            "Ha ocurrido un error al conectarse con el servidor, intente más tarde",
+            "text-red-700 bg-red-200",
+          ]);
+        }
+        router.push(DASHBOARD_PERSONAL);
+      } else {
+        try {
+          const res = await axios.put(
+            URL_INICIAL + API_PERSONAL + "/" + router.query.id,
+            { estado }
+          );
+          setNuevoEstado(res.data);
+        } catch (err) {
+          setMessage([
+            "Ha ocurrido un error al conectarse con el servidor, intente más tarde",
+            "text-red-700 bg-red-200",
+          ]);
+        }
+      }
+    }
   };
   const showContrato = () => {
     setShowContrato(!contrato);
   };
-
+  // ! Pendiente
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowMessage(false);
@@ -230,46 +249,12 @@ const Id = ({ data, infoUser, comentarioRecuperado, docs }) => {
     <>
       <Navigation actState="session" />
       <Layout data={{ title: `Adaptación Curricular: ${idSolicitud}` }}>
-        <div>
-          <div className="col-span-3 lg:col-span-1">
-            <label className="block text-sm text-gray-900 font-medium">
-              Actualizar el estado de la solicitud
-            </label>
-            <Select
-              styles={{
-                control: (baseStyles, state) => ({
-                  ...baseStyles,
-                  height: "47px",
-                  marginTop: "5px",
-                }),
-              }}
-              onChange={handleChangeEstados}
-              name="carrera"
-              options={statesPersonal}
-              placeholder="Estado de la solicitud"
-              required
-            />
-            <button
-              type="button"
-              onClick={handleChangeActualizar}
-              className="rounded-md mt-4 px-4 py-2 font-medium text-white focus:outline-none"
-              style={{ background: "#1B539E" }}
-            >
-              Actualizar
-            </button>
-            <div>
-              {showMessage ? (
-                <p
-                  className={`mt-4 p-4 rounded ${message[1] ? message[1] : ""}`}
-                >
-                  {message[0]}
-                </p>
-              ) : (
-                ""
-              )}
-            </div>
-          </div>
-        </div>
+        <SelectN
+          handleChangeActualizar={handleChangeActualizar}
+          handleChangeEstados={handleChangeEstados}
+          message={message}
+          showMessage={showMessage}
+        />
         <div className="mt-5 border-t border-gray-200">
           <dl className="divide-y divide-gray-200">
             {dataAdaptacion.map((item) => (
@@ -285,30 +270,9 @@ const Id = ({ data, infoUser, comentarioRecuperado, docs }) => {
                 array={item.array}
               />
             ))}
-            <div className="py-4 sm:grid sm:grid-cols-2 sm:gap-4 sm:py-5">
-              <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0"></dd>
-              <dd className="mt-1 mb-2 text-gray-900 sm:col-span-2 sm:mt-0">
-                <button
-                  onClick={showContrato}
-                  className="rounded-md bg-blue-600 mt-4 px-4 py-3 font-medium text-white hover:bg-blue-700 focus:outline-none"
-                >
-                  {contrato
-                    ? "Cerrar contrato"
-                    : "Vista previa de la solicitud"}
-                </button>
-              </dd>
-            </div>
           </dl>
-          <dl className="divide-y divide-gray-200">
-            {contrato ? (
-              <div className="w-full h-screen">
-                <PDFLayout>
-                  <Adaptacion dataS={infoUser} dataSol={data} />
-                </PDFLayout>
-              </div>
-            ) : (
-              ""
-            )}
+          <dl className="mb-9">
+            <PDFComponent dataSolicitud={data} dataEstudiante={infoUser} />
           </dl>
         </div>
         <Footer />
@@ -318,24 +282,35 @@ const Id = ({ data, infoUser, comentarioRecuperado, docs }) => {
 };
 
 export const getServerSideProps = async (context) => {
-  // * Solicitud
-  const { data } = await axios.get(APIPERSONAL + "/" + context.query.id);
-  const usernameEstudiante = data.username;
-  // * Información del estudiante
-  const { data: infoUser } = await axios.post(
-    APIPERSONAL + "/" + context.query.id,
-    { usernameEstudiante }
-  );
-  // * Comentarios
-  const { data: comentarioRecuperado } = await axios.get(
-    INITIAL + GETCOMENTARIOS + context.query.id
-  );
-  // * Documentación
-  const { data: docs } = await axios.post(INITIAL + GETDOCS, {
-    idEstudiante: infoUser.id,
-  });
-  return {
-    props: { data, infoUser, comentarioRecuperado, docs },
-  };
+  try {
+    // * Solicitud
+    const { data } = await axios.get(
+      URL_INICIAL + API_PERSONAL + "/" + context.query.id
+    );
+    const usernameEstudiante = data.username;
+    // * Información del estudiante
+    const { data: infoUser } = await axios.post(
+      URL_INICIAL + API_PERSONAL + "/" + context.query.id,
+      { usernameEstudiante }
+    );
+    // * Comentarios
+    const { data: comentarioRecuperado } = await axios.get(
+      URL_INICIAL + GET_COMENTARIOS + context.query.id
+    );
+    // * Documentación
+    const { data: docs } = await axios.post(URL_INICIAL + GET_DOCUMENTOS, {
+      idEstudiante: infoUser.id,
+    });
+    return {
+      props: { data, infoUser, comentarioRecuperado, docs },
+    };
+  } catch (err) {
+    return {
+      props: {
+        messageError:
+          "Ha ocurrido un error al conectarse con el servidor, intente más tarde",
+      },
+    };
+  }
 };
 export default Id;

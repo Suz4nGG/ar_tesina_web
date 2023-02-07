@@ -1,10 +1,10 @@
-import React from 'react';
+import React from "react";
 import Navigation from "components/Global/Navigation";
-import Layout from 'components/Global/Layout';
+import Layout from "components/Global/Layout";
 import ShowAdaptaciones from "components/Administrativo/components/ShowAdaptaciones";
-import axios from 'axios';
-import { GETADAPTACIONES, INITIAL } from '/constants';
-import Footer from "components/Global/Footer.jsx"
+import axios from "axios";
+import { GET_ADAPTACIONACIONES, URL_INICIAL } from "/constants";
+import Footer from "components/Global/Footer.jsx";
 const Dashboard = (data) => {
   const dataS = data.data;
   return (
@@ -35,19 +35,17 @@ const Dashboard = (data) => {
             />
           ))}
         </div>
-        <Footer/>
+        <Footer />
       </Layout>
     </>
   );
-}
+};
 export async function getServerSideProps() {
   // * Ver direccionamiento
-  const {data} = await axios.get(
-    INITIAL+GETADAPTACIONES
-  );
+  const { data } = await axios.get(URL_INICIAL + GET_ADAPTACIONACIONES);
   return {
     props: {
-      data
+      data,
     },
   };
 }

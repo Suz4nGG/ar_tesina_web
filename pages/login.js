@@ -4,48 +4,55 @@ import LogoUv from "/public/universidad_veracruzana_logo.svg";
 import Button from "/components/Global/Button";
 import { GroupForm } from "/components/Forms/GroupForm";
 import { dataAcount } from "/data";
-import { validationsLogin } from "/validations";
 import { useState } from "react";
-import { LOGINAUTH, DASHSTUDENT, LOGINAUTHPERSONAL, DASHSPERSONAL,REGISTRO } from "../constants";
+import ErrorMessages from "../components/Messages/ErrorMessages";
+import {
+  LOGIN_AUTH_ESTUDIANTE,
+  DASHBOARD_ESTUDIANTE,
+  LOGIN_AUTH_PERSONAL,
+  DASHBOARD_PERSONAL,
+  REGISTRO,
+} from "../constants";
 import axios from "axios";
 import { useRouter } from "next/router";
-/*
-value,
-handleChange,
-errorMessage
-*/
+
 const Login = () => {
   const router = useRouter();
   const actual = router.pathname.includes("login-personal");
   const [errors, setErrors] = useState();
+  const [showErrors, setShowErrors] = useState(false);
   const [data, setData] = useState({
     usernameA: "",
     password: "",
   });
 
   const handleChange = ({ target: { name, value } }) => {
-      setData({ ...data, [name]: value });
+    setData({ ...data, [name]: value });
+  };
+
+  const handleClick = () => {
+    setShowErrors(!showErrors);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      if (data.usernameA === "" || dataAcount.password === "")
+        setErrors("Ingresa un usuario y contraseña");
       if (actual) {
-        const resPersonal = await axios.post(LOGINAUTHPERSONAL, data);
-        console.log(resPersonal);
+        const resPersonal = await axios.post(LOGIN_AUTH_PERSONAL, data);
         const { message } = resPersonal.data;
-        if (message === "Inicio exitoso") {router.push(DASHSPERSONAL)};
+        if (message === "Inicio exitoso") router.push(DASHBOARD_PERSONAL);
       } else {
-        const resEstudiante = await axios.post(LOGINAUTH, data);
+        const resEstudiante = await axios.post(LOGIN_AUTH_ESTUDIANTE, data);
         const { message } = resEstudiante.data;
-        if (message === "Inicio exitoso") router.push(DASHSTUDENT);
+        if (message === "Inicio exitoso") router.push(DASHBOARD_ESTUDIANTE);
       }
     } catch (err) {
-      const { error } = err.response.data;
-      setErrors(validationsLogin(data, error));
+      const { message } = err.response.data;
+      setErrors(message);
     }
   };
-  // console.log(data)
   return (
     <Container>
       <div className="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -84,21 +91,31 @@ const Login = () => {
                   colQuery={item.colQuery}
                   key={item.name}
                   handleChange={handleChange}
-                  errorMessage={errors}
                 />
               ))}
               <div>
-                <Button
-                  bg="bg-green-600 w-full mo:w-42"
-                  textColor="text-gray-100"
-                  text="Iniciar Sesión"
-                  hover="bg-green-700"
-                  href="#"
+                <ErrorMessages
+                  errors={errors}
+                  show={showErrors}
+                  styles={"bg-red-200 text-red-800"}
                 />
+                <div onClick={handleClick}>
+                  <Button
+                    bg="bg-green-600 w-full mo:w-42"
+                    textColor="text-gray-100"
+                    text="Iniciar Sesión"
+                    hover="bg-green-700"
+                    href="#"
+                  />
+                </div>
               </div>
             </form>
             <div className="mt-4 text-blue-600 hover:text-blue-800">
-              <button onClick={(e) => router.push("/login-personal/")}>
+              <button
+                onClick={(e) => {
+                  router.push("/login-personal/");
+                }}
+              >
                 Soy personal administrativo
               </button>
             </div>

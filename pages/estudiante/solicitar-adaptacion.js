@@ -3,7 +3,7 @@ import Layout from "/components/Global/Layout";
 import Navigation from "/components/Global/Navigation";
 import FormAC from "components/Estudiante/components/FormAC";
 import { useRouter } from "next/router";
-import { ADAPSTUDENT, FORMSOL } from "/constants";
+import { ADAPTACIONES_ESTUDIANTE, FORMULARIO_SOLICITUD } from "/constants";
 import Link from "next/link";
 import Steps from "/components/Estudiante/components/Steps";
 
@@ -13,12 +13,12 @@ const dataButtons = [
   {
     text: "Solicitar una adaptación",
     classes: "bg-green-600 hover:bg-green-700",
-    href: FORMSOL,
+    href: FORMULARIO_SOLICITUD,
   },
   {
     text: "Adaptaciones realizadas",
     classes: "bg-blue-600 hover:bg-blue-700 mt-3 sm:mt-0",
-    href: ADAPSTUDENT,
+    href: ADAPTACIONES_ESTUDIANTE,
   },
 ];
 

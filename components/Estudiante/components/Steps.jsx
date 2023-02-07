@@ -1,7 +1,7 @@
 import { CheckIcon } from "@heroicons/react/outline";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { FORMSOL, SOLSTUDENT } from "/constants";
+import { FORMULARIO_SOLICITUD, SOLICITAR_ADAPTACION } from "/constants";
 import Link from "next/link";
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -14,16 +14,16 @@ export default function Steps({ endSolicitud }) {
       id: "01",
       name: "Paso 1",
       description: "¿Qué es una adaptación curricular?",
-      href: SOLSTUDENT,
-      status: router.pathname === FORMSOL ? "complete" : "current",
+      href: SOLICITAR_ADAPTACION,
+      status: router.pathname === FORMULARIO_SOLICITUD ? "complete" : "current",
     },
     {
       id: "02",
       name: "Paso 2",
       description: "Solicitar adaptación curricular",
-      href: FORMSOL,
+      href: FORMULARIO_SOLICITUD,
       status:
-        router.pathname === SOLSTUDENT
+        router.pathname === SOLICITAR_ADAPTACION
           ? "upcoming"
           : "current" && (!endSolicitud ? "current" : "complete"),
     },
@@ -37,10 +37,7 @@ export default function Steps({ endSolicitud }) {
   ];
   return (
     <div className="lg:border-t lg:border-b lg:border-gray-200" id="step">
-      <nav
-        className="mx-auto max-w-7xl lg:px-8"
-        aria-label="Progreso"
-      >
+      <nav className="mx-auto max-w-7xl lg:px-8" aria-label="Progreso">
         <ol
           role="list"
           className="overflow-hidden rounded-md lg:flex lg:rounded-none lg:border-l lg:border-r lg:border-gray-200"
@@ -84,7 +81,7 @@ export default function Steps({ endSolicitud }) {
                   </Link>
                 ) : step.status === "current" ? (
                   <Link href={step.href} aria-current="step" passHref>
-                      <span
+                    <span
                       className="absolute top-0 left-0 h-full w-1 bg-blue-600 lg:bottom-0 lg:top-auto lg:h-1 lg:w-full"
                       aria-hidden="true"
                     />

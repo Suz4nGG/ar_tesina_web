@@ -6,7 +6,7 @@ import Footer from "components/Global/Footer";
 import { documentosNecesarios } from "/data";
 import axios from "axios";
 import Router from "next/router";
-import { DASHSTUDENT, DOCS, INITIAL } from "/constants";
+import { DASHBOARD_ESTUDIANTE, API_DOCUMENTOS, URL_INICIAL } from "/constants";
 
 const DocumentosObligatorios = () => {
   const [clicBox, setClicBox] = useState(
@@ -29,7 +29,7 @@ const DocumentosObligatorios = () => {
     if (!(validateChecks.includes(false) && validateChecks.length > 1)) {
       setError("");
       try {
-        await axios.post(INITIAL + DOCS, {
+        await axios.post(URL_INICIAL + API_DOCUMENTOS, {
           docs: clicBox,
           idEstudiante: idEstudiante.id || "",
         });
@@ -53,7 +53,7 @@ const DocumentosObligatorios = () => {
 
   const handleCancel = (e) => {
     e.preventDefault();
-    Router.push(DASHSTUDENT);
+    Router.push(DASHBOARD_ESTUDIANTE);
   };
   return (
     <>

@@ -1,22 +1,18 @@
 import axios from "axios";
 import Navigation from "/components/Global/Navigation.jsx";
 import Layout from "/components/Global/Layout.jsx";
-import { PaperClipIcon } from "@heroicons/react/solid";
-import { APISTUDENT, EDITADAPT, INITIAL, GETCOMENTARIOS } from "/constants";
+import {
+  API_ESTUDIANTE,
+  EDITAR_ADAPTACION,
+  URL_INICIAL,
+  GET_COMENTARIOS,
+} from "/constants";
 import { dateParse } from "validations";
 import { states } from "data";
 import { useRouter } from "next/router";
 import Footer from "/components/Global/Footer";
 import { useEffect, useState } from "react";
-import { Adaptacion } from "/components/pdf/Adaptacion";
-import {
-  usePDF,
-  pdf,
-  PDFDownloadLink,
-  BlobProvider,
-} from "@react-pdf/renderer";
-import { PDF } from "/components/pdf/Adaptacion";
-import dynamic from "next/dynamic";
+import PDFComponent from "../../../components/PDF/PDFComponent";
 
 const Comments = ({ comentarioRecuperado: { comentarios, createdAt } }) => {
   const date = dateParse(createdAt);
@@ -66,12 +62,7 @@ const Box = ({ title, description, btnText, comentarioRecuperado }) => {
   );
 };
 
-/* const InvocePDF = dynamic(() => import("./pdf"), {
-  ssr: false,
-}); */
-
-const Id = ({ data, comentarioRecuperado, blob }) => {
-  const [client, setClient] = useState(false);
+const Id = ({ data, comentarioRecuperado }) => {
   const [dataStorage, setDataStorage] = useState();
   const {
     idSolicitud,
@@ -124,23 +115,9 @@ const Id = ({ data, comentarioRecuperado, blob }) => {
     setDataStorage(JSON.parse(sessionStorage.getItem("idU")));
   }, []);
   const { push } = useRouter();
-  const [showPDF, setShowPDF] = useState();
   const handleClick = () => {
-    push(EDITADAPT + idSolicitud);
+    push(EDITAR_ADAPTACION + idSolicitud);
   };
-
-  const handleDownloadPDF = async () => {
-    const blob = await pdf(
-      <Adaptacion dataS={dataStorage} dataSol={data} />
-    ).toBlob();
-    console.log("BLOB", blob);
-  };
-  const previewPDF = () => {
-    setShowPDF(!showPDF);
-  };
-  useEffect(() => {
-    setClient(true);
-  }, []);
 
   return (
     <>
@@ -180,66 +157,7 @@ const Id = ({ data, comentarioRecuperado, blob }) => {
                   Editar
                 </button>
               </dd>
-              <dt className="text-sm font-medium text-gray-500">Archivos</dt>
-              <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                <ul
-                  role="list"
-                  className="divide-y divide-gray-200 rounded-md border border-gray-200"
-                >
-                  <li className="grid grid-cols-1 py-3 pl-3 pr-4 text-sm">
-                    <div className="flex w-0 flex-1 items-center">
-                      <PaperClipIcon
-                        className="h-5 w-5 flex-shrink-0 text-gray-400"
-                        aria-hidden="true"
-                      />
-                      <span className="ml-2 w-0 flex-1">
-                        {dataStorage === undefined || dataStorage === null
-                          ? ""
-                          : `AC_${dataStorage.nombreCompleto}`
-                              .toLowerCase()
-                              .split(" ")
-                              .join("_")}
-                      </span>
-                    </div>
-                    <div className="ml-4 mt-4 flex flex-shrink-0 space-x-4 col-span-2">
-                      {client ? (
-                        <PDFDownloadLink
-                          document={<PDF dataS={dataStorage} dataSol={data} />}
-                          fileName={`AC_${dataStorage.nombreCompleto}`
-                            .toLowerCase()
-                            .split(" ")
-                            .join("_")}
-                        >
-                          <button
-                            type="button"
-                            className="rounded-md bg-white font-medium text-green-600 hover:text-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 px-3 py-2"
-                          >
-                            {"DESCARGAR"}
-                          </button>
-                        </PDFDownloadLink>
-                      ) : (
-                        ""
-                      )}
-                      <button
-                        type="button"
-                        onClick={previewPDF}
-                        className="hidden sm:block rounded-md bg-white font-medium text-green-600 hover:text-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 px-3 py-2"
-                      >
-                        VISUALIZAR
-                      </button>
-                    </div>
-                  </li>
-                </ul>
-                <div>
-                  {showPDF ? (
-                    <div className="w-full h-screen">
-                      <Adaptacion dataS={dataStorage} dataSol={data} />
-                    </div>
-                  ) : (
-                    ""
-                  )}{" "}
-                </div>
-              </dd>
+              <PDFComponent dataSolicitud={data} dataEstudiante={dataStorage} />
             </div>
           </dl>
         </div>
@@ -251,15 +169,15 @@ const Id = ({ data, comentarioRecuperado, blob }) => {
 
 export const getServerSideProps = async (context) => {
   const { data } = await axios.get(
-    APISTUDENT + "/adaptacion/" + context.query.id
+    URL_INICIAL + API_ESTUDIANTE + "/adaptacion/" + context.query.id
   );
   const { authTokenUser } = context.req.cookies;
-  const { data: infoUser } = await axios.post(APISTUDENT, {
+  const { data: infoUser } = await axios.post(URL_INICIAL + API_ESTUDIANTE, {
     authTokenUser,
   });
   // * Comentarios
   const { data: comentarioRecuperado } = await axios.get(
-    INITIAL + GETCOMENTARIOS + context.query.id
+    URL_INICIAL + GET_COMENTARIOS + context.query.id
   );
   return {
     props: { data, infoUser, comentarioRecuperado },

@@ -57,9 +57,10 @@ const registerStudent = async (req, res) => {
       });
     }
   } catch (err) {
-    console.log(err)
-    return res
-      .status(500)
-      .json({ message: "Error del servidor intentelo más tarde" });
+    console.log(err);
+    return res.status(500).json({
+      message:
+        "Ha ocurrido un error al conectarse con el servidor, intente más tarde",
+    });
   }
 };

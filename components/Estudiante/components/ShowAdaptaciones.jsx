@@ -2,7 +2,7 @@ import React from "react";
 import { dataProfesores, states } from "/data";
 import { normalizeText, dateParse } from "validations";
 import { useRouter } from "next/router";
-import { GETADAPT } from "../../../constants";
+import { GET_ADAPTACION } from "../../../constants";
 import PanelAdaptaciones from "../../Dashboard/PanelAdaptaciones";
 
 const ShowAdaptaciones = ({
@@ -17,7 +17,7 @@ const ShowAdaptaciones = ({
   const stateSol = states.find((item) => item[estadoSolicitud]);
   const responsables = dataProfesores.find((item) => item.ee === EE);
   const handleClick = () => {
-    router.push(`${GETADAPT}${idSolicitud}`);
+    router.push(`${GET_ADAPTACION}${idSolicitud}`);
   };
   return (
     <PanelAdaptaciones
