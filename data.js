@@ -6,10 +6,10 @@ import {
   RECURSOS,
   CONTACTO,
   LOGIN,
-  SOLSTUDENT,
-  ADAPSTUDENT,
-  HERRACCESS,
-  DOCREQUIRED,
+  SOLICITAR_ADAPTACION,
+  ADAPTACIONES_ESTUDIANTE,
+  HERRAMIENTAS_ACCESIBLES,
+  DOCUMENTOS_REQUERIDOS,
 } from "./constants";
 
 export const dateNow = () => {
@@ -112,32 +112,36 @@ export const dataAcount = [
 export const actions = [
   {
     title: "Solicitar adaptación curricular",
-    description: "En este apartado podrás solicitar una adaptación curricular acorde a tus necesidades.",
-    href: SOLSTUDENT,
+    description:
+      "En este apartado podrás solicitar una adaptación curricular acorde a tus necesidades.",
+    href: SOLICITAR_ADAPTACION,
     icon: <AcademicCap />,
     iconText: "text-teal-700",
     iconBack: "bg-teal-50",
   },
   {
     title: "Adaptaciones curriculares ",
-    href: ADAPSTUDENT,
-    description: "En este apartado encontrarás las adaptaciones curriculares que has realizado y el estado en el que se encuentra.",
+    href: ADAPTACIONES_ESTUDIANTE,
+    description:
+      "En este apartado encontrarás las adaptaciones curriculares que has realizado y el estado en el que se encuentra.",
     icon: <Settings />,
     iconText: "text-purple-700",
     iconBack: "bg-purple-50",
   },
   {
     title: "Herramientas accesibles",
-    href: HERRACCESS,
-    description: "En este apartado encontrarás diferentes tipos de herramientas que te servirán como apoyo para tu adaptación.",
+    href: HERRAMIENTAS_ACCESIBLES,
+    description:
+      "En este apartado encontrarás diferentes tipos de herramientas que te servirán como apoyo para tu adaptación.",
     icon: <Document />,
     iconText: "text-sky-700",
     iconBack: "bg-sky-50",
   },
   {
     title: "Documentación necesaria",
-    href: DOCREQUIRED,
-    description: "En este apartado seleccionarás con qué documentos cuentas para demostrar tu situación de discapacidad.",
+    href: DOCUMENTOS_REQUERIDOS,
+    description:
+      "En este apartado seleccionarás con qué documentos cuentas para demostrar tu situación de discapacidad.",
     icon: <PaperClip />,
     iconText: "text-yellow-700",
     iconBack: "bg-yellow-50",
@@ -158,10 +162,13 @@ export const initialState = {
 };
 
 export const dataNavigationSessionStudent = [
-  { name: "Solicitar adaptación curricular", href: SOLSTUDENT },
-  { name: "Adaptaciones curriculares solicitadas", href: ADAPSTUDENT },
-  { name: "Herramientas Accesibles", href: HERRACCESS },
-  { name: "Documentación Obligatoria", href: DOCREQUIRED },
+  { name: "Solicitar adaptación curricular", href: SOLICITAR_ADAPTACION },
+  {
+    name: "Adaptaciones curriculares solicitadas",
+    href: ADAPTACIONES_ESTUDIANTE,
+  },
+  { name: "Herramientas Accesibles", href: HERRAMIENTAS_ACCESIBLES },
+  { name: "Documentación Obligatoria", href: DOCUMENTOS_REQUERIDOS },
 ];
 
 // ! Items primary menu
@@ -185,7 +192,7 @@ const secondaryNavigation = [
   },
 ];
 
-export default secondaryNavigation
+export default secondaryNavigation;
 
 export const sessionNav = [{ name: "Herramientas Accesibles", href: "/" }];
 
@@ -210,7 +217,8 @@ export const dataSolicitudF = (dataA) => {
     {
       label: "ORGANIZACIÓN DEL TIEMPO Y EL HORARIO",
       name: "tiempoHorario",
-      description: "La organización de tiempo y horario debe permitir el acceso autónomo de los y las estudiantes a través de adecuaciones en la forma en que se estructura una clase o desarrollan evaluaciones.",
+      description:
+        "La organización de tiempo y horario debe permitir el acceso autónomo de los y las estudiantes a través de adecuaciones en la forma en que se estructura una clase o desarrollan evaluaciones.",
       placeholder:
         "1. Adecuar el tiempo utilizado en una actividad o evaluación...",
       value: dataA.tiempoHorario || "",
@@ -251,38 +259,80 @@ export const dataProfesores = [
 ];
 
 export const states = [
-  { 1: "Enviada", name: "Enviada", value: "1", label: "Enviada", color: "green" },
-  { 2: "Revision", name: "Revision", value: "2", label: "Revisión", color: "orange" },
-  { 3: "Aceptada", name: "Aceptada", value: "3", label: "Aceptada", color: "green" },
-  { 4: "Pendiente", name: "Pendiente", value: "4", label: "Pendiente", color: "brown" },
-  { 5: "Terminada", name: "Terminada", value: "5", label: "Terminada", color: "green" },
-  { 6: "Cancelada", name: "Cancelada", value: "6", label: "Cancelada" , color: "red"},
+  {
+    1: "Enviada",
+    name: "Enviada",
+    value: "1",
+    label: "Enviada",
+    color: "green",
+  },
+  {
+    2: "Revisión",
+    name: "Revision",
+    value: "2",
+    label: "Revisión",
+    color: "brown",
+  },
+  {
+    3: "Aceptada",
+    name: "Aceptada",
+    value: "3",
+    label: "Aceptada",
+    color: "green",
+  },
+  {
+    4: "Pendiente",
+    name: "Pendiente",
+    value: "4",
+    label: "Pendiente",
+    color: "brown",
+  },
+  {
+    5: "Terminada",
+    name: "Terminada",
+    value: "5",
+    label: "Terminada",
+    color: "green",
+  },
+  {
+    6: "Cancelada",
+    name: "Cancelada",
+    value: "6",
+    label: "Cancelada",
+    color: "red",
+  },
   {
     7: "Suspendida",
     name: "Suspendida",
     value: "7",
     label: "Suspendida",
-    color: "orange"
+    color: "orange",
   },
   {
     8: "Actualizada",
     name: "Actualizada",
     value: "8",
     label: "Actualizada",
-    color: "green"
+    color: "green",
   },
 ];
 
 export const statesPersonal = [
-  { 2: "Revision", name: "Revision", value: "2", label: "Revisión", id: '2' },
-  { 3: "Aceptada", name: "Aceptada", value: "3", label: "Aceptada", id: '3' },
-  { 6: "Cancelada", name: "Cancelada", value: "6", label: "Cancelada", id: '6' },
+  { 2: "Revision", name: "Revision", value: "2", label: "Revisión", id: "2" },
+  { 3: "Aceptada", name: "Aceptada", value: "3", label: "Aceptada", id: "3" },
+  {
+    6: "Cancelada",
+    name: "Cancelada",
+    value: "6",
+    label: "Cancelada",
+    id: "6",
+  },
   {
     7: "Suspendida",
     name: "Suspendida",
     value: "7",
     label: "Suspendida",
-    id: '7'
+    id: "7",
   },
 ];
 
@@ -303,7 +353,7 @@ export const selectOptionsLic = [
 import Terminal from "components/icons/Terminal";
 import Translate from "components/icons/Translate";
 import Photo from "components/icons/Photo";
-import Browser from "components/icons/Browser.jsx"
+import Browser from "components/icons/Browser.jsx";
 import Calculator from "components/icons/Calculator";
 
 export const herramientasRecursos = [
@@ -314,66 +364,76 @@ export const herramientasRecursos = [
     herramientas: [
       {
         nameHerramienta: "BrowseAloud",
-        descriptionHerr: "Lector de pantalla destinado específicamente a leer el contenido de las páginas web. Está disponible para Windows y para Mac.",
-        href: "https://www.dasolucionesit.com.mx/blog/browsealoud-herramienta-de-accesibilidad/#"
+        descriptionHerr:
+          "Lector de pantalla destinado específicamente a leer el contenido de las páginas web. Está disponible para Windows y para Mac.",
+        href: "https://www.dasolucionesit.com.mx/blog/browsealoud-herramienta-de-accesibilidad/#",
       },
       {
         nameHerramienta: "Click, speak",
-        descriptionHerr: "Lector de pantalla para el navegador Mozilla Firefox.",
-        href: "https://www.click2speak.net/"
+        descriptionHerr:
+          "Lector de pantalla para el navegador Mozilla Firefox.",
+        href: "https://www.click2speak.net/",
       },
       {
         nameHerramienta: "Dolphin Hal",
         descriptionHerr: "Lector de pantalla con soporte para línea braille.",
-        href: "https://www.click2speak.net/"
+        href: "https://www.click2speak.net/",
       },
       {
         nameHerramienta: "JAWS",
-        descriptionHerr: "Uno de los mejores lectores de pantalla, incluye el castellano entre sus idiomas.",
-        href: "https://www.freedomscientific.com/products/software/jaws/"
+        descriptionHerr:
+          "Uno de los mejores lectores de pantalla, incluye el castellano entre sus idiomas.",
+        href: "https://www.freedomscientific.com/products/software/jaws/",
       },
       {
         nameHerramienta: "Dolphin SuperNova",
-        descriptionHerr: "Lector de pantalla con magnificador de pantalla y soporte para línea braille.",
-        href: "https://yourdolphin.com/SuperNova"
+        descriptionHerr:
+          "Lector de pantalla con magnificador de pantalla y soporte para línea braille.",
+        href: "https://yourdolphin.com/SuperNova",
       },
       {
         nameHerramienta: "Gw Micro Window-Eyes",
-        descriptionHerr: "Lector de pantalla, compatible con los navegadores Microsoft Internet Explorer y Mozilla Firefox.",
-        href: "https://www.gwmicro.com/Window-Eyes/"
+        descriptionHerr:
+          "Lector de pantalla, compatible con los navegadores Microsoft Internet Explorer y Mozilla Firefox.",
+        href: "https://www.gwmicro.com/Window-Eyes/",
       },
       {
         nameHerramienta: "MexVox",
-        descriptionHerr: "Lector de pantalla para Microsoft Windows gratuito, implementación del sistema DosVox en español.",
-        href: "http://intervox.nce.ufrj.br/mexvox/index.htm"
+        descriptionHerr:
+          "Lector de pantalla para Microsoft Windows gratuito, implementación del sistema DosVox en español.",
+        href: "http://intervox.nce.ufrj.br/mexvox/index.htm",
       },
       {
         nameHerramienta: "NVDA",
         descriptionHerr: "Lector de pantalla para Microsoft Windows gratuito.",
-        href: "https://nvda.es/"
+        href: "https://nvda.es/",
       },
       {
         nameHerramienta: "Orca",
-        descriptionHerr: "Lector de pantalla y magnificador de pantalla para el sistema de escritorio GNOME.",
-        href: "https://help.gnome.org/users/orca/stable/introduction.html.es"
+        descriptionHerr:
+          "Lector de pantalla y magnificador de pantalla para el sistema de escritorio GNOME.",
+        href: "https://help.gnome.org/users/orca/stable/introduction.html.es",
       },
       {
         nameHerramienta: "Zoomtext",
-        descriptionHerr: "La versión Magnifier/Reader incluye un magnificador de pantalla y un lector de pantalla.",
-        href: "https://www.convertic.gov.co/641/w3-propertyvalue-15340.html"
+        descriptionHerr:
+          "La versión Magnifier/Reader incluye un magnificador de pantalla y un lector de pantalla.",
+        href: "https://www.convertic.gov.co/641/w3-propertyvalue-15340.html",
       },
       {
         nameHerramienta: "Sonowebs",
-        descriptionHerr: "Explica cómo incorporar el componente en Wordpress, Blogger o cualquier otra página web.",
-        href: "https://www.sonowebs.com/"
+        descriptionHerr:
+          "Explica cómo incorporar el componente en Wordpress, Blogger o cualquier otra página web.",
+        href: "https://www.sonowebs.com/",
       },
       {
         nameHerramienta: "vozMe",
-        descriptionHerr: "Explica cómo incorporar el componente en Wordpress, Blogger o cualquier otra página web. Permite elegir entre una voz masculina o femenina y también permite descargar un fichero MP3 con el audio.",
-        href: "https://vozme.softonic.com/aplicaciones-web"
-      }
+        descriptionHerr:
+          "Explica cómo incorporar el componente en Wordpress, Blogger o cualquier otra página web. Permite elegir entre una voz masculina o femenina y también permite descargar un fichero MP3 con el audio.",
+        href: "https://vozme.softonic.com/aplicaciones-web",
+      },
     ],
-    icon: Photo
+    icon: Photo,
   },
   {
     titleSection: "Magnificadores de pantalla",
@@ -382,31 +442,35 @@ export const herramientasRecursos = [
     herramientas: [
       {
         nameHerramienta: "Ampliador de Windows",
-        descriptionHerr: "Disponible en los sistemas operativos Microsoft Windows XP y Microsoft Vista.",
-        href: "https://www.microsoft.com/es-es"
+        descriptionHerr:
+          "Disponible en los sistemas operativos Microsoft Windows XP y Microsoft Vista.",
+        href: "https://www.microsoft.com/es-es",
       },
       {
         nameHerramienta: "Dolphin Hal",
         descriptionHerr: "Magnificador de pantalla.",
-        href: "https://yourdolphin.com/AllProducts"
+        href: "https://yourdolphin.com/AllProducts",
       },
       {
         nameHerramienta: "Dolphin Lunar Plus",
-        descriptionHerr: "Magnificador de pantalla que incluye también lector de pantalla.",
-        href: "https://yourdolphin.com/AllProducts"
+        descriptionHerr:
+          "Magnificador de pantalla que incluye también lector de pantalla.",
+        href: "https://yourdolphin.com/AllProducts",
       },
       {
         nameHerramienta: "iZoom USB Magnifier/Reader",
-        descriptionHerr: "Similar a iZoom, pero disponible en una memoria USB para utilizar en cualquier ordenador sin instalación y sin derechos de administrador.",
-        href: "http://issist1.com/"
+        descriptionHerr:
+          "Similar a iZoom, pero disponible en una memoria USB para utilizar en cualquier ordenador sin instalación y sin derechos de administrador.",
+        href: "http://issist1.com/",
       },
       {
         nameHerramienta: "ZoomText",
-        descriptionHerr: "Desde 1 a 36 niveles de aumento, posee la tecnología xFont para aumentar sin pérdida de calidad el texto, incluye controles de color, contraste y brillo.",
-        href: "https://www.freedomscientific.com/products/lowvision/"
+        descriptionHerr:
+          "Desde 1 a 36 niveles de aumento, posee la tecnología xFont para aumentar sin pérdida de calidad el texto, incluye controles de color, contraste y brillo.",
+        href: "https://www.freedomscientific.com/products/lowvision/",
       },
     ],
-    icon: Terminal
+    icon: Terminal,
   },
   {
     titleSection: "Traductores",
@@ -415,67 +479,72 @@ export const herramientasRecursos = [
     herramientas: [
       {
         nameHerramienta: "Duxbury",
-        descriptionHerr: "Soporta múltiples idiomas. Soporta braille técnico y matemático. Disponible para Windows, Macintosh y DOS.",
-        href: "https://www.duxburysystems.com/"
+        descriptionHerr:
+          "Soporta múltiples idiomas. Soporta braille técnico y matemático. Disponible para Windows, Macintosh y DOS.",
+        href: "https://www.duxburysystems.com/",
       },
       {
         nameHerramienta: "Megadots",
         descriptionHerr: "Traductor para grandes volúmenes de documentos.",
-        href: "https://www.duxburysystems.com/mega_main.asp"
+        href: "https://www.duxburysystems.com/mega_main.asp",
       },
     ],
-    icon: Translate
+    icon: Translate,
   },
   {
     titleSection: "Navegadores alternos",
-    description:
-      "",
+    description: "",
     herramientas: [
       {
         nameHerramienta: "Amaya",
-        descriptionHerr: "Navegador y editor de páginas web del W3C, con soporte para las últimas tecnologías.",
-        href: "https://www.w3.org/Amaya/"
+        descriptionHerr:
+          "Navegador y editor de páginas web del W3C, con soporte para las últimas tecnologías.",
+        href: "https://www.w3.org/Amaya/",
       },
       {
         nameHerramienta: "Elinks",
-        descriptionHerr: "Navegador en modo texto que incluye soporte para tablas y marcos.",
-        href: "http://elinks.or.cz/"
+        descriptionHerr:
+          "Navegador en modo texto que incluye soporte para tablas y marcos.",
+        href: "http://elinks.or.cz/",
       },
       {
         nameHerramienta: "Lynx",
         descriptionHerr: "Navegador en modo texto.",
-        href: "https://lynx-win32-version.softonic.com/"
+        href: "https://lynx-win32-version.softonic.com/",
       },
       {
         nameHerramienta: "MozBraille",
-        descriptionHerr: "Basado en el navegador Mozilla, ofrece tres formatos de visualización: en un dispositivo braille, mediante sintetizador de voz y con caracteres grandes.",
-        href: "https://www.tecnoaccesible.net/catalogo/mozbraille"
+        descriptionHerr:
+          "Basado en el navegador Mozilla, ofrece tres formatos de visualización: en un dispositivo braille, mediante sintetizador de voz y con caracteres grandes.",
+        href: "https://www.tecnoaccesible.net/catalogo/mozbraille",
       },
     ],
-    icon: Browser
+    icon: Browser,
   },
   {
     titleSection: "Teclados virtuales",
-    description:
-      "",
+    description: "",
     herramientas: [
       {
         nameHerramienta: "Click-N-Type",
-        descriptionHerr: "Es un teclado virtual diseñado para toda aquella persona con una discapacidad que le impida usar un teclado físico. Mientras que esta persona pueda controlar un ratón, trackball u otro aparato señalador, este programa puede enviar pulsaciones virtualmente a cualquier aplicación basada en el sistema Windows.",
-        href: "https://www.tecnoaccesible.net/catalogo/click-n-type"
+        descriptionHerr:
+          "Es un teclado virtual diseñado para toda aquella persona con una discapacidad que le impida usar un teclado físico. Mientras que esta persona pueda controlar un ratón, trackball u otro aparato señalador, este programa puede enviar pulsaciones virtualmente a cualquier aplicación basada en el sistema Windows.",
+        href: "https://www.tecnoaccesible.net/catalogo/click-n-type",
       },
       {
         nameHerramienta: "Hot Virtual Keybord",
-        descriptionHerr: "Teclado virtual en pantalla; posee botones programables, gestos y la opción de autocompletar.",
-        href: "https://hotvirtualkeyboard.com/"
+        descriptionHerr:
+          "Teclado virtual en pantalla; posee botones programables, gestos y la opción de autocompletar.",
+        href: "https://hotvirtualkeyboard.com/",
       },
       {
         nameHerramienta: "Microsoft On-Screen Keyboard",
-        descriptionHerr: "Microsoft Windows XP incluye este teclado virtual. Permite diferentes modos de escritura: pulsar sobre una tecla, permanecer un tiempo sobre una tecla y escaneo.",
-        href: "https://www.microsoft.com/windowsxp/using/setup/tips/onscreenkeyboard.mspx"
+        descriptionHerr:
+          "Microsoft Windows XP incluye este teclado virtual. Permite diferentes modos de escritura: pulsar sobre una tecla, permanecer un tiempo sobre una tecla y escaneo.",
+        href: "https://www.microsoft.com/windowsxp/using/setup/tips/onscreenkeyboard.mspx",
       },
     ],
-    icon: Calculator
+    icon: Calculator,
   },
 ];
 
