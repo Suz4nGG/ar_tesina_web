@@ -12,7 +12,8 @@ import { states } from "data";
 import { useRouter } from "next/router";
 import Footer from "/components/Global/Footer";
 import { useEffect, useState } from "react";
-import PDFComponent from "../../../components/PDF/PDFComponent";
+import PDFComponent from "components/PDF/PDFComponent";
+import { profesoresInvolucrados } from "../../../helpers";
 
 const Comments = ({ comentarioRecuperado: { comentarios, createdAt } }) => {
   const date = dateParse(createdAt);
@@ -75,6 +76,9 @@ const Id = ({ data, comentarioRecuperado }) => {
     createdAt,
     estadoSolicitud,
   } = data;
+  // ! Profesores involucrados
+  const profesores = profesoresInvolucrados(experienciaR);
+  console.log(profesores);
   const stateSol = states.find((item) => item[estadoSolicitud]);
   const dataAdaptacion = [
     {
@@ -157,7 +161,12 @@ const Id = ({ data, comentarioRecuperado }) => {
                   Editar
                 </button>
               </dd>
-              <PDFComponent dataSolicitud={data} dataEstudiante={dataStorage} />
+              <div className="text-sm text-gray-900 sm:col-span-2">
+                <PDFComponent
+                  dataSolicitud={data}
+                  dataEstudiante={dataStorage}
+                />
+              </div>
             </div>
           </dl>
         </div>

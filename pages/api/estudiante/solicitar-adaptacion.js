@@ -6,24 +6,27 @@ export default async function solicitudAdaptaciones(req, res) {
     case "POST":
       return await insertData(req, res);
     case "GET":
-      const tk = req.headers.authorization.split(" ")[1]
-      const usernameGet = validateToken(tk)
-      console.log(usernameGet)
+      const tk = req.headers.authorization.split(" ")[1];
+      const usernameGet = validateToken(tk);
+      console.log(usernameGet);
       return await getData(req, res, usernameGet);
   }
 }
 
 const insertData = async (req, res) => {
-  const {dataSolicitud, username} = req.body
+  const { dataSolicitud, username } = req.body;
   try {
     const [result] = await pool.query("INSERT INTO solicitudAdaptacion SET ?", {
       username,
       ...dataSolicitud,
     });
-    console.log(result)
+    console.log(result);
     return res.status(200).json({ message: "Adaptación enviada con exito" });
   } catch (err) {
-    console.log(err)
+    return res.status(500).json({
+      message:
+        "Ha ocurrido un error al conectarse con el servidor, intente más tarde",
+    });
   }
 };
 

@@ -4,8 +4,7 @@ import { pool } from "../../../config/db";
 export default async function getDataStudent(req, res) {
   switch (req.method) {
     case "POST":
-      await validateTK(req, res);
-      break;
+      return await validateTK(req, res);
   }
 }
 
