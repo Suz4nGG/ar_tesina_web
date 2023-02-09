@@ -3,7 +3,7 @@ import { pool } from "/config/db";
 export default async function docsSolicitados(req, res) {
   switch (req.method) {
     case "POST":
-      return await enviarDocumentacion(req, res)
+      return await enviarDocumentacion(req, res);
   }
 }
 
@@ -18,11 +18,7 @@ const enviarDocumentacion = async (req, res) => {
     if (id) {
       const [update] = await pool.query(
         "UPDATE documentosEntregados SET certificadoMedico = ?, comprobanteEstudios = ? WHERE idEstudiante = ?",
-        [
-          docs[0],
-          docs[1],
-          idEstudiante,
-        ]
+        [docs[0], docs[1], idEstudiante]
       );
       return res.status(200).json(id);
     } else {
@@ -38,6 +34,10 @@ const enviarDocumentacion = async (req, res) => {
     }
   } catch (err) {
     console.log(err);
-    return res.status(500).json("Error del servidor, intente más tarde");
+    return res
+      .status(500)
+      .json(
+        "Ha ocurrido un error al conectarse con el servidor, intente más tarde"
+      );
   }
-}
+};
