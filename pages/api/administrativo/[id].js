@@ -2,14 +2,17 @@ import { pool } from "/config/db";
 export default async function handler(req, res) {
   switch (req.method) {
     case "GET":
-      return await getAdaptacion(req, res);
+      return await obtenerAdaptacion(req, res);
     case "POST":
-      await getStudent(req, res);
-      break;
+      return await getStudent(req, res);
+    case "PUT":
+      return await cambiarEstado(req, res);
+    case "DELETE":
+      return await deleteSolicitud(req, res);
   }
 }
 
-const getAdaptacion = async (req, res) => {
+const obtenerAdaptacion = async (req, res) => {
   const { id } = req.query;
   try {
     const [result] = await pool.query(
@@ -18,7 +21,10 @@ const getAdaptacion = async (req, res) => {
     );
     return res.status(200).json(result[0]);
   } catch (err) {
-    return res.status(500).json({ message: "Error del servidor" });
+    return res.status(500).json({
+      message:
+        "Ha ocurrido un error al conectarse con el servidor, intente más tarde",
+    });
   }
 };
 
@@ -29,4 +35,39 @@ const getStudent = async (req, res) => {
     [usernameEstudiante]
   );
   return res.status(200).json(result[0]);
+};
+
+const deleteSolicitud = async (req, res) => {
+  const { id } = req.query;
+  try {
+    const [result] = await pool.query(
+      "DELETE FROM solicitudAdaptacion WHERE idSolicitud = ?",
+      [id]
+    );
+    return res.status(200).json({
+      message: "Solicitud CANCELADA con éxito",
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({
+      message: "Error: La solicitud no existe",
+    });
+  }
+};
+
+const cambiarEstado = async (req, res) => {
+  const { id } = req.query;
+  const { estado } = req.body;
+  console.log(estado, id);
+  const estadoCambio = estado.e.value;
+  try {
+    const [result] = await pool.query(
+      "UPDATE solicitudAdaptacion SET estadoSolicitud = ? WHERE idSolicitud = ?",
+      [estadoCambio, id]
+    );
+    console.log(result);
+    return res.status(200).json(estado.e.label);
+  } catch (err) {
+    return res.status(500).json({ error: "Error de conexión con el servidor" });
+  }
 };

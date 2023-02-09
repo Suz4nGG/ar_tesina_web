@@ -9,17 +9,16 @@ import {
   GET_DOCUMENTOS,
   DASHBOARD_PERSONAL,
 } from "/constants";
-import { dateParse, normalizeText } from "/validations";
+import { dateParse } from "/validations";
 import { states } from "/data";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import Footer from "/components/Global/Footer";
 import { useState } from "react";
 import TextArea from "components/Estudiante/components/TextArea";
-import { dataProfesores } from "/data";
 import ErrorMessages from "components/Messages/ErrorMessages";
 import ButtonN from "components/Global/ButtonN";
-import { timeOut } from "/helpers";
+import { timeOut, profesoresInvolucrados } from "/helpers";
 import SelectN from "components/Global/Select";
 import PDFComponent from "../../../components/PDF/PDFComponent";
 
@@ -133,10 +132,6 @@ const Id = ({ data, infoUser, comentarioRecuperado, docs }) => {
   // ! Estado de la solicitud
   const stateSol = states.find((item) => item[estadoSolicitud]);
   // ! Responsables
-  const experienciaE = normalizeText(experienciaR).toLowerCase();
-  const responsablesS = dataProfesores.find(
-    (item) => item.ee === experienciaE
-  ).profesor;
   const [showMessage, setShowMessage] = useState(false);
   const [estado, setEstado] = useState({});
   const [nuevoEstado, setNuevoEstado] = useState();
@@ -154,7 +149,7 @@ const Id = ({ data, infoUser, comentarioRecuperado, docs }) => {
     },
     {
       title: "Responsables",
-      description: responsablesS || "",
+      description: profesoresInvolucrados(experienciaR) || "",
     },
     {
       title: "Creación",
