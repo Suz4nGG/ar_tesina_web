@@ -126,7 +126,7 @@ const FormAC = ({ endSolicitud }) => {
             handleChange={handleChange}
             placeholder="Experiencia Educativa"
             type="text"
-            value={dataA.experienciaR}
+            value={dataA.experienciaR || ""}
           />
         </div>
         <ErrorMessages
@@ -143,7 +143,7 @@ const FormAC = ({ endSolicitud }) => {
               rounded px-4 py-3 mt-4
               text-base font-medium
               shadow hover:bg-green-700 sm:px-8
-            text-gray-100 bg-green-600 w-full"
+              text-gray-100 bg-green-600 w-full"
           >
             {router.query.id ? "Editar" : "Enviar Solicitud"}
           </button>

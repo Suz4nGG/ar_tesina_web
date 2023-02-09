@@ -1,13 +1,23 @@
-import React from 'react';
+import React from "react";
 
-const TextArea = ({ label, name, description, required, placeholder, handleChange, value }) => {
+const TextArea = ({
+  label,
+  name,
+  description,
+  required,
+  placeholder,
+  handleChange,
+  value,
+}) => {
   return (
-    <div className='mt-4'>
-      <label htmlFor={name} className="block text-lg font-medium text-gray-700">
-        {label} <span className='text-red-600'>{required}</span>
+    <div className="mt-4">
+      <label htmlFor={name} className="block font-medium text-gray-600">
+        {label} <span className="text-red-600">{required}</span>
       </label>
       <div className="mt-1">
-        <p className='block text-sm font-medium text-gray-700 py-2'>{description}</p>
+        <p className="block text-sm font-medium text-gray-700 py-2">
+          {description}
+        </p>
         <textarea
           rows={4}
           name={name}
@@ -26,6 +36,6 @@ const TextArea = ({ label, name, description, required, placeholder, handleChang
       </div>
     </div>
   );
-}
+};
 
 export default TextArea;

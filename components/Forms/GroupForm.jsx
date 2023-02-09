@@ -9,9 +9,10 @@ export const GroupForm = ({
   colQuery,
   placeholder,
   handleChange,
-  errorMessage
+  errorMessage,
 }) => {
-  const [event, setEvent] = useState('eve')
+  // console.log(errorMessage);
+  const [event, setEvent] = useState("eve");
   return (
     <div className={`col-span-${colQuery} sm:col-span-${colSM}`}>
       <label
@@ -41,18 +42,16 @@ export const GroupForm = ({
         />
       </div>
       <div className="text-sm text-red-600">
-        {
-          event ?
-          errorMessage &&
-          errorMessage.map((err) =>
-            err.split(":")[0] === name && err.split(':')[0] === event ? (
-              <p key={err.split(":")[1]}>{err.split(":")[1]}</p>
-            ) : (
-              ''
+        {event
+          ? errorMessage &&
+            errorMessage.map((err) =>
+              err.split(":")[0] === name && err.split(":")[0] === event ? (
+                <p key={err.split(":")[1]}>{err.split(":")[1]}</p>
+              ) : (
+                ""
+              )
             )
-            )
-          : ''
-        }
+          : ""}
       </div>
     </div>
   );
