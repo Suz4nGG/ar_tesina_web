@@ -2,14 +2,20 @@ import React, { useEffect, useState } from "react";
 import Button from "../../..//components/Global/Button";
 import TextArea from "./TextArea";
 import axios from "axios";
-import { SOLADAPT, ADAPSTUDENT, APISTUDENT, GETADAPT } from "constants";
+import {
+  API_SOLICITAR_ADAPTACION,
+  API_ESTUDIANTE,
+  GET_ADAPTACION,
+  ADAPTACIONES_ESTUDIANTE,
+} from "constants";
 import { useRouter } from "next/router";
-import { GroupForm } from "../../..//components/Forms/GroupForm";
+import { GroupForm } from "components/Forms/GroupForm";
 import { dataSolicitudF, dataProfesores } from "data";
 import { normalizeText } from "validations";
-import { Link, animateScroll as scroll } from "react-scroll";
+import { animateScroll as scroll } from "react-scroll";
+import ErrorMessages from "../../Messages/ErrorMessages";
 
-const FormAC = ({ endSolicitud, idTopTop }) => {
+const FormAC = ({ endSolicitud }) => {
   const router = useRouter();
   const [dataA, setDataA] = useState({});
   const [dataStorage, setDataStorage] = useState();
@@ -18,7 +24,7 @@ const FormAC = ({ endSolicitud, idTopTop }) => {
   const [errors, setErrors] = useState({
     message: "",
   });
-  // Obtener sessionStorage
+  // ^ Obtener sessionStorage
   useEffect(() => {
     setDataStorage(JSON.parse(sessionStorage.getItem("idU")));
   }, []);
@@ -35,10 +41,13 @@ const FormAC = ({ endSolicitud, idTopTop }) => {
         (dataA.informacion || dataA.respuesta || dataA.tiempoHorario)
       ) {
         if (router.query.id) {
-          await axios.put(APISTUDENT + "/adaptacion/" + router.query.id, dataA);
-          router.push(GETADAPT + router.query.id);
+          await axios.put(
+            API_ESTUDIANTE + "/adaptacion/" + router.query.id,
+            dataA
+          );
+          router.push(GET_ADAPTACION + router.query.id);
         } else {
-          const res = await axios.post(SOLADAPT, {
+          const res = await axios.post(API_SOLICITAR_ADAPTACION, {
             dataSolicitud: dataA,
             username: dataStorage.usernameA || "",
           });
@@ -54,7 +63,7 @@ const FormAC = ({ endSolicitud, idTopTop }) => {
           );
           // ! Poner un timer para que rediriga
           const timer = setTimeout(() => {
-            router.push(ADAPSTUDENT);
+            router.push(ADAPTACIONES_ESTUDIANTE);
           }, 2000);
           return () => clearTimeout(timer);
         }
@@ -62,8 +71,8 @@ const FormAC = ({ endSolicitud, idTopTop }) => {
         setErrors({ message: "* Introduce todos los campos necesarios" });
       }
     } catch (err) {
-      console.log(err);
-      setErrors({ message: "Error Server" });
+      const { message } = err.response.data;
+      setErrors({ message });
     }
   };
 
@@ -73,7 +82,7 @@ const FormAC = ({ endSolicitud, idTopTop }) => {
   useEffect(() => {
     const getDataAdaptacion = async () => {
       const { data } = await axios.get(
-        APISTUDENT + "/adaptacion/" + router.query.id
+        API_ESTUDIANTE + "/adaptacion/" + router.query.id
       );
       setDataA({
         informacion: data.informacion,
@@ -89,13 +98,11 @@ const FormAC = ({ endSolicitud, idTopTop }) => {
 
   return (
     <div id="upPage">
-      {messageC ? (
-        <p className="px-4 py-4 mt-8 bg-yellow-200 rounded text-yellow-800 w-fit">
-          {messageC}
-        </p>
-      ) : (
-        ""
-      )}
+      <ErrorMessages
+        errors={messageC}
+        show={messageC ? true : false}
+        styles={"bg-yellow-200 text-yellow-800"}
+      />
       <form
         className="w-full flex flex-col justify-center pt-2 pb-12 "
         onSubmit={handleSubmit}
@@ -122,7 +129,11 @@ const FormAC = ({ endSolicitud, idTopTop }) => {
             value={dataA.experienciaR}
           />
         </div>
-        <p className="text-red-600 mt-4">{errors.message}</p>
+        <ErrorMessages
+          errors={errors.message}
+          show={errors.message ? true : false}
+          styles={"bg-red-200 text-red-800"}
+        />
         <div className="block sm:flex justify-between">
           <button
             disabled={!dataA}
