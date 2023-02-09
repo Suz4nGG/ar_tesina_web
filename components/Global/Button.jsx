@@ -1,9 +1,19 @@
-import Router from 'next/router';
+import Router from "next/router";
 
-const Button = ({ bg, textColor, text, href, hover, disabled, handleChange }) => {
+const Button = ({
+  bg,
+  textColor,
+  text,
+  href,
+  hover,
+  disabled,
+  handleChange,
+}) => {
   return (
     <button
-      onClick={e => {Router.push(`${href}`)}}
+      onClick={(e) => {
+        Router.push(`${href}`);
+      }}
       className={`
         flex items-center justify-center
         rounded ${bg} px-4 py-3
@@ -11,10 +21,11 @@ const Button = ({ bg, textColor, text, href, hover, disabled, handleChange }) =>
         shadow hover:${hover} sm:px-8
       `}
       disabled={disabled}
-      >
+      onChange={handleChange}
+    >
       {text}
     </button>
   );
-}
+};
 
 export default Button;
