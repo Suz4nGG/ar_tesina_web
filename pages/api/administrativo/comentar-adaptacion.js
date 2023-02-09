@@ -3,23 +3,19 @@ import { pool } from "/config/db";
 export default async function handler(req, res) {
   switch (req.method) {
     case "POST":
-      return await comentarAdaptacion(req, res);
+      return await COMENTAR_ADAPTACIONtacion(req, res);
   }
 }
 
-const comentarAdaptacion = async (req, res) => {
-  const {
-    comentarios,
-    idSolicitud
-  } = req.body;
-  console.log(req.body)
+const COMENTAR_ADAPTACIONtacion = async (req, res) => {
+  const { comentarios, idSolicitud } = req.body;
   try {
     const [exist] = await pool.query(
       "SELECT idSolicitud FROM comentarioSolicitud WHERE idSolicitud = ?",
       [idSolicitud]
     );
     if (exist[0]) {
-      const [result1] = await pool.query(
+      await pool.query(
         "UPDATE comentarioSolicitud SET comentarios = ? WHERE idSolicitud = ?",
         [comentarios, idSolicitud]
       );
@@ -33,6 +29,9 @@ const comentarAdaptacion = async (req, res) => {
     }
   } catch (err) {
     console.log(err);
-    return res.status(500).json({ message: "Error del servidor" });
+    return res.status(500).json({
+      message:
+        "Ha ocurrido un error al conectarse con el servidor, intente más tarde",
+    });
   }
 };
