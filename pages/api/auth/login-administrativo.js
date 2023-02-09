@@ -16,10 +16,13 @@ export default async function loginHandler(req, res) {
         .status(401)
         .json({ error: "Usuario o contraseña incorrectos" });
     }
-    const serialized = generateToken({ usernameA: userP })
-    res.setHeader("Set-Cookie", serialized)
+    const serialized = generateToken({ usernameA: userP });
+    res.setHeader("Set-Cookie", serialized);
     return res.status(200).json({ message: "Inicio exitoso" });
   } catch (err) {
-    return res.status(500).json({ message: "Error del servidor" });
+    return res.status(500).json({
+      message:
+        "Ha ocurrido un error al conectarse con el servidor, intente más tarde",
+    });
   }
 }

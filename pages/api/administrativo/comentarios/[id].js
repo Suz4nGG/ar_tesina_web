@@ -9,10 +9,16 @@ export default async function handler(req, res) {
 
 const obtenerComentarios = async (req, res) => {
   try {
-    const { id } = req.query
-    const [result] = await pool.query("SELECT * FROM comentarioSolicitud WHERE idSolicitud = ?", [id])
-    return res.status(200).json(result[0])
+    const { id } = req.query;
+    const [result] = await pool.query(
+      "SELECT * FROM comentarioSolicitud WHERE idSolicitud = ?",
+      [id]
+    );
+    return res.status(200).json(result[0]);
   } catch (err) {
-    return res.status(200).json({message: "Error del servidor"})
+    return res.status(200).json({
+      message:
+        "Ha ocurrido un error al conectarse con el servidor, intente más tarde",
+    });
   }
-}
+};
