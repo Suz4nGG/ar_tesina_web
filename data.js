@@ -264,7 +264,7 @@ export const states = [
     name: "Enviada",
     value: "1",
     label: "Enviada",
-    color: "green",
+    color: "#1B539E",
   },
   {
     2: "Revisión",

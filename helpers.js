@@ -11,7 +11,6 @@ export const timeOut = (time, setFunction) => {
 // ^ ee = Experiencia educativa
 export const profesoresInvolucrados = (ee) => {
   const experienciaEducativa = normalizeText(ee).toLowerCase();
-  console.log(experienciaEducativa);
   const responsablesSolicitud = dataProfesores.find(
     (item) => item.ee === experienciaEducativa
   );

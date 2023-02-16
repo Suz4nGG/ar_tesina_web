@@ -22,7 +22,7 @@ export const SelectN = ({
             }),
           }}
           onChange={handleChangeEstados}
-          name="carrera"
+          name={statesPersonal}
           options={statesPersonal}
           placeholder="Estado de la solicitud"
           required

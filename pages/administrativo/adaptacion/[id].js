@@ -21,7 +21,7 @@ import ButtonN from "components/Global/ButtonN";
 import { timeOut, profesoresInvolucrados } from "/helpers";
 import SelectN from "components/Global/Select";
 import PDFComponent from "../../../components/PDF/PDFComponent";
-
+import PanelAdaptaciones from "../../../components/Dashboard/PanelAdaptaciones";
 const Box = ({
   title,
   description,
@@ -84,11 +84,12 @@ const Box = ({
             <div className="min-w-max min-h-max">
               <div className="flex flex-col text-gray-900 sm:col-span-2 sm:mt-0">
                 <div className="text-gray-600 overflow-auto">
-                  {comentarioRecuperado || (
-                    <>
-                      Nuevo Comentario <p>{getComentarios}</p>
-                    </>
-                  )}
+                  {comentarioRecuperado ||
+                    (getComentarios && (
+                      <>
+                        Nuevo Comentario <p>{getComentarios}</p>
+                      </>
+                    ))}
                 </div>
               </div>
             </div>
@@ -229,9 +230,7 @@ const Id = ({ data, infoUser, comentarioRecuperado, docs }) => {
       }
     }
   };
-  const showContrato = () => {
-    setShowContrato(!contrato);
-  };
+
   // ! Pendiente
   useEffect(() => {
     const timer = setTimeout(() => {

@@ -31,9 +31,16 @@ const insertData = async (req, res) => {
 };
 
 const getData = async (req, res, username) => {
-  const [result] = await pool.query(
-    "SELECT * FROM solicitudAdaptacion WHERE username = ?",
-    [username]
-  );
-  return res.status(200).json(result);
+  try {
+    const [result] = await pool.query(
+      "SELECT * FROM solicitudAdaptacion WHERE username = ?",
+      [username]
+    );
+    return res.status(200).json(result.reverse());
+  } catch (err) {
+    return res.status(500).josn({
+      message:
+        "Ha ocurrido un error al conectarse con el servidor, intente más tarde",
+    });
+  }
 };

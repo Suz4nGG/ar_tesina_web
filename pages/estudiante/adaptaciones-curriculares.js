@@ -3,7 +3,12 @@ import React from "react";
 import Layout from "components/Global/Layout";
 import Navigation from "components/Global/Navigation";
 import ShowAdaptaciones from "components/Estudiante/components/ShowAdaptaciones";
-import Footer from "components/Global/Footer"
+import Footer from "components/Global/Footer";
+import {
+  SOLICITAR_ADAPTACION,
+  API_SOLICITAR_ADAPTACION,
+  URL_INICIAL,
+} from "../../constants";
 
 const AdaptacionesCurriculares = (adaptaciones) => {
   const data = adaptaciones.adaptaciones;
@@ -35,7 +40,7 @@ const AdaptacionesCurriculares = (adaptaciones) => {
             />
           ))}
         </div>
-        <Footer/>
+        <Footer />
       </Layout>
     </>
   );
@@ -49,7 +54,7 @@ export async function getServerSideProps(context) {
       Authorization: "Bearer " + authTokenUser,
     };
     const { data: adaptaciones } = await axios.get(
-      "http://localhost:3000/api/estudiante/solicitar-adaptacion",
+      URL_INICIAL + API_SOLICITAR_ADAPTACION,
       {
         headers,
       }
@@ -60,7 +65,7 @@ export async function getServerSideProps(context) {
       },
     };
   } catch (err) {
-    console.log(err)
+    console.log(err);
     return {
       props: {},
     };
