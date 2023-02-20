@@ -11,7 +11,7 @@ const FormOne = ({ data, handleChange, errorMessage }) => {
           text={item.text}
           type={item.type}
           colSM={item.colSM}
-          // value={data[item.name]}
+          value={data[item.name]}
           colQuery={item.colQuery}
           handleChange={handleChange}
           errorMessage={errorMessage}

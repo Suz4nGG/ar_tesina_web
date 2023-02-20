@@ -15,7 +15,7 @@ import {
 } from "../constants";
 import axios from "axios";
 import { useRouter } from "next/router";
-
+import Link from "next/link";
 const Login = () => {
   const router = useRouter();
   const actual = router.pathname.includes("login-personal");
@@ -111,13 +111,7 @@ const Login = () => {
               </div>
             </form>
             <div className="mt-4 text-blue-600 hover:text-blue-800">
-              <button
-                onClick={(e) => {
-                  router.push("/login-personal/");
-                }}
-              >
-                Soy personal administrativo
-              </button>
+              <Link href="/login-personal/">Soy personal administrativo</Link>
             </div>
           </div>
         </div>

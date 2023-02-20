@@ -11,7 +11,6 @@ export const GroupForm = ({
   handleChange,
   errorMessage,
 }) => {
-  // console.log(errorMessage);
   const [event, setEvent] = useState("eve");
   return (
     <div className={`col-span-${colQuery} sm:col-span-${colSM}`}>

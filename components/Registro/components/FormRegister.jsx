@@ -3,13 +3,13 @@ import HeaderForm from "../../Forms/HeaderForm";
 import Button from "../../Global/Button";
 import axios from "axios";
 import { useRouter } from "next/router";
-import { validations } from "../../../validations"
+import { validations } from "../../../validations";
 import FormOne from "./FormOne";
 import FormTwo from "./FormTwo";
 import FormThree from "./FormThree";
 import FormAcount from "./FormAcount";
-import { LOGIN, API_REG } from "../../../constants";
-
+import { LOGIN, API_REG } from "/constants";
+import ErrorMessages from "../../Messages/ErrorMessages";
 const FormRegister = () => {
   const [data, setData] = useState({
     nombreCompleto: "",
@@ -35,13 +35,13 @@ const FormRegister = () => {
         const clearData = dataOld.map(([key]) => [key, ""]);
         const newData = Object.fromEntries(clearData);
         setData(newData);
+        console.log("ND", newData);
         setServerError(false);
         setHasError(false);
         router.push(LOGIN);
       }
       setHasError(true);
     } catch (err) {
-      console.log(err);
       if (err.response.status === 401) {
         setServerError(true);
       }
@@ -60,7 +60,6 @@ const FormRegister = () => {
       }
     }
   };
-  console.log(data);
 
   return (
     <form
@@ -70,21 +69,18 @@ const FormRegister = () => {
       {/* * Datos estudiante */}
       <HeaderForm step="FormOne" />
       <div className="mx-4 sm:mx-0">
-        {serverError ? (
-          <p className="text-red-600 text-sm py-2">
-            * Revisa el nombre de usuario o nombre completo proporcionado, ya
-            existe una cuenta con esos datos
-          </p>
-        ) : (
-          ""
-        )}
-        {hasError ? (
-          <p className="text-red-600 text-sm py-2">
-            * Completa los campos requeridos
-          </p>
-        ) : (
-          ""
-        )}
+        <ErrorMessages
+          styles="bg-red-100 text-red-600 text-sm"
+          errors="* Revisa el nombre de usuario o nombre completo proporcionado, ya
+            existe una cuenta con esos datos"
+          show={serverError}
+        />
+
+        <ErrorMessages
+          errors={"* Completa los campos requeridos"}
+          show={hasError}
+          styles="bg-red-100 text-red-600 text-sm"
+        />
       </div>
       <FormOne
         data={data}
@@ -99,7 +95,11 @@ const FormRegister = () => {
       <FormThree data={data} handleChange={handleChange} />
       {/* datos de cuenta */}
       <HeaderForm step="FormAcount" />
-      <FormAcount handleChange={handleChange} errorMessage={errorMessage} />
+      <FormAcount
+        handleChange={handleChange}
+        errorMessage={errorMessage}
+        data={data}
+      />
       <div className="mx-4 sm:mx-0">
         <Button
           bg="bg-green-600 w-full"

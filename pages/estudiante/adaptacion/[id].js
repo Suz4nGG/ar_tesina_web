@@ -13,7 +13,7 @@ import { useRouter } from "next/router";
 import Footer from "/components/Global/Footer";
 import { useEffect, useState } from "react";
 import PDFComponent from "components/PDF/PDFComponent";
-import { profesoresInvolucrados } from "../../../helpers";
+import ErrorMessages from "../../../components/Messages/ErrorMessages";
 
 const Comments = ({ comentarioRecuperado: { comentarios, createdAt } }) => {
   const date = dateParse(createdAt);
@@ -65,6 +65,7 @@ const Box = ({ title, description, btnText, comentarioRecuperado }) => {
 
 const Id = ({ data, comentarioRecuperado }) => {
   const [dataStorage, setDataStorage] = useState();
+  const [notStorage, setNotStorage] = useState(false);
   const {
     idSolicitud,
     informacion,
@@ -76,9 +77,6 @@ const Id = ({ data, comentarioRecuperado }) => {
     createdAt,
     estadoSolicitud,
   } = data;
-  // ! Profesores involucrados
-  const profesores = profesoresInvolucrados(experienciaR);
-  console.log(profesores);
   const stateSol = states.find((item) => item[estadoSolicitud]);
   const dataAdaptacion = [
     {
@@ -151,7 +149,6 @@ const Id = ({ data, comentarioRecuperado }) => {
             <div className="py-4 sm:grid sm:grid-cols-1 sm:gap-4 sm:py-5">
               <Comments comentarioRecuperado={comentarioRecuperado} />
             </div>
-
             <div className="py-4 sm:grid sm:grid-cols-2 sm:gap-4 sm:py-5">
               <dd className="text-sm text-gray-900 sm:col-span-2">
                 <button
@@ -162,10 +159,18 @@ const Id = ({ data, comentarioRecuperado }) => {
                 </button>
               </dd>
               <div className="text-sm text-gray-900 sm:col-span-2">
-                <PDFComponent
-                  dataSolicitud={data}
-                  dataEstudiante={dataStorage}
-                />
+                {dataStorage === undefined || dataStorage === null ? (
+                  <ErrorMessages
+                    errors="Vuelve a iniciar sesión si tu solicitud en formato PDF no es visible"
+                    show={true}
+                    styles={"bg-yellow-200 text-yellow-700 font-semibold"}
+                  />
+                ) : (
+                  <PDFComponent
+                    dataSolicitud={data}
+                    dataEstudiante={dataStorage}
+                  />
+                )}
               </div>
             </div>
           </dl>

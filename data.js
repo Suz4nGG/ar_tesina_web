@@ -53,26 +53,31 @@ export const selectOptionsDis = [
     name: "tipoDiscapacidad",
     value: "Auditiva",
     label: "Auditiva",
+    id: "Auditiva",
   },
   {
     name: "tipoDiscapacidad",
     value: "Baja visión",
     label: "Baja visión",
+    id: "Baja visión",
   },
   {
     name: "tipoDiscapacidad",
     value: "Motora",
     label: "Motora",
+    id: "Motora",
   },
   {
     name: "tipoDiscapacidad",
     value: "Psíquica",
     label: "Psíquica",
+    id: "Psíquica",
   },
   {
     name: "tipoDiscapacidad",
     value: "Salud",
     label: "Salud",
+    id: "Salud",
   },
 ];
 
@@ -313,7 +318,7 @@ export const states = [
     name: "Actualizada",
     value: "8",
     label: "Actualizada",
-    color: "green",
+    color: "orange",
   },
 ];
 
@@ -341,11 +346,13 @@ export const selectOptionsLic = [
     name: "carrera",
     value: "Redes y Servicios de Cómputo",
     label: "Redes y Servicios de Cómputo",
+    id: "Redes y Servicios de Computo",
   },
   {
     name: "carrera",
     value: "Cibercrimen",
     label: "Cibercrimen",
+    id: "Cibercrimen",
   },
 ];
 

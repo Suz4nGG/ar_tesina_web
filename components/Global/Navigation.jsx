@@ -40,7 +40,6 @@ const Navigation = ({ actState, initialData }) => {
   const handleLogOut = async () => {
     try {
       const res = await axios.post(LOGOUT);
-      console.log(res);
       router.push("/");
     } catch (err) {
       console.log(err);

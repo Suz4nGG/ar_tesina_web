@@ -67,11 +67,18 @@ const telValidationF = (string, stringName, errors) => {
 };
 
 export const validations = (data) => {
-  const { nombreCompleto, tel, usernameA, password, correo } = data;
+  const { nombreCompleto, tel, usernameA, password, correo, tipoDiscapacidad } =
+    data;
   let errors = [];
-  switch (correo || nombreCompleto || tel || usernameA || password) {
+  switch (correo && nombreCompleto && tel && usernameA && password) {
     case correo:
       correoValidation(correo, "correo", errors);
+    // case tipoDiscapacidad:
+    //   if (tipoDiscapacidad.length === 0) {
+    //     return errors.push(
+    //       `tipoDiscapacidad: Indica el o los tipos de discapacidad presentados`
+    //     );
+    //   }
     case nombreCompleto:
       stringsValidation(
         nombreValidation,

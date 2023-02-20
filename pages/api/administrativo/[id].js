@@ -48,7 +48,6 @@ const deleteSolicitud = async (req, res) => {
       message: "Solicitud CANCELADA con éxito",
     });
   } catch (err) {
-    console.log(err);
     return res.status(500).json({
       message: "Error: La solicitud no existe",
     });
@@ -58,14 +57,12 @@ const deleteSolicitud = async (req, res) => {
 const cambiarEstado = async (req, res) => {
   const { id } = req.query;
   const { estado } = req.body;
-  console.log(estado, id);
-  const estadoCambio = estado.e.value;
+  const estadoCambio = estado.e.value || estado.value;
   try {
     const [result] = await pool.query(
       "UPDATE solicitudAdaptacion SET estadoSolicitud = ? WHERE idSolicitud = ?",
       [estadoCambio, id]
     );
-    console.log(result);
     return res.status(200).json(estado.e.label);
   } catch (err) {
     return res.status(500).json({ error: "Error de conexión con el servidor" });

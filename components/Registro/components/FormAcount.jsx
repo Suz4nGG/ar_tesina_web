@@ -3,7 +3,7 @@ import Eye from "../../../components/icons/Eye";
 import EyeN from "../../../components/icons/EyeN";
 import { dataAcount } from "../../../data";
 
-export default function FormAcount({ handleChange, errorMessage }) {
+export default function FormAcount({ handleChange, errorMessage, data }) {
   const [event, setEvent] = useState();
   const [show, setShow] = useState(false);
   const handleClick = (e) => {
@@ -27,6 +27,7 @@ export default function FormAcount({ handleChange, errorMessage }) {
             <input
               id={item.name}
               name={item.name}
+              value={data[item.name]}
               type={
                 item.type === "password"
                   ? show
@@ -62,21 +63,21 @@ export default function FormAcount({ handleChange, errorMessage }) {
               : ""}
           </div>
           {item.name === "password" ? (
-              <button onClick={handleClick}>
-                {show ? (
-                  <span className="text-sm flex">
-                    <Eye />
-                    <span className="ml-2">Mostrar</span>
-                  </span>
-                ) : (
-                  <span className="text-sm flex items-center justify-between">
-                    <EyeN /> <span className="ml-2">Ocultar</span>
-                  </span>
-                )}
-              </button>
-            ) : (
-              ""
-            )}
+            <button onClick={handleClick}>
+              {show ? (
+                <span className="text-sm flex">
+                  <Eye />
+                  <span className="ml-2">Mostrar</span>
+                </span>
+              ) : (
+                <span className="text-sm flex items-center justify-between">
+                  <EyeN /> <span className="ml-2">Ocultar</span>
+                </span>
+              )}
+            </button>
+          ) : (
+            ""
+          )}
         </div>
       ))}
     </div>

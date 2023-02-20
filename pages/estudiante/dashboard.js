@@ -167,7 +167,6 @@ export async function getServerSideProps(context) {
     const { data } = await axios.post(URL_INICIAL + API_ESTUDIANTE, {
       authTokenUser,
     });
-    console.log("DDD", data);
     const {
       id,
       usernameA,
@@ -191,7 +190,6 @@ export async function getServerSideProps(context) {
       },
     };
   } catch (err) {
-    // const { message } = data;
     return {
       props: {},
     };

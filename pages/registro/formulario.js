@@ -1,10 +1,9 @@
-import PageTitle from "../../components/Global/PageTitle"
+import PageTitle from "../../components/Global/PageTitle";
 import FormRegister from "../../components/Registro/components/FormRegister";
-import Navigation from "../../components/Global/Navigation";
+import { Container } from "../../components/Global/Container";
 const FormularioRegistroTemplate = () => {
   return (
-    <>
-      <Navigation />
+    <Container>
       <div
         className="
             w-full flex flex-col justify-center items-center"
@@ -16,7 +15,7 @@ const FormularioRegistroTemplate = () => {
         />
         <FormRegister />
       </div>
-    </>
+    </Container>
   );
 };
 

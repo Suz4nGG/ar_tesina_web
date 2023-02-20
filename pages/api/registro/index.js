@@ -24,7 +24,7 @@ const registerStudent = async (req, res) => {
   // ! Validar que el estudiante no tenga otra cuenta ya
   try {
     const [result2] = await pool.query(
-      "SELECT nombreCompleto, usernameA FROM estudiantes WHERE nombreCompleto = ? AND usernameA = ?",
+      "SELECT nombreCompleto, usernameA FROM estudiantes WHERE nombreCompleto = ? OR usernameA = ?",
       [nombreCompleto, usernameA]
     );
     if (result2.length === 0) {

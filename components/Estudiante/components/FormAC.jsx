@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import Button from "../../..//components/Global/Button";
+import { useEffect, useState } from "react";
+import Button from "../../../components/Global/Button";
 import TextArea from "./TextArea";
 import axios from "axios";
 import {
@@ -7,13 +7,15 @@ import {
   API_ESTUDIANTE,
   GET_ADAPTACION,
   ADAPTACIONES_ESTUDIANTE,
+  API_PERSONAL,
+  URL_INICIAL,
 } from "constants";
 import { useRouter } from "next/router";
 import { GroupForm } from "components/Forms/GroupForm";
-import { dataSolicitudF, dataProfesores } from "data";
-import { normalizeText } from "validations";
+import { dataSolicitudF } from "data";
 import { animateScroll as scroll } from "react-scroll";
 import ErrorMessages from "../../Messages/ErrorMessages";
+import { profesoresInvolucrados } from "../../../helpers";
 
 const FormAC = ({ endSolicitud }) => {
   const router = useRouter();
@@ -31,8 +33,7 @@ const FormAC = ({ endSolicitud }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const ee = normalizeText(dataA.experienciaR || "").toLowerCase();
-    const responsables = dataProfesores.find((item) => item.ee === ee);
+    const responsables = profesoresInvolucrados(dataA.experienciaR);
     try {
       if (
         dataA.motSolicitud &&
@@ -45,13 +46,21 @@ const FormAC = ({ endSolicitud }) => {
             API_ESTUDIANTE + "/adaptacion/" + router.query.id,
             dataA
           );
+          // ! Cambiar ID de la solicitud al editar
+          await axios.put(URL_INICIAL + API_PERSONAL + "/" + router.query.id, {
+            estado: {
+              e: {
+                value: "8",
+                label: "Actualizada",
+              },
+            },
+          });
           router.push(GET_ADAPTACION + router.query.id);
         } else {
-          const res = await axios.post(API_SOLICITAR_ADAPTACION, {
+          await axios.post(API_SOLICITAR_ADAPTACION, {
             dataSolicitud: dataA,
             username: dataStorage.usernameA || "",
           });
-          console.log(res);
           // * Volver al inicio despues de que todo vaya bien
           const scrollToTop = () => {
             scroll.scrollToTop();
@@ -68,7 +77,12 @@ const FormAC = ({ endSolicitud }) => {
           return () => clearTimeout(timer);
         }
       } else {
-        setErrors({ message: "* Introduce todos los campos necesarios" });
+        responsables === undefined
+          ? setErrors({
+              message:
+                "* La Experiencia Educativa que introduciste no es valida",
+            })
+          : setErrors({ message: "* Introduce todos los campos necesarios" });
       }
     } catch (err) {
       const { message } = err.response.data;

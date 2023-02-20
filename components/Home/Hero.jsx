@@ -1,7 +1,8 @@
 import Image from "next/image";
-import Button from "../Global/Button";
+import Link from "next/link";
 import HeroImg from "/public/uv_hero.png";
-import { LOGIN, REGISTRO } from "constants";
+import { LOGIN, REGISTRO } from "/constants";
+
 export default function Hero() {
   return (
     <div className="bg-white">
@@ -28,28 +29,26 @@ export default function Hero() {
                     </span>
                   </h1>
                   <p className="mx-auto mt-6 max-w-lg text-center text-xl text-gray-100 sm:max-w-3xl">
-                    Nuestra principal misión es promover una igualdad de condiciones
-                    para todos los estudiantes, primordialmente para los
-                    estudiantes en situación de discapacidad, es por ello por lo
-                    que en este portal podrás solicitar adaptaciones
+                    Nuestra principal misión es promover una igualdad de
+                    condiciones para todos los estudiantes, primordialmente para
+                    los estudiantes en situación de discapacidad, es por ello
+                    por lo que en este portal podrás solicitar adaptaciones
                     curriculares para tus Experiencias Educativas.
                   </p>
                   <div className="mx-auto mt-10 max-w-sm sm:flex sm:max-w-none sm:justify-center sm:items-center">
                     <div className="flex justify-center items-center sm:mx-auto sm:inline-grid sm:grid-cols-2 sm:gap-5 gap-2 sm:space-y-0 flex-col mo:flex-row">
-                      <Button
-                        bg="bg-blue-600 w-full mo:w-42"
-                        textColor="text-gray-100"
-                        text="Registrate"
-                        href={`${REGISTRO}`}
-                        hover="bg-blue-700"
-                      />
-                      <Button
-                        bg="bg-green-600 w-full mo:w-42"
-                        textColor="text-gray-100"
-                        text="Inicia Sesión"
-                        href={`${LOGIN}`}
-                        hover="bg-green-700"
-                      />
+                      <Link
+                        className="bg-blue-600 w-full mo:w-42 text-white rounded px-2 py-2 text-center hover:bg-blue-700"
+                        href={REGISTRO}
+                      >
+                        Registrate
+                      </Link>
+                      <Link
+                        className="bg-green-600 w-full mo:w-42 text-white rounded px-2 py-2 text-center hover:bg-green-700"
+                        href={LOGIN}
+                      >
+                        Inicia Sesión
+                      </Link>
                     </div>
                   </div>
                 </div>
