@@ -84,7 +84,7 @@ const SolicitarAdaptacion = () => {
 
   return (
     <>
-      <Navigation actState="session" />
+      <Navigation actState="session_student" />
       <Layout
         data={
           router.query.id

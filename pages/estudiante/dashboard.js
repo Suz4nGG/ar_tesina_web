@@ -103,7 +103,7 @@ const Dashboard = (
   const router = useRouter();
   return (
     <>
-      <Navigation actState="session" />
+      <Navigation actState="session_student" />
       <Layout data={{ title: `Portal de Ajustes Curriculares` }}>
         <div className="divide-y divide-gray-200 overflow-hidden rounded-lg bg-gray-200 shadow sm:grid sm:grid-cols-2 sm:gap-px sm:divide-y-0 my-4 mb-10">
           {actions.map((action, actionIdx) => (

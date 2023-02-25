@@ -43,7 +43,7 @@ const AdaptacionesCurriculares = (adaptaciones) => {
   }
   return (
     <>
-      <Navigation actState="session" />
+      <Navigation actState="session_student" />
       <Layout data={{ title: "Adaptaciones curriculares" }}>
         <div className="mb-8">
           <div className="sm:flex sm:items-center">
