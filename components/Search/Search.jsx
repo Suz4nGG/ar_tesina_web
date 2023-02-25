@@ -1,5 +1,4 @@
-import { SearchIcon } from "@heroicons/react/outline";
-import { XCircleIcon } from "@heroicons/react/outline";
+import { SearchIcon, XCircleIcon } from "@heroicons/react/outline";
 
 const Search = ({ findSolicitud, setSearch, search }) => {
   const handleSearch = ({ target: { value } }) => setSearch(value);
@@ -14,7 +13,7 @@ const Search = ({ findSolicitud, setSearch, search }) => {
           className="bg-transparent outline-none rounded py-2 w-full text-gray-700"
           placeholder="ID Solicitud"
         />
-        <SearchIcon className="h-10 text-gray-500" />
+        <SearchIcon className="h-10 text-gray-400" />
       </div>
       <div
         style={!search === true ? { display: "none" } : { display: "block" }}

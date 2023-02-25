@@ -38,13 +38,13 @@ export default function Hero() {
                   <div className="mx-auto mt-10 max-w-sm sm:flex sm:max-w-none sm:justify-center sm:items-center">
                     <div className="flex justify-center items-center sm:mx-auto sm:inline-grid sm:grid-cols-2 sm:gap-5 gap-2 sm:space-y-0 flex-col mo:flex-row">
                       <Link
-                        className="bg-blue-600 w-full mo:w-42 text-white rounded px-2 py-2 text-center hover:bg-blue-700"
+                        className="bg-blue-600 w-full mo:w-42 text-white rounded px-4 py-2 text-center hover:bg-blue-700"
                         href={REGISTRO}
                       >
                         Registrate
                       </Link>
                       <Link
-                        className="bg-green-600 w-full mo:w-42 text-white rounded px-2 py-2 text-center hover:bg-green-700"
+                        className="bg-green-600 w-full mo:w-42 text-white rounded px-4 py-2 text-center hover:bg-green-700"
                         href={LOGIN}
                       >
                         Inicia Sesión
