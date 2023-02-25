@@ -3,6 +3,7 @@ import { XIcon, MenuIcon } from "@heroicons/react/outline";
 import { Popover, Transition } from "@headlessui/react";
 import {
   dataNavigationSessionStudent,
+  dataNavigationSessionPersonal,
   primaryNavigation,
   sessionNav,
 } from "../../data.js";
@@ -31,15 +32,19 @@ const secondaryNavigation = [
   },
 ];
 
-const Navigation = ({ actState, initialData }) => {
+const Navigation = ({ actState }) => {
   const [nav, setNav] = useState(primaryNavigation);
-  useEffect(() => {
-    if (actState) setNav(dataNavigationSessionStudent);
-  }, [actState]);
   const router = useRouter();
+  useEffect(() => {
+    if (router.pathname === "/administrativo/dashboard") {
+      setNav(dataNavigationSessionPersonal);
+    } else if (actState) {
+      setNav(dataNavigationSessionStudent);
+    }
+  }, [actState, router.pathname]);
   const handleLogOut = async () => {
     try {
-      const res = await axios.post(LOGOUT);
+      await axios.post(LOGOUT);
       router.push("/");
     } catch (err) {
       console.log(err);
@@ -102,7 +107,7 @@ const Navigation = ({ actState, initialData }) => {
                 container hidden md:flex
                 flex-wrap justify-end items-center
                 space-x-7 max-w-screen-xl px-3 py-5 mx-auto z-auto
-            "
+              "
             >
               {secondaryNavigation.map((item) =>
                 actState ? (
@@ -141,7 +146,7 @@ const Navigation = ({ actState, initialData }) => {
                 border-solid border-t-2 border-t-gray-200 z-auto
             "
             >
-              {actState ? (
+              {actState === "session_student" ? (
                 <>
                   <Popover className="relative flex">
                     {({ open }) => (

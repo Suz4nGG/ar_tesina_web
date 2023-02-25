@@ -176,6 +176,10 @@ export const dataNavigationSessionStudent = [
   { name: "Documentación Obligatoria", href: DOCUMENTOS_REQUERIDOS },
 ];
 
+export const dataNavigationSessionPersonal = [
+  { name: "Herramientas Accesibles", href: HERRAMIENTAS_ACCESIBLES },
+];
+
 // ! Items primary menu
 export const primaryNavigation = [
   { name: "Inicio", href: "/" },
@@ -184,7 +188,7 @@ export const primaryNavigation = [
 ];
 
 // ! Items secondary menu
-const secondaryNavigation = [
+export const secondaryNavigation = [
   {
     name: "Contacto: (555) 412-1234",
     href: "tel:5541251234",
@@ -197,9 +201,9 @@ const secondaryNavigation = [
   },
 ];
 
-export default secondaryNavigation;
-
-export const sessionNav = [{ name: "Herramientas Accesibles", href: "/" }];
+export const sessionNav = [
+  { name: "Herramientas Accesibles", href: HERRAMIENTAS_ACCESIBLES },
+];
 
 export const dataSolicitudF = (dataA) => {
   const dataSolicitud = [
