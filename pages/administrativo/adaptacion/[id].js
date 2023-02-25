@@ -241,7 +241,7 @@ const Id = ({ data, infoUser, comentarioRecuperado, docs }) => {
 
   return (
     <>
-      <Navigation actState="session" />
+      <Navigation actState="session_personal" />
       <Layout data={{ title: `Adaptación Curricular: ${idSolicitud}` }}>
         <SelectN
           handleChangeActualizar={handleChangeActualizar}

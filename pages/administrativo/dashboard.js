@@ -44,7 +44,7 @@ const Dashboard = (data) => {
   }
   return (
     <>
-      <Navigation actState="session" />
+      <Navigation actState="session_personal" />
       <Layout data={{ title: `Ajustes curriculares pendientes` }}>
         <div className="mb-20">
           <div className="sm:flex sm:items-center">
@@ -94,7 +94,6 @@ const Dashboard = (data) => {
 export async function getServerSideProps() {
   // * Ver direccionamiento
   const { data } = await axios.get(URL_INICIAL + GET_ADAPTACIONACIONES);
-  console.log(data);
   return {
     props: {
       data,
