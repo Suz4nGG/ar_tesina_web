@@ -123,7 +123,7 @@ const Id = ({ data, comentarioRecuperado }) => {
 
   return (
     <>
-      <Navigation actState="session" />
+      <Navigation actState="session_student" />
       <Layout data={{ title: `Adaptación Curricular: ${idSolicitud}` }}>
         <div>
           <h3 className="text-lg font-medium leading-6 text-gray-900">

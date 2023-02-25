@@ -6,7 +6,12 @@ import Footer from "components/Global/Footer";
 import { documentosNecesarios } from "/data";
 import axios from "axios";
 import Router from "next/router";
-import { DASHBOARD_ESTUDIANTE, API_DOCUMENTOS, URL_INICIAL } from "/constants";
+import {
+  DASHBOARD_ESTUDIANTE,
+  API_DOCUMENTOS,
+  URL_INICIAL,
+  GET_DOCUMENTOS,
+} from "/constants";
 
 const DocumentosObligatorios = () => {
   const [clicBox, setClicBox] = useState(
@@ -15,8 +20,10 @@ const DocumentosObligatorios = () => {
   const [error, setError] = useState();
   const [idEstudiante, setIdEstudiante] = useState();
   const [message, setMessage] = useState();
+  const [docs, setDocs] = useState();
 
   useEffect(() => {
+    // * Documentación
     const getSessionStorage = async () => {
       setIdEstudiante(JSON.parse(sessionStorage.getItem("idU")));
     };
@@ -57,7 +64,7 @@ const DocumentosObligatorios = () => {
   };
   return (
     <>
-      <Navigation actState="session" />
+      <Navigation actState="session_student" />
       <Layout data={{ title: `Documentación Necesaria` }}>
         <div className="mb-10 text-base">
           <p className="pb-4 text-gray-800">
@@ -124,6 +131,19 @@ const DocumentosObligatorios = () => {
       </Layout>
     </>
   );
+};
+
+export const getServerSideProps = async (context) => {
+  console.log(context);
+  // * Documentación
+  const { data } = await axios.post(URL_INICIAL + GET_DOCUMENTOS, {
+    idEstudiante: 1,
+  });
+  console.log(data);
+
+  return {
+    props: {},
+  };
 };
 
 export default DocumentosObligatorios;
