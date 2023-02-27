@@ -14,7 +14,7 @@ export default function Hero() {
                 src={HeroImg}
                 alt="Universidad Veracruzana Imagen"
                 title="Universidad Veracruzana Estadio Xalapeño"
-                className="h-full w-full object-cover blur-[3px]"
+                className="h-full w-full object-cover ]"
                 priority={true}
               />
               <div className="absolute inset-0 bg-gray-900 mix-blend-multiply" />

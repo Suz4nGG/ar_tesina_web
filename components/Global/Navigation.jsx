@@ -59,7 +59,7 @@ const Navigation = ({ actState }) => {
           grid
           p-5
           grid-cols-1
-          md:grid-cols-[300px,_1fr]
+          md:grid-cols-[.5fr,_1fr]
           mx-auto max-w-md- mx-auto-
         "
         >
@@ -252,7 +252,7 @@ const Navigation = ({ actState }) => {
                   <span className="">Cerrar menú</span>
                 </Popover.Button>
               </div>
-              <div className="pt-5 pb-6">
+              <div className="pt-5 pb-4">
                 <div className="pb-5 grid grid-cols-1 gap-2">
                   {nav.map((item) => (
                     <Link
