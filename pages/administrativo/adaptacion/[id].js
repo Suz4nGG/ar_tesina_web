@@ -1,6 +1,4 @@
 import axios from "axios";
-import Navigation from "components/Global/Navigation.jsx";
-import Layout from "components/Global/Layout.jsx";
 import {
   API_PERSONAL,
   COMENTAR_ADAPTACION,
@@ -13,7 +11,6 @@ import { dateParse } from "/validations";
 import { states } from "/data";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import Footer from "/components/Global/Footer";
 import { useState } from "react";
 import TextArea from "components/Estudiante/components/TextArea";
 import ErrorMessages from "components/Messages/ErrorMessages";
@@ -21,7 +18,8 @@ import ButtonN from "components/Global/ButtonN";
 import { timeOut, profesoresInvolucrados } from "/helpers";
 import SelectN from "components/Global/Select";
 import PDFComponent from "../../../components/PDF/PDFComponent";
-import PanelAdaptaciones from "../../../components/Dashboard/PanelAdaptaciones";
+import LayoutPA from "../../../components/Global/LayoutPA";
+
 const Box = ({
   title,
   description,
@@ -240,38 +238,37 @@ const Id = ({ data, infoUser, comentarioRecuperado, docs }) => {
   }, [showMessage]);
 
   return (
-    <>
-      <Navigation actState="session_personal" />
-      <Layout data={{ title: `Adaptación Curricular: ${idSolicitud}` }}>
-        <SelectN
-          handleChangeActualizar={handleChangeActualizar}
-          handleChangeEstados={handleChangeEstados}
-          message={message}
-          showMessage={showMessage}
-        />
-        <div className="mt-5 border-t border-gray-200">
-          <dl className="divide-y divide-gray-200">
-            {dataAdaptacion.map((item) => (
-              <Box
-                key={item.title}
-                title={item.title}
-                description={item.description}
-                btnText={item.btnText}
-                nameInput={item.nameInput}
-                id={router.query.id}
-                changeState={nuevoEstado}
-                comentarioRecuperado={item.comentarioRec}
-                array={item.array}
-              />
-            ))}
-          </dl>
-          <dl className="mb-9">
-            <PDFComponent dataSolicitud={data} dataEstudiante={infoUser} />
-          </dl>
-        </div>
-        <Footer />
-      </Layout>
-    </>
+    <LayoutPA
+      actState="session_personal"
+      title={`Adaptación Curricular: ${idSolicitud}`}
+    >
+      <SelectN
+        handleChangeActualizar={handleChangeActualizar}
+        handleChangeEstados={handleChangeEstados}
+        message={message}
+        showMessage={showMessage}
+      />
+      <div className="mt-5 border-t border-gray-200">
+        <dl className="divide-y divide-gray-200">
+          {dataAdaptacion.map((item) => (
+            <Box
+              key={item.title}
+              title={item.title}
+              description={item.description}
+              btnText={item.btnText}
+              nameInput={item.nameInput}
+              id={router.query.id}
+              changeState={nuevoEstado}
+              comentarioRecuperado={item.comentarioRec}
+              array={item.array}
+            />
+          ))}
+        </dl>
+        <dl className="mb-9">
+          <PDFComponent dataSolicitud={data} dataEstudiante={infoUser} />
+        </dl>
+      </div>
+    </LayoutPA>
   );
 };
 

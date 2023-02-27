@@ -36,7 +36,7 @@ const Navigation = ({ actState }) => {
   const [nav, setNav] = useState(primaryNavigation);
   const router = useRouter();
   useEffect(() => {
-    if (router.pathname === "/administrativo/dashboard") {
+    if (router.pathname.includes("/administrativo/")) {
       setNav(dataNavigationSessionPersonal);
     } else if (actState) {
       setNav(dataNavigationSessionStudent);
@@ -73,7 +73,7 @@ const Navigation = ({ actState }) => {
                 className="w-10 md:w-14"
                 width={60}
                 height={16}
-                priority={true}
+                priority={false}
               />
               <span
                 className="

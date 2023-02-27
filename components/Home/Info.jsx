@@ -1,7 +1,7 @@
 import React from "react";
 import Document from "/components/icons/Document";
-import Translate from "/components/icons/Translate"
-import Clock from "/components/icons/Clock"
+import Translate from "/components/icons/Translate";
+import Clock from "/components/icons/Clock";
 import Link from "next/link";
 const infoAjustes = [
   {
@@ -23,7 +23,6 @@ const infoAjustes = [
     icon: <Document h="15" w="15" />,
     headerColor: "bg-orange-500",
     borderColor: "border-orange-200",
-
   },
   {
     title: "Formas de respuesta",
@@ -36,7 +35,7 @@ const infoAjustes = [
     ],
     headerColor: "bg-blue-500",
     borderColor: "border-blue-200",
-    icon: <Translate h="15" w="15"/>
+    icon: <Translate h="15" w="15" />,
   },
   {
     title: "Organización del tiempo y horario.",
@@ -51,20 +50,32 @@ const infoAjustes = [
     headerColor: "bg-green-500",
     borderColor: "border-green-200",
     icon: <Clock h="15" w="15" />,
-
   },
 ];
 
-const ListAjustes = ({ title, info, adaptaciones, icon, headerColor, borderColor }) => {
+const ListAjustes = ({
+  title,
+  info,
+  adaptaciones,
+  icon,
+  headerColor,
+  borderColor,
+}) => {
   return (
-    <li className={`col-span-1 flex flex-col bg-white mt-6 text-center divide-y divide-gray-20 rounded-md shadow-sm border ${borderColor}`}>
-      <h1 className={`flex justify-center items-center h-36 flex-col ${headerColor}`}>
+    <li
+      className={`col-span-1 flex flex-col bg-white mt-6 text-center divide-y divide-gray-20 rounded-md shadow-sm border ${borderColor}`}
+    >
+      <h1
+        className={`flex justify-center items-center h-36 flex-col ${headerColor}`}
+      >
         <p className="h-10 w-10 mb-4 text-gray-800">{icon}</p>
         <span className="text-center text-xl font-medium leading-8 tracking-tight text-gray-800 sm:text-2xl break-words px-2">
           {title}
         </span>
       </h1>
-      <div className={`divide-y divide-gray-200 flex justify-center flex-col items-center px-4`}>
+      <div
+        className={`divide-y divide-gray-200 flex justify-center flex-col items-center px-4`}
+      >
         <p className="text-justify h-40 flex justify-center flex-col items-center">
           {info}
         </p>
@@ -113,9 +124,9 @@ const Info = () => {
           </span>
         </h1>
       </div>
-      <div className="flex flex-col justify-center items-center text-justify prose prose-lg prose-indigo mx-auto mt-6 text-gray-600">
+      <div className="flex flex-col justify-center items-center prose prose-lg prose-indigo mx-auto mt-6 text-gray-600">
         <div>
-          <p className="text-justify">
+          <p className="">
             Cuentas con tres tipos de adaptaciones curriculares, para que puedas
             solicitarla acorde a tus necesidades.
           </p>
@@ -134,10 +145,15 @@ const Info = () => {
           </ul>
         </div>
         <div className="mt-10 max-w-fit">
-          <Link className="flex items-center justify-center
+          <Link
+            className="flex items-center justify-center
         rounded px-4 py-3
-        text-base font-medium
-        shadow hover:bg-green-700 sm:px-8 w-full text-gray-100 bg-green-600 mt-4" href="/pdf/tipos_adaptaciones.pdf" download="tipos_adaptaciones.pdf" target='_blank'>
+        text-base font-medium text-center
+        shadow hover:bg-green-700 sm:px-8 w-full text-gray-100 bg-green-600 mt-4"
+            href="/pdf/tipos_adaptaciones.pdf"
+            download="tipos_adaptaciones.pdf"
+            target="_blank"
+          >
             Descargar ejemplos de tipos de adaptación
           </Link>
         </div>

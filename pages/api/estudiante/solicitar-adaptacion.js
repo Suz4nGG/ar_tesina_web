@@ -8,7 +8,6 @@ export default async function solicitudAdaptaciones(req, res) {
     case "GET":
       const tk = req.headers.authorization.split(" ")[1];
       const usernameGet = validateToken(tk);
-      console.log(usernameGet);
       return await getData(req, res, usernameGet);
   }
 }
@@ -20,7 +19,6 @@ const insertData = async (req, res) => {
       username,
       ...dataSolicitud,
     });
-    console.log(result);
     return res.status(200).json({ message: "Adaptación enviada con exito" });
   } catch (err) {
     return res.status(500).json({

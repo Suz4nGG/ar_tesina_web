@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import Layout from "/components/Global/Layout";
-import Navigation from "/components/Global/Navigation";
 import FormAC from "components/Estudiante/components/FormAC";
 import { useRouter } from "next/router";
 import { ADAPTACIONES_ESTUDIANTE, FORMULARIO_SOLICITUD } from "/constants";
 import Link from "next/link";
 import Steps from "/components/Estudiante/components/Steps";
+import LayoutPA from "../../components/Global/LayoutPA";
 
 const TEXT = `Una adaptación curricular es el conjunto de precisiones y cambios en los componentes del proyecto curricular de centro o la programación para ajustar la respuesta educativa a las necesidades educativas especiales de un alumno.`;
 
@@ -83,73 +82,70 @@ const SolicitarAdaptacion = () => {
   };
 
   return (
-    <>
-      <Navigation actState="session_student" />
-      <Layout
-        data={
-          router.query.id
-            ? { title: `Editar adaptación curricular` }
-            : { title: `Solicitar adaptación curricular` }
-        }
-      >
-        {router.query.id ? (
-          <FormAC />
-        ) : (
-          <>
-            <Steps endSolicitud={endS} />
-            <div
-              className="h-96 grid place-content-center"
-              style={{
-                display:
-                  router.pathname === "/estudiante/formulario-adaptacion"
-                    ? "none"
-                    : "grid",
-              }}
-            >
-              <AlertBox
-                title="¿Qué es una adaptación curricular?"
-                text={TEXT}
-                Component={Button}
-                downData={dataButtons}
-                handleClick={handleClick}
-              />
-            </div>
-          </>
-        )}
-        {router.pathname === "/estudiante/formulario-adaptacion" ? (
-          <>
-            {endS ? (
-              ""
-            ) : (
-              <div className="py-4 text-gray-600">
-                <p>
-                  El siguiente botón incluye un archivo PDF, el cual contiene
-                  los diferentes tipos de adaptaciones que puedes solicitar,
-                  estas te servirán para que puedas determinar cuál es la que
-                  necesitas para tu adaptación, podrás tomar las pautas
-                  proporcionadas y escribirlas en las cajas de texto de esta
-                  página.
-                </p>
-                <Link
-                  className="flex items-center justify-center
+    <LayoutPA
+      actState="session_student"
+      title={
+        router.query.id
+          ? `Editar adaptación curricular`
+          : `Solicitar adaptación curricular`
+      }
+    >
+      {router.query.id ? (
+        <FormAC />
+      ) : (
+        <>
+          <Steps endSolicitud={endS} />
+          <div
+            className="h-96 grid place-content-center"
+            style={{
+              display:
+                router.pathname === "/estudiante/formulario-adaptacion"
+                  ? "none"
+                  : "grid",
+            }}
+          >
+            <AlertBox
+              title="¿Qué es una adaptación curricular?"
+              text={TEXT}
+              Component={Button}
+              downData={dataButtons}
+              handleClick={handleClick}
+            />
+          </div>
+        </>
+      )}
+      {router.pathname === "/estudiante/formulario-adaptacion" ? (
+        <>
+          {endS ? (
+            ""
+          ) : (
+            <div className="py-4 text-gray-600">
+              <p>
+                El siguiente botón incluye un archivo PDF, el cual contiene los
+                diferentes tipos de adaptaciones que puedes solicitar, estas te
+                servirán para que puedas determinar cuál es la que necesitas
+                para tu adaptación, podrás tomar las pautas proporcionadas y
+                escribirlas en las cajas de texto de esta página.
+              </p>
+              <Link
+                className="flex items-center justify-center
                 rounded px-4 py-3
                 text-base font-medium
                 shadow hover:bg-orange-700 sm:px-8 max-w-fit text-gray-100 bg-orange-600 mt-4"
-                  href="/pdf/tipos_adaptaciones.pdf"
-                  download="tipos_adaptaciones.pdf"
-                  target="_blank"
-                >
-                  Descargar ejemplos de tipos de adaptación
-                </Link>
-              </div>
-            )}
-            <FormAC endSolicitud={endSolicitud} idTopTop="step" />
-          </>
-        ) : (
-          ""
-        )}
-      </Layout>
-    </>
+                href="/pdf/tipos_adaptaciones.pdf"
+                download="tipos_adaptaciones.pdf"
+                target="_blank"
+              >
+                Descargar ejemplos de tipos de adaptación
+              </Link>
+            </div>
+          )}
+          <FormAC endSolicitud={endSolicitud} idTopTop="step" />
+        </>
+      ) : (
+        ""
+      )}
+    </LayoutPA>
   );
 };
 

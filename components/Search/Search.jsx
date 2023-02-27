@@ -5,15 +5,23 @@ const Search = ({ findSolicitud, setSearch, search }) => {
 
   return (
     <div className="flex flex-col mt-4 justify-self-end">
-      <label className="text-gray-700 text-sm">Buscar solicitud por ID</label>
-      <div className="w-full sm:w-fit mt-2 flex border border-gray-400 bg-transparent rounded justify-between  px-2">
+      <label
+        htmlFor="search"
+        className="block text-sm font-medium text-gray-700"
+      >
+        Buscar solicitud por ID
+      </label>
+      <div className="w-full sm:w-fit mt-2 flex border relative border-gray-400 bg-transparent rounded justify-between  pl-2">
         <input
+          name="search"
           type="text"
           onChange={handleSearch}
-          className="bg-transparent outline-none rounded py-2 w-full text-gray-700"
+          className="block w-full outline-none rounded-md border-gray-300 pr-12 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
           placeholder="ID Solicitud"
         />
-        <SearchIcon className="h-10 text-gray-400" />
+        <div className="bg-green-700 px-2">
+          <SearchIcon className="h-10 text-gray-200 " />
+        </div>
       </div>
       <div
         style={!search === true ? { display: "none" } : { display: "block" }}

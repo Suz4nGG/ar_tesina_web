@@ -8,7 +8,6 @@ export default function Hero() {
     <div className="bg-white">
       <main>
         <div>
-          {/* Hero */}
           <div className="relative">
             <div className="absolute inset-x-0 bottom-0 h-1/2" />
             <div className="mx-auto max-w-full">
@@ -19,6 +18,7 @@ export default function Hero() {
                     alt="Universidad Veracruzana Imagen"
                     title="Universidad Veracruzana Estadio Xalapeño"
                     className="h-full w-full object-cover blur-[2px]"
+                    priority={true}
                   />
                   <div className="absolute inset-0 bg-gray-700 mix-blend-multiply" />
                 </div>

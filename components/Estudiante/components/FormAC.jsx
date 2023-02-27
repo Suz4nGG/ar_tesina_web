@@ -114,7 +114,7 @@ const FormAC = ({ endSolicitud }) => {
     <div id="upPage">
       <ErrorMessages
         errors={messageC}
-        show={messageC ? true : false}
+        show={messageC}
         styles={"bg-yellow-200 text-yellow-800"}
       />
       <form

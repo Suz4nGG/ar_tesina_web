@@ -1,6 +1,4 @@
-import React, { useEffect, useState } from "react";
-import Navigation from "components/Global/Navigation";
-import Layout from "components/Global/Layout";
+import { useEffect, useState } from "react";
 import ShowAdaptaciones from "components/Administrativo/components/ShowAdaptaciones";
 import axios from "axios";
 import {
@@ -8,12 +6,13 @@ import {
   URL_INICIAL,
   GET_ADAPTACION_PERSONAL,
 } from "/constants";
-import Footer from "components/Global/Footer.jsx";
 import { states, dataProfesores } from "/data";
 import { dateParse, normalizeText } from "/validations";
-import PanelAdaptaciones from "../../components/Dashboard/PanelAdaptaciones";
+import PanelAdaptaciones from "components/Dashboard/PanelAdaptaciones";
 import { useRouter } from "next/router";
-import Search from "../../components/Search/Search";
+import Search from "components/Search/Search";
+import LayoutPA from "components/Global/LayoutPA";
+import { useRoute } from "hooks/useRoute";
 
 const Dashboard = (data) => {
   const [search, setSearch] = useState(0);
@@ -43,52 +42,51 @@ const Dashboard = (data) => {
     responsables = dataProfesores.find((item) => item.ee === EE);
   }
   return (
-    <>
-      <Navigation actState="session_personal" />
-      <Layout data={{ title: `Ajustes curriculares pendientes` }}>
-        <div className="mb-20">
-          <div className="sm:flex sm:items-center">
-            <div className="sm:flex-auto">
-              <p className="text-gray-700">
-                Aquí se encuentran las adaptaciones pendientes
-              </p>
-            </div>
+    <LayoutPA
+      actState="session_personal"
+      title="Ajustes curriculares pendientes"
+    >
+      <div className="mb-20">
+        <div className="sm:flex sm:items-center">
+          <div className="sm:flex-auto">
+            <p className="text-gray-700">
+              Aquí se encuentran las adaptaciones pendientes
+            </p>
           </div>
-          <Search
-            findSolicitud={findSolicitud}
-            setSearch={setSearch}
-            search={search}
-          />
-          {search
-            ? findSolicitud[0] && (
-                <PanelAdaptaciones
-                  date={dateParse(findSolicitud[0].createdAt)}
-                  stateSol={stateSolicitud}
-                  estadoSolicitud={findSolicitud[0].estadoSolicitud}
-                  idSolicitud={findSolicitud[0].idSolicitud}
-                  handleClick={handleClick}
-                  responsables={responsables}
-                />
-              )
-            : dataS.map((item) => (
-                <ShowAdaptaciones
-                  key={item.idSolicitud}
-                  adapAnteriores={item.adapAnteriores}
-                  estadoSolicitud={item.estadoSolicitud}
-                  experienciaR={item.experienciaR}
-                  idSolicitud={item.idSolicitud}
-                  informacion={item.informacion}
-                  motSolicitud={item.motSolicitud}
-                  respuesta={item.respuesta}
-                  tiempoHorario={item.tiempoHorario}
-                  username={item.username}
-                  createdAt={item.createdAt}
-                />
-              ))}
         </div>
-        <Footer />
-      </Layout>
-    </>
+        <Search
+          findSolicitud={findSolicitud}
+          setSearch={setSearch}
+          search={search}
+        />
+        {search
+          ? findSolicitud[0] && (
+              <PanelAdaptaciones
+                date={dateParse(findSolicitud[0].createdAt)}
+                stateSol={stateSolicitud}
+                estadoSolicitud={findSolicitud[0].estadoSolicitud}
+                idSolicitud={findSolicitud[0].idSolicitud}
+                handleClick={handleClick}
+                responsables={responsables}
+              />
+            )
+          : dataS.map((item) => (
+              <ShowAdaptaciones
+                key={item.idSolicitud}
+                adapAnteriores={item.adapAnteriores}
+                estadoSolicitud={item.estadoSolicitud}
+                experienciaR={item.experienciaR}
+                idSolicitud={item.idSolicitud}
+                informacion={item.informacion}
+                motSolicitud={item.motSolicitud}
+                respuesta={item.respuesta}
+                tiempoHorario={item.tiempoHorario}
+                username={item.username}
+                createdAt={item.createdAt}
+              />
+            ))}
+      </div>
+    </LayoutPA>
   );
 };
 export async function getServerSideProps() {

@@ -1,9 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import Layout from "components/Global/Layout";
-import Navigation from "components/Global/Navigation";
 import ShowAdaptaciones from "components/Estudiante/components/ShowAdaptaciones";
-import Footer from "components/Global/Footer";
 import { states, dataProfesores } from "/data";
 import { dateParse, normalizeText } from "/validations";
 import {
@@ -14,6 +11,8 @@ import {
 import Search from "../../components/Search/Search";
 import PanelAdaptaciones from "../../components/Dashboard/PanelAdaptaciones";
 import { useRouter } from "next/router";
+import LayoutPA from "../../components/Global/LayoutPA";
+
 const AdaptacionesCurriculares = (adaptaciones) => {
   const [search, setSearch] = useState(0);
   const [findSolicitud, setFindSolicitud] = useState([]);
@@ -42,54 +41,55 @@ const AdaptacionesCurriculares = (adaptaciones) => {
     responsables = dataProfesores.find((item) => item.ee === EE);
   }
   return (
-    <>
-      <Navigation actState="session_student" />
-      <Layout data={{ title: "Adaptaciones curriculares" }}>
-        <div className="mb-8">
-          <div className="sm:flex sm:items-center">
-            <div className="sm:flex-auto">
-              <p className="mt-2 text-sm text-gray-700">
-                Aqui se encuentran las adaptaciones que haz solicitado
-              </p>
-            </div>
+    <LayoutPA actState="session_student" title="Adaptaciones curriculares">
+      <div className="mb-8">
+        <div className="sm:flex sm:items-center">
+          <div className="sm:flex-auto">
+            <p className="mt-2 text-sm text-gray-700">
+              Aqui se encuentran las adaptaciones que haz solicitado
+            </p>
           </div>
-          <Search
-            findSolicitud={findSolicitud}
-            setSearch={setSearch}
-            search={search}
-          />
-          {search
-            ? findSolicitud[0] && (
-                <PanelAdaptaciones
-                  date={dateParse(findSolicitud[0].createdAt)}
-                  stateSol={stateSolicitud}
-                  estadoSolicitud={findSolicitud[0].estadoSolicitud}
-                  idSolicitud={findSolicitud[0].idSolicitud}
-                  handleClick={handleClick}
-                  responsables={responsables}
-                />
-              )
-            : data.map((item) => (
-                <ShowAdaptaciones
-                  key={item.idSolicitud}
-                  adapAnteriores={item.adapAnteriores}
-                  estadoSolicitud={item.estadoSolicitud}
-                  experienciaR={item.experienciaR}
-                  idSolicitud={item.idSolicitud}
-                  informacion={item.informacion}
-                  motSolicitud={item.motSolicitud}
-                  respuesta={item.respuesta}
-                  tiempoHorario={item.tiempoHorario}
-                  username={item.username}
-                  createdAt={item.createdAt}
-                />
-              ))}
         </div>
-        <Footer />
-      </Layout>
-    </>
+        <Search
+          findSolicitud={findSolicitud}
+          setSearch={setSearch}
+          search={search}
+        />
+        {search
+          ? findSolicitud[0] && (
+              <PanelAdaptaciones
+                date={dateParse(findSolicitud[0].createdAt)}
+                stateSol={stateSolicitud}
+                estadoSolicitud={findSolicitud[0].estadoSolicitud}
+                idSolicitud={findSolicitud[0].idSolicitud}
+                handleClick={handleClick}
+                responsables={responsables}
+              />
+            )
+          : data.map((item) => (
+              <ShowAdaptaciones
+                key={item.idSolicitud}
+                adapAnteriores={item.adapAnteriores}
+                estadoSolicitud={item.estadoSolicitud}
+                experienciaR={item.experienciaR}
+                idSolicitud={item.idSolicitud}
+                informacion={item.informacion}
+                motSolicitud={item.motSolicitud}
+                respuesta={item.respuesta}
+                tiempoHorario={item.tiempoHorario}
+                username={item.username}
+                createdAt={item.createdAt}
+              />
+            ))}
+      </div>
+    </LayoutPA>
   );
 };
+
+// export async function getStaticProps(params) {
+//   console.log(params);
+//   return { props: {} };
+// }
 
 export async function getServerSideProps(context) {
   const { authTokenUser } = context.req.cookies;
@@ -110,7 +110,6 @@ export async function getServerSideProps(context) {
       },
     };
   } catch (err) {
-    console.log(err);
     return {
       props: {},
     };

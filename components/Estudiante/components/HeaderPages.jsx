@@ -4,9 +4,10 @@ import ArrowLeft from "components/icons/ArrowLeft";
 import Home from "components/icons/Home";
 import { useRouter } from "next/router";
 
-const HeaderPages = ({ data }) => {
+const HeaderPages = (title) => {
+  console.log(title.data);
   const router = useRouter();
-  const { title } = data;
+  // const { title } = data;
   return (
     <div className="py-4">
       <div>
@@ -39,7 +40,7 @@ const HeaderPages = ({ data }) => {
       <div className="mt-2 md:flex md:items-center md:justify-between">
         <div className="min-w-0 flex-1">
           <h2 className="text-2xl font-medium leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight py-4">
-            {title}
+            {title.data}
           </h2>
         </div>
       </div>

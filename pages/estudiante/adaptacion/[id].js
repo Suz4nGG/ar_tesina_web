@@ -1,6 +1,4 @@
 import axios from "axios";
-import Navigation from "/components/Global/Navigation.jsx";
-import Layout from "/components/Global/Layout.jsx";
 import {
   API_ESTUDIANTE,
   EDITAR_ADAPTACION,
@@ -10,10 +8,10 @@ import {
 import { dateParse } from "validations";
 import { states } from "data";
 import { useRouter } from "next/router";
-import Footer from "/components/Global/Footer";
 import { useEffect, useState } from "react";
 import PDFComponent from "components/PDF/PDFComponent";
 import ErrorMessages from "../../../components/Messages/ErrorMessages";
+import LayoutPA from "../../../components/Global/LayoutPA";
 
 const Comments = ({ comentarioRecuperado: { comentarios, createdAt } }) => {
   const date = dateParse(createdAt);
@@ -122,62 +120,61 @@ const Id = ({ data, comentarioRecuperado }) => {
   };
 
   return (
-    <>
-      <Navigation actState="session_student" />
-      <Layout data={{ title: `Adaptación Curricular: ${idSolicitud}` }}>
-        <div>
-          <h3 className="text-lg font-medium leading-6 text-gray-900">
-            Detalles de la solicitud
-          </h3>
-          <p className="mt-1 max-w-2xl text-sm text-gray-500">
-            {dataStorage === undefined || dataStorage === null
-              ? ""
-              : dataStorage.nombreCompleto}
-          </p>
-        </div>
-        <div className="mt-5 border-t border-gray-200">
-          <dl className="divide-y divide-gray-200">
-            {dataAdaptacion.map((item) => (
-              <Box
-                key={item.title}
-                title={item.title}
-                description={item.description}
-                comentarioRecuperado={item.comentarioRec}
-                btnText={item.btnText}
-              />
-            ))}
-            <div className="py-4 sm:grid sm:grid-cols-1 sm:gap-4 sm:py-5">
-              <Comments comentarioRecuperado={comentarioRecuperado} />
+    <LayoutPA
+      actState="session_student"
+      title={`Adaptación Curricular: ${idSolicitud}`}
+    >
+      <div>
+        <h3 className="text-lg font-medium leading-6 text-gray-900">
+          Detalles de la solicitud
+        </h3>
+        <p className="mt-1 max-w-2xl text-sm text-gray-500">
+          {dataStorage === undefined || dataStorage === null
+            ? ""
+            : dataStorage.nombreCompleto}
+        </p>
+      </div>
+      <div className="mt-5 border-t border-gray-200">
+        <dl className="divide-y divide-gray-200">
+          {dataAdaptacion.map((item) => (
+            <Box
+              key={item.title}
+              title={item.title}
+              description={item.description}
+              comentarioRecuperado={item.comentarioRec}
+              btnText={item.btnText}
+            />
+          ))}
+          <div className="py-4 sm:grid sm:grid-cols-1 sm:gap-4 sm:py-5">
+            <Comments comentarioRecuperado={comentarioRecuperado} />
+          </div>
+          <div className="py-4 sm:grid sm:grid-cols-2 sm:gap-4 sm:py-5">
+            <dd className="text-sm text-gray-900 sm:col-span-2">
+              <button
+                onClick={handleClick}
+                className="rounded-md bg-blue-600 px-4 py-2 my-4 font-medium text-white hover:bg-blue-700 focus:outline-none"
+              >
+                Editar
+              </button>
+            </dd>
+            <div className="text-sm text-gray-900 sm:col-span-2">
+              {dataStorage === undefined || dataStorage === null ? (
+                <ErrorMessages
+                  errors="Vuelve a iniciar sesión si tu solicitud en formato PDF no es visible"
+                  show={true}
+                  styles={"bg-yellow-200 text-yellow-700 font-semibold"}
+                />
+              ) : (
+                <PDFComponent
+                  dataSolicitud={data}
+                  dataEstudiante={dataStorage}
+                />
+              )}
             </div>
-            <div className="py-4 sm:grid sm:grid-cols-2 sm:gap-4 sm:py-5">
-              <dd className="text-sm text-gray-900 sm:col-span-2">
-                <button
-                  onClick={handleClick}
-                  className="rounded-md bg-blue-600 px-4 py-2 my-4 font-medium text-white hover:bg-blue-700 focus:outline-none"
-                >
-                  Editar
-                </button>
-              </dd>
-              <div className="text-sm text-gray-900 sm:col-span-2">
-                {dataStorage === undefined || dataStorage === null ? (
-                  <ErrorMessages
-                    errors="Vuelve a iniciar sesión si tu solicitud en formato PDF no es visible"
-                    show={true}
-                    styles={"bg-yellow-200 text-yellow-700 font-semibold"}
-                  />
-                ) : (
-                  <PDFComponent
-                    dataSolicitud={data}
-                    dataEstudiante={dataStorage}
-                  />
-                )}
-              </div>
-            </div>
-          </dl>
-        </div>
-        <Footer />
-      </Layout>
-    </>
+          </div>
+        </dl>
+      </div>
+    </LayoutPA>
   );
 };
 
