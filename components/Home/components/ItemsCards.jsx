@@ -78,13 +78,13 @@ const ItemsCards = ({
                 {title}
               </h1>
               <div className="max-w-xl">
-                <p className="mt-8 px-4">
+                <div className="mt-8 px-4">
                   {adaptaciones.map((item) => (
                     <li key={item} className="list-disc text-left py-1">
                       {item}
                     </li>
                   ))}
-                </p>
+                </div>
               </div>
             </div>
 

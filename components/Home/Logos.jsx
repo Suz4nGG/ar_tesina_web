@@ -30,7 +30,12 @@ const Logos = () => {
             className="col-span-1 flex justify-center md:col-span-2 lg:col-span-1 flex-col items-center"
             key={logo.name}
           >
-            <Image src={logo.src} alt="Cendhiu Logo" width={300} height={16} />
+            <Image
+              src={logo.src}
+              alt="Cendhiu Logo"
+              height={"auto"}
+              width={"auto"}
+            />
             <p className="text-gray-800 break-words">{logo.name}</p>
           </div>
         ))}

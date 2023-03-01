@@ -16,6 +16,8 @@ export default function Hero() {
                 title="Universidad Veracruzana Estadio Xalapeño"
                 className="h-full w-full object-cover ]"
                 priority={true}
+                height={"auto"}
+                width={"auto"}
               />
               <div className="absolute inset-0 bg-gray-900 mix-blend-multiply" />
             </div>
