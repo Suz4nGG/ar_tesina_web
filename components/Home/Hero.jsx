@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import HeroImg from "/public/uv_hero.png";
+import HeroImg from "/public/biblioteca.jpeg";
 import { LOGIN, REGISTRO, HERRAMIENTAS_ACCESIBLES } from "/constants";
 
 export default function Hero() {
@@ -12,14 +12,14 @@ export default function Hero() {
             <div className="absolute inset-0">
               <Image
                 src={HeroImg}
-                alt="Universidad Veracruzana Imagen"
-                title="Universidad Veracruzana Estadio Xalapeño"
+                alt="Estante bibliotecario"
+                title="Estante bibliotecario"
                 className="h-full w-full object-cover ]"
                 priority={true}
                 height={"auto"}
                 width={"auto"}
               />
-              <div className="absolute inset-0 bg-gray-900 mix-blend-multiply" />
+              <div className="absolute inset-0 bg-bgBtn__ mix-blend-multiply backdrop-opacity-100" />
             </div>
             <div className="hidden sm:mb-8 sm:flex sm:justify-center">
               <div className="relative rounded-full py-1 px-3 text-sm leading-6 text-gray-200 ring-1 ring-gray-100/30 hover:ring-gray-100/50">
@@ -48,7 +48,7 @@ export default function Hero() {
               <div className="mt-10 flex items-center justify-center gap-x-6">
                 <Link
                   href={REGISTRO}
-                  className="rounded-md bg-blue-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+                  className="rounded-md bg-bgBtn__ px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
                 >
                   Registrate
                 </Link>
@@ -58,7 +58,7 @@ export default function Hero() {
                   passHref={true}
                 >
                   Iniciar Sesión{" "}
-                  <span aria-hidden="true" className="text-green-600">
+                  <span aria-hidden="true" className="text-bgBtn_">
                     →
                   </span>
                 </Link>

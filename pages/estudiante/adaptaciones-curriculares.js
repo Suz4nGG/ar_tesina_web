@@ -45,7 +45,7 @@ const AdaptacionesCurriculares = (adaptaciones) => {
       <div className="mb-8">
         <div className="sm:flex sm:items-center">
           <div className="sm:flex-auto">
-            <p className="mt-2 text-sm text-gray-700">
+            <p className="mt-2 text-sm text-bgBac">
               Aqui se encuentran las adaptaciones que haz solicitado
             </p>
           </div>

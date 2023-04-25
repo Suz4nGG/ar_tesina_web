@@ -19,7 +19,7 @@ export default function FormAcount({ handleChange, errorMessage, data }) {
         >
           <label
             htmlFor={item.name}
-            className="block text-sm sm:text-base font-medium text-gray-700"
+            className="block text-sm sm:text-base font-medium text-bgBac"
           >
             {item.text} <span className="text-red-600">*</span>
           </label>
@@ -40,7 +40,7 @@ export default function FormAcount({ handleChange, errorMessage, data }) {
               onFocus={(e) => setEvent(e.target.name)}
               className="
             appearance-none
-          bg-gray-50 text-gray-700 border border-gray-300
+          bg-gray-50 text-bgBac border border-gray-300
             rounded py-3 leading-tight
             focus:outline-none focus:bg-gray-100 px-2 flex-1 rounded-r-md my-1
             block w-full

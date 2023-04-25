@@ -1,8 +1,8 @@
 import Link from "next/link";
 import ItemsCards from "./components/ItemsCards";
-import Informacion from "/public/informacion.jpg";
-import Respuesta from "/public/respuesta.jpg";
-import Tiempo from "/public/tiempo.jpg";
+import Informacion from "/public/informacion_1.jpg";
+import Respuesta from "/public/respuesta_1.jpg";
+import Tiempo from "/public/tiempo_1.jpg";
 import Image from "next/image";
 const infoAjustes = [
   {
@@ -34,7 +34,7 @@ const infoAjustes = [
       "Privilegiar los trabajos y las presentaciones orales.",
       "Considerar ayudas técnicas (Tecnológicas).",
     ],
-    headerColor: "bg-blue-500",
+    headerColor: "bg-bgBtn__-500",
     borderColor: "border-blue-200",
     icon: Respuesta,
   },
@@ -66,14 +66,14 @@ const Info = () => {
             <div className="relative mx-auto flex max-w-4xl flex-col items-center text-center">
               <h2
                 id="social-impact-heading"
-                className="text-3xl font-bold tracking-tight text-gray-700 sm:text-4xl"
+                className="text-3xl font-bold tracking-tight text-bgBac sm:text-4xl"
               >
                 <span className="block sm:inline">
                   {" "}
                   ¿Cómo puedo solicitar una adaptación curricular?
                 </span>
               </h2>
-              <p className="mt-9 text-xl text-gray-600">
+              <p className="mt-9 text-xl text-bgBac">
                 Para solicitar una adaptación curricular solo necesitas haber
                 marcado los documentos con los que cuentas para demostrar tu
                 discapacidad. Posteriormente, en la siguiente página, podrás
@@ -86,7 +86,7 @@ const Info = () => {
               </p>
 
               <Link
-                className="mt-8 block w-full rounded-md border border-transparent bg-green-500 py-3 px-8 text-base font-medium text-white hover:bg-green-600 sm:w-auto"
+                className="mt-8 block w-full rounded-md border border-transparent bg-bgBtn_ py-3 px-8 text-base font-medium text-white hover:bg-green-800 sm:w-auto"
                 href="/pdf/tipos_adaptaciones.pdf"
                 download="tipos_adaptaciones.pdf"
                 target="_blank"
@@ -98,11 +98,11 @@ const Info = () => {
         </div>
       </section>
       <div className="mx-auto max-w-screen-sm px-4 sm:px-6 lg:px-8 mt-9 border-t-2 py-4 border-grey-200">
-        <h1 className="mt-10 text-3xl font-bold tracking-tight text-gray-700 text-center sm:text-4xl break-words">
+        <h1 className="mt-10 text-3xl font-bold tracking-tight text-bgBac text-center sm:text-4xl break-words">
           <span>Tipos de ajustes razonables</span>
         </h1>
       </div>
-      <div className="flex flex-col justify-center items-center prose prose-lg prose-indigo mx-auto text-gray-600  mt-6 text-xl leading-8">
+      <div className="flex flex-col justify-center items-center prose prose-lg prose-indigo mx-auto text-bgBac  mt-6 text-xl leading-8">
         <div>
           <p className="text-center">
             Cuentas con tres tipos de adaptaciones curriculares, para que puedas

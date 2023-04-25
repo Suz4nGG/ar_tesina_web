@@ -11,11 +11,11 @@ const TextArea = ({
 }) => {
   return (
     <div className="mt-4">
-      <label htmlFor={name} className="block font-medium text-gray-600">
+      <label htmlFor={name} className="block font-medium text-bgBac">
         {label} <span className="text-red-600">{required}</span>
       </label>
       <div className="mt-1">
-        <p className="block text-sm font-medium text-gray-700 py-2">
+        <p className="block text-sm font-medium text-bgBac py-2">
           {description}
         </p>
         <textarea
@@ -23,7 +23,7 @@ const TextArea = ({
           name={name}
           id={name}
           className="appearance-none
-          bg-gray-50 text-gray-700 border border-gray-300
+          bg-gray-50 text-bgBac border border-gray-300
             rounded py-3 leading-tight
             focus:outline-none focus:bg-gray-100 px-2 flex-1 rounded-r-md my-1
             block w-full

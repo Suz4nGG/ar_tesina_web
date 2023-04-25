@@ -47,7 +47,7 @@ const dataSolicitud = [
 const Tipos = ({ text, data }) => {
   return (
     <div className="py-5 text-gray-800">
-      <h1 className="text-xl p-4 bg-blue-200 rounded text-blue-900">{text}</h1>
+      <h1 className="text-xl p-4 bg-bgBtn__-200 rounded text-blue-900">{text}</h1>
       <ul className="list-outside list-decimal px-6 py-4">
         {data.map((item) => (
           <li key={item}>{item}</li>

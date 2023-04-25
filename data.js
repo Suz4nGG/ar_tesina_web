@@ -52,31 +52,31 @@ export const selectOptionsDis = [
   {
     name: "tipoDiscapacidad",
     value: "Auditiva",
-    label: "Auditiva",
+    label: "tipoDiscapacidad",
     id: "Auditiva",
   },
   {
     name: "tipoDiscapacidad",
     value: "Baja visión",
-    label: "Baja visión",
+    label: "tipoDiscapacidad",
     id: "Baja visión",
   },
   {
     name: "tipoDiscapacidad",
     value: "Motora",
-    label: "Motora",
+    label: "tipoDiscapacidad",
     id: "Motora",
   },
   {
     name: "tipoDiscapacidad",
     value: "Psíquica",
-    label: "Psíquica",
+    label: "tipoDiscapacidad",
     id: "Psíquica",
   },
   {
     name: "tipoDiscapacidad",
     value: "Salud",
-    label: "Salud",
+    label: "tipoDiscapacidad",
     id: "Salud",
   },
 ];
@@ -192,12 +192,12 @@ export const secondaryNavigation = [
   {
     name: "Contacto: (555) 412-1234",
     href: "tel:5541251234",
-    text: "text-blue-600 text-sm font-medium hover:underline",
+    text: "text-bgBtn__ text-sm font-medium hover:underline",
   },
   {
     name: "Iniciar Sesión",
     href: LOGIN,
-    text: "text-white focus:ring-4 font-medium rounded-lg text-base px-5 mt-5 mob:mt-0 w-full mob:w-auto py-2.5 text-center md:mr-0 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-blue-800",
+    text: "text-white focus:ring-4 font-medium rounded-lg text-base px-5 mt-5 mob:mt-0 w-full mob:w-auto py-2.5 text-center md:mr-0 dark:bg-bgBtn_ dark:bg-green-800 dark:focus:ring-blue-800",
   },
 ];
 
@@ -349,13 +349,13 @@ export const selectOptionsLic = [
   {
     name: "carrera",
     value: "Redes y Servicios de Cómputo",
-    label: "Redes y Servicios de Cómputo",
+    label: "carrera",
     id: "Redes y Servicios de Computo",
   },
   {
     name: "carrera",
     value: "Cibercrimen",
-    label: "Cibercrimen",
+    label: "carrera",
     id: "Cibercrimen",
   },
 ];

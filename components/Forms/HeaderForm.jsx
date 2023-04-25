@@ -10,7 +10,7 @@ const HeaderForm = ({ title, step }) => {
   return (
     <div className="flex items-center px-4 sm:px-0 flex-col md:flex-row w-full mb-5 border-b border-gray-300">
       <h2
-        className="py-3 text-center self-auto md:self-end text-lg md:text-xl font-medium tracking-tight text-gray-700 break-words"
+        className="py-3 text-center self-auto md:self-end text-lg md:text-xl font-medium tracking-tight text-bgBac break-words"
         title={`Titulo, ${title}`}
       >
         {title ? title : Title}

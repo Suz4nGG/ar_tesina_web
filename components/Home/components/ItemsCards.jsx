@@ -9,7 +9,7 @@ const ItemsCards = ({
   borderColor,
 }) => {
   return (
-    <div className="bg-white py-5 sm:py-10">
+    <li className="bg-white py-5 sm:py-10">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto grid max-w-2xl grid-cols-1 items-start gap-y-16 gap-x-8 sm:gap-y-24 lg:mx-0 lg:max-w-none lg:grid-cols-2">
           <div className="lg:pr-4">
@@ -20,14 +20,14 @@ const ItemsCards = ({
                 alt=""
                 priority={false}
               />
-              <div className="absolute inset-0 bg-gray-900 mix-blend-multiply" />
+              <div className="absolute inset-0 bg-bgBtn__ mix-blend-multiply" />
               <svg
                 viewBox="0 0 1097 845"
                 aria-hidden="true"
                 className="absolute top-1/2 left-1/2 -ml-16 w-[68.5625rem] -translate-x-1/2 -translate-y-1/2 transform-gpu blur-3xl"
               >
                 <path
-                  fill="url(#1B539E-908d-46dd-9194-2f8a16ad5a93)"
+                  fill="url(#28456C-908d-46dd-9194-2f8a16ad5a93)"
                   fillOpacity=".4"
                   d="M301.174 646.641 193.541 844.786 0 546.172l301.174 100.469 193.845-356.855c1.241 164.891 42.802 431.935 199.124 180.978 195.402-313.696 143.295-588.18 284.729-419.266 113.148 135.13 124.068 367.989 115.378 467.527L811.753 372.553l20.102 451.119-530.681-177.031Z"
                 />
@@ -41,7 +41,7 @@ const ItemsCards = ({
                     gradientUnits="userSpaceOnUse"
                   >
                     <stop stopColor="#098137" />
-                    <stop offset={1} stopColor="#1B539E" />
+                    <stop offset={1} stopColor="#28456C" />
                   </linearGradient>
                 </defs>
               </svg>
@@ -58,40 +58,38 @@ const ItemsCards = ({
                   />
                   <use href="#0ef284b8-28c2-426e-9442-8655d393522e" x={86} />
                 </svg>
-                <img
-                  src="https://tailwindui.com/img/logos/workcation-logo-white.svg"
-                  alt=""
-                  className="h-12 w-auto"
-                />
+                <h2 className="font-semibold text-2xl leading-8 text-white">
+                  Descripción
+                </h2>
                 <blockquote className="mt-6 text-xl font-semibold leading-8 text-white">
-                  <p>“{info}”</p>
+                  <p>{info}</p>
                 </blockquote>
               </figure>
             </div>
           </div>
           <div>
-            <div className="text-base leading-7 text-gray-700 lg:max-w-lg">
-              <p className="text-base font-semibold leading-7 text-green-600">
+            <div className="text-base leading-7 text-bgBac lg:max-w-lg">
+              <p className="text-base font-semibold leading-7 text-bgBtn_">
                 Ejemplos
               </p>
-              <h1 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+              <h1 className="mt-2 text-3xl font-bold tracking-tight text-bgBtn__ sm:text-4xl">
                 {title}
               </h1>
               <div className="max-w-xl">
-                <div className="mt-8 px-4">
+                <ul className="mt-8 px-4">
                   {adaptaciones.map((item) => (
                     <li key={item} className="list-disc text-left py-1">
                       {item}
                     </li>
                   ))}
-                </div>
+                </ul>
               </div>
             </div>
 
             <div className="mt-10 flex">
               <a
                 href="#"
-                className="text-base font-semibold leading-7 text-blue-600"
+                className="text-base font-semibold leading-7 text-bgBtn__"
               >
                 Descargar adaptaciones <span aria-hidden="true">&rarr;</span>
               </a>
@@ -99,7 +97,7 @@ const ItemsCards = ({
           </div>
         </div>
       </div>
-    </div>
+    </li>
   );
 };
 

@@ -5,7 +5,10 @@ const FormTwo = ({ handleChange, data }) => {
   return (
     <div className="w-full grid grid-cols-1 gap-y-4 gap-x-4 md:grid-cols-3 lg:grid-cols-2 px-4 sm:p-0">
       <div className="col-span-3 md:col-span-1">
-        <label className="block text-sm sm:text-base font-medium text-gray-700">
+        <label
+          className="block text-sm sm:text-base font-medium text-bgBac"
+          htmlFor="tipoDiscapacidad"
+        >
           Tipo de discapacidad <span className="text-red-600">*</span>
         </label>
         <Select
@@ -22,12 +25,13 @@ const FormTwo = ({ handleChange, data }) => {
           placeholder="Discapacidad"
           className="basic-multi-select"
           classNamePrefix="select"
+          inputId="tipoDiscapacidad"
         />
       </div>
       <div className="col-span-3">
         <label
           htmlFor="sobreDiscapacidad"
-          className="block text-sm md:text-base font-medium text-gray-700 pb-2"
+          className="block text-sm md:text-base font-medium text-bgBac pb-2"
         >
           Puedes brindar datos extra sobre tu discapacidad (Opcional)
         </label>
@@ -38,7 +42,7 @@ const FormTwo = ({ handleChange, data }) => {
             name="sobreDiscapacidad"
             rows={5}
             value={data["sobreDiscapacidad"]}
-            className="bg-gray-50 block w-full rounded border border-gray-300 focus:outline-none focus:border-green-500 focus:ring-green-500 text-sm md:text-base text-gray-700 px-2 py-2"
+            className="bg-gray-50 block w-full rounded border border-gray-300 focus:outline-none focus:border-green-500 focus:ring-green-500 text-sm md:text-base text-bgBac px-2 py-2"
             placeholder="Sobre mi discapacidad..."
           />
         </div>

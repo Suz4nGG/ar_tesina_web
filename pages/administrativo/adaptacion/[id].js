@@ -59,7 +59,7 @@ const Box = ({
   return (
     <>
       <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 break-words">
-        <dt className=" font-medium text-gray-600">{title}</dt>
+        <dt className=" font-medium text-bgBac">{title}</dt>
         <dd className="mt-1 flex text-sm text-gray-900 sm:col-span-2 sm:mt-0">
           <span className="flex-grow text-ellipsis overflow-auto">
             {array
@@ -81,7 +81,7 @@ const Box = ({
           <div className="">
             <div className="min-w-max min-h-max">
               <div className="flex flex-col text-gray-900 sm:col-span-2 sm:mt-0">
-                <div className="text-gray-600 overflow-auto">
+                <div className="text-bgBac overflow-auto">
                   {comentarioRecuperado ||
                     (getComentarios && (
                       <>
@@ -99,7 +99,7 @@ const Box = ({
                 handleChange={handleChange}
               />
               <ButtonN
-                styles={"bg-green-600 hover:bg-green-700 text-white"}
+                styles={"bg-bgBtn_ bg-green-800 text-white"}
                 message="Enviar"
               />
               <ErrorMessages

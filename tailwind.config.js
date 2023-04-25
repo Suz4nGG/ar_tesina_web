@@ -1,21 +1,30 @@
 /** @type {import('tailwindcss').Config} */
+const defaultTheme = require("tailwindcss/defaultTheme");
+
 module.exports = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx}",
-    "./components/**/*.{js,ts,jsx,tsx}"
+    "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {
+      colors: {
+        bgBac: "#333333",
+        bgBtn_: "#054F21",
+        bgBtn__: "#28456C",
+        bgError: "#A90B0B",
+        ...defaultTheme.colors,
+      },
       screens: {
-        'mo': '300px',
-        'mob': '400px',
-        'sm': '640px',
-        'md': '768px',
-        'lg': '1024px',
-        'xl': '1280px',
-        '2xl': '1536px',
+        mo: "300px",
+        mob: "400px",
+        sm: "640px",
+        md: "768px",
+        lg: "1024px",
+        xl: "1280px",
+        "2xl": "1536px",
       },
     },
   },
   plugins: [],
-}
+};

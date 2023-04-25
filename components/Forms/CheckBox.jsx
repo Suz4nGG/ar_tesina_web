@@ -17,7 +17,7 @@ const CheckBox = ({ text, col, name, classs, handleChange, value, handleClick}) 
           <div className="ml-3 text-sm">
             <label
               htmlFor={name}
-              className="font-medium text-sm md:text-base text-gray-700 break-words"
+              className="font-medium text-sm md:text-base text-bgBac break-words"
             >
               {text}
             </label>

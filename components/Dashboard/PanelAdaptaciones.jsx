@@ -16,7 +16,7 @@ const PanelAdaptaciones = ({
             <div className="px-4 py-4 sm:px-6">
               <div className="flex items-center justify-between">
                 <p className="truncate text-sm font-medium text-green-600">
-                  <span className="text-gray-600 font-semibold">Estado: </span>{" "}
+                  <span className="text-bgBac font-semibold">Estado: </span>{" "}
                   <span className="font-semibold" style={{color: stateSol.color}}>
                     {stateSol[estadoSolicitud]}
                   </span>
@@ -24,7 +24,7 @@ const PanelAdaptaciones = ({
                 <div className="ml-2 flex flex-shrink-0">
                   <button
                     onClick={handleClick}
-                    className="inline-flex rounded-full bg-blue-700 px-4 py-1 text-xs font-semibold leading-5 text-gray-50"
+                    className="inline-flex rounded-full bg-bgBtn__-700 px-4 py-1 text-xs font-semibold leading-5 text-gray-50"
                   >
                     Ver
                   </button>

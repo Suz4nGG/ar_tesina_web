@@ -101,7 +101,7 @@ const DocumentosObligatorios = () => {
             />
           </ul>
           <div className="mt-4">
-            <button className="w-full sm:w-36 bg-green-600 py-2 px-5 rounded text-gray-50 ">
+            <button className="w-full sm:w-36 bg-bgBtn_ py-2 px-5 rounded text-gray-50 ">
               Enviar
             </button>
             <button

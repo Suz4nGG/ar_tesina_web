@@ -102,7 +102,7 @@ const FormRegister = () => {
       />
       <div className="mx-4 sm:mx-0">
         <Button
-          bg="bg-green-600 w-full"
+          bg="bg-bgBtn_ w-full"
           textColor="text-gray-100"
           text="Registrarse"
           href="#"

@@ -23,12 +23,12 @@ const secondaryNavigation = [
   {
     name: "Contacto: (555) 412-1234",
     href: "tel:5541251234",
-    text: "text-blue-600 text-sm font-medium hover:underline",
+    text: "text-bgBtn__ text-sm font-medium hover:underline",
   },
   {
     name: "Iniciar Sesión",
     href: LOGIN,
-    text: "text-white focus:ring-4 font-medium rounded-lg text-base px-5 mt-5 mob:mt-0 w-full mob:w-auto py-2.5 text-center md:mr-0 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-blue-800",
+    text: "text-white focus:ring-4 font-medium rounded-lg text-base px-5 mt-5 mob:mt-0 w-full mob:w-auto py-2.5 text-center md:mr-0 bg-bgBtn_ dark:hover:bg-green-800 dark:focus:ring-blue-800",
   },
 ];
 
@@ -79,7 +79,7 @@ const Navigation = ({ actState }) => {
                 className="
                 hidden md:block self-end
                 mt-2 lg:text-base font-medium
-                whitespace-nowrap dark:text-gray-600"
+                whitespace-nowrap dark:text-bgBac"
               >
                 Universidad Veracruzana
               </span>
@@ -153,8 +153,8 @@ const Navigation = ({ actState }) => {
                       <>
                         <Popover.Button
                           className={classNames(
-                            open ? "text-gray-800" : "text-gray-600",
-                            "group inline-flex items-center rounded-md text-base font-medium hover:text-gray-600 focus:outline-none hover:underline z-10"
+                            open ? "text-gray-800" : "text-bgBac",
+                            "group inline-flex items-center rounded-md text-base font-medium hover:text-bgBac focus:outline-none hover:underline z-10"
                           )}
                         >
                           <ArrowDown />
@@ -176,7 +176,7 @@ const Navigation = ({ actState }) => {
                                   <a
                                     key={item.name}
                                     href={item.href}
-                                    className="-m-3 block rounded-md p-3 transition duration-150 ease-in-out text-gray-700 hover:bg-gray-100
+                                    className="-m-3 block rounded-md p-3 transition duration-150 ease-in-out text-bgBac hover:bg-gray-100
                                     dark:hover:bg-gray-600 dark:hover:text-white"
                                   >
                                     <p className="text-base font-medium">
@@ -199,7 +199,7 @@ const Navigation = ({ actState }) => {
                       key={item.name}
                       href={item.href}
                       className="
-                    text-gray-600 flex flex-row
+                    text-bgBac flex flex-row
                       space-x-8 text-base font-medium items-center hover:underline z-10"
                     >
                       {item.name}
@@ -213,7 +213,7 @@ const Navigation = ({ actState }) => {
                       key={item.name}
                       href={item.href}
                       className="
-                    text-gray-600 flex flex-row
+                    text-bgBac flex flex-row
                       space-x-8 text-base font-medium items-center hover:underline z-10"
                     >
                       {item.name}
@@ -246,7 +246,7 @@ const Navigation = ({ actState }) => {
                     p-2 inline-flex items-center justify-center
                     mt-5 rounded-lg md:hidden hover:text-gray-100
                     focus:outline-none focus:ring-2 focus:ring-gray-200
-                  dark:text-gray-700 dark:hover:bg-gray-700"
+                  dark:text-bgBac dark:hover:bg-gray-700"
                 >
                   <XIcon className="h-6 w-6" aria-hidden="true" />
                   <span className="">Cerrar menú</span>
@@ -259,7 +259,7 @@ const Navigation = ({ actState }) => {
                       key={item.name}
                       href={item.href}
                       className="
-                          block py-4 px-2 pr-4 text-gray-700 rounded hover:bg-gray-100
+                          block py-4 px-2 pr-4 text-bgBac rounded hover:bg-gray-100
                           md:hover:bg-transparent md:p-0 md:dark:hover:text-white
                         dark:hover:bg-gray-600 dark:hover:text-white md:dark:hover:bg-transparent"
                     >

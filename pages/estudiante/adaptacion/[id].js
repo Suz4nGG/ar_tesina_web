@@ -17,7 +17,7 @@ const Comments = ({ comentarioRecuperado: { comentarios, createdAt } }) => {
   const date = dateParse(createdAt);
   return (
     <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 break-words">
-      <dt className="text-sm font-medium text-gray-600">Comentarios</dt>
+      <dt className="text-sm font-medium text-bgBac">Comentarios</dt>
       <dd className="mt-1 flex text-sm text-gray-900 sm:col-span-2 sm:mt-0">
         <span className="flex-grow text-ellipsis overflow-auto">
           {comentarios}
@@ -152,7 +152,7 @@ const Id = ({ data, comentarioRecuperado }) => {
             <dd className="text-sm text-gray-900 sm:col-span-2">
               <button
                 onClick={handleClick}
-                className="rounded-md bg-blue-600 px-4 py-2 my-4 font-medium text-white hover:bg-blue-700 focus:outline-none"
+                className="rounded-md bg-bgBtn__ px-4 py-2 my-4 font-medium text-white hover:bg-blue-700 focus:outline-none"
               >
                 Editar
               </button>

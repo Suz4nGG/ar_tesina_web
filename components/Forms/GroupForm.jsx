@@ -16,7 +16,7 @@ export const GroupForm = ({
     <div className={`col-span-${colQuery} sm:col-span-${colSM}`}>
       <label
         htmlFor={name}
-        className="block text-sm sm:text-base font-medium text-gray-700"
+        className="block text-sm sm:text-base font-medium text-bgBac"
       >
         {text} <span className="text-red-600">*</span>
       </label>
@@ -31,7 +31,7 @@ export const GroupForm = ({
           onFocus={(e) => setEvent(e.target.name)}
           className="
             appearance-none
-          bg-gray-50 text-gray-700 border border-gray-300
+          bg-gray-50 text-bgBac border border-gray-300
             rounded py-3 leading-tight
             focus:outline-none focus:bg-gray-100 px-2 flex-1 rounded-r-md my-1
             block w-full

@@ -156,8 +156,8 @@ const FormAC = ({ endSolicitud }) => {
               flex items-center justify-center
               rounded px-4 py-3 mt-4
               text-base font-medium
-              shadow hover:bg-green-700 sm:px-8
-              text-gray-100 bg-green-600 w-full"
+              shadow sm:px-8
+              text-white bg-bgBtn_ w-full"
           >
             {router.query.id ? "Editar" : "Enviar Solicitud"}
           </button>
@@ -165,10 +165,10 @@ const FormAC = ({ endSolicitud }) => {
             ""
           ) : (
             <Button
-              bg="bg-red-500 w-full ml-0 sm:ml-2"
-              textColor="text-gray-100"
+              bg="bg-bgError w-full ml-0 sm:ml-2"
+              textColor="text-white"
               text={"Cancelar Solicitud"}
-              hover="bg-red-700 mt-4"
+              hover="bg-red-800 mt-4"
               disabled={!dataA}
               href="/estudiante/adaptaciones-curriculares"
             />

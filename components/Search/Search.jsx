@@ -7,7 +7,7 @@ const Search = ({ findSolicitud, setSearch, search }) => {
     <div className="flex flex-col mt-4 justify-self-end">
       <label
         htmlFor="search"
-        className="block text-sm font-medium text-gray-700"
+        className="block text-sm font-medium text-bgBac"
       >
         Buscar solicitud por ID
       </label>
@@ -33,7 +33,7 @@ const Search = ({ findSolicitud, setSearch, search }) => {
               ? { display: "flex" }
               : { display: "none" }
           }
-          className="text-gray-600 font-semibold py-4 items-center justify-center flex-col"
+          className="text-bgBac font-semibold py-4 items-center justify-center flex-col"
         >
           <XCircleIcon className="h-10 text-red-400" />
           Solicitud no encontrada

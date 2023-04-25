@@ -18,7 +18,7 @@ const Logos = () => {
   return (
     <div className="mx-auto w-full py-4 px-4 sm:px-6 lg:px-8 bg-white">
       <div className="mx-auto px-4 sm:px-6 lg:px-8 border-t-2 py-4 border-grey-200">
-        <h2 className="mt-10 text-xl font-bold tracking-tight text-gray-700 text-center sm:text-4xl break-words capitalize">
+        <h2 className="mt-10 text-xl font-bold tracking-tight text-bgBac text-center sm:text-4xl break-words capitalize">
           <span>
             Centros de Ayuda al Estudiante en la Universidad Veracruzana
           </span>

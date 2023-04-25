@@ -1,6 +1,5 @@
 import { CheckIcon } from "@heroicons/react/outline";
 import { useRouter } from "next/router";
-import { useState } from "react";
 import { FORMULARIO_SOLICITUD, SOLICITAR_ADAPTACION } from "/constants";
 import Link from "next/link";
 function classNames(...classes) {
@@ -64,7 +63,7 @@ export default function Steps({ endSolicitud }) {
                       )}
                     >
                       <span className="flex-shrink-0">
-                        <span className="flex h-10 w-10 items-center justify-center rounded-full bg-green-600">
+                        <span className="flex h-10 w-10 items-center justify-center rounded-full bg-bgBtn_">
                           <CheckIcon
                             className="h-6 w-6 text-white"
                             aria-hidden="true"
@@ -82,7 +81,7 @@ export default function Steps({ endSolicitud }) {
                 ) : step.status === "current" ? (
                   <Link href={step.href} aria-current="step" passHref>
                     <span
-                      className="absolute top-0 left-0 h-full w-1 bg-blue-600 lg:bottom-0 lg:top-auto lg:h-1 lg:w-full"
+                      className="absolute top-0 left-0 h-full w-1 bg-bgBtn__ lg:bottom-0 lg:top-auto lg:h-1 lg:w-full"
                       aria-hidden="true"
                     />
                     <span
@@ -92,12 +91,12 @@ export default function Steps({ endSolicitud }) {
                       )}
                     >
                       <span className="flex-shrink-0">
-                        <span className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-blue-600">
-                          <span className="text-blue-600">{step.id}</span>
+                        <span className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-bgBtn__">
+                          <span className="text-bgBtn__">{step.id}</span>
                         </span>
                       </span>
                       <span className="mt-0.5 ml-4 flex min-w-0 flex-col">
-                        <span className="text-sm font-medium text-blue-600">
+                        <span className="text-sm font-medium text-bgBtn__">
                           {step.name}
                         </span>
                         <span className="text-sm font-medium text-gray-500">

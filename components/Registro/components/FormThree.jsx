@@ -5,7 +5,10 @@ const FormThree = ({ handleChange }) => {
   return (
     <div className="w-full grid grid-cols-1 gap-y-4 gap-x-4 md:grid-cols-3 lg:grid-cols-2 px-4 sm:p-0">
       <div className="col-span-3 lg:col-span-1">
-        <label className="block text-sm md:text-base font-medium text-gray-700">
+        <label
+          className="block text-sm md:text-base font-medium text-bgBac"
+          htmlFor="carrera"
+        >
           Licenciatura que se encuentra cursando o que está próximo a cursar{" "}
           <span className="text-red-600">*</span>
         </label>
@@ -22,6 +25,9 @@ const FormThree = ({ handleChange }) => {
           options={selectOptionsLic}
           placeholder="Licenciatura"
           required
+          className="basic-multi-select"
+          classNamePrefix="select"
+          inputId="carrera"
         />
       </div>
     </div>

@@ -49,7 +49,7 @@ const Dashboard = (data) => {
       <div className="mb-20">
         <div className="sm:flex sm:items-center">
           <div className="sm:flex-auto">
-            <p className="text-gray-700">
+            <p className="text-bgBac">
               Aquí se encuentran las adaptaciones pendientes
             </p>
           </div>

@@ -34,14 +34,14 @@ const Herramientas = ({ data, showTitle }) => {
                 <Link href={her.href || ''} key={her.nameHerramienta} passHref target="_blank">
                 <div>
                   <dt>
-                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-green-600 text-white">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-bgBtn_ text-white">
                       <item.icon className="h-8 w-8" aria-hidden="true" />
                     </div>
                     <p className="mt-6 text-lg font-semibold leading-8 text-gray-800">
                       {her.nameHerramienta}
                     </p>
                   </dt>
-                  <dd className="mt-2 text-base text-gray-600">
+                  <dd className="mt-2 text-base text-bgBac">
                     {her.descriptionHerr}
                   </dd>
                 </div>
