@@ -4,6 +4,7 @@ import generateToken from "../../../hooks/jwt";
 
 export default async function loginHandler(req, res) {
   const { usernameA, password } = req.body;
+  console.log("REQUEST BODY", req.body)
   try {
     // ! Sin datos en el request
     if (usernameA === "" || password === "")
@@ -15,6 +16,7 @@ export default async function loginHandler(req, res) {
       "SELECT passwordU, usernameA FROM estudiantes WHERE usernameA = ?",
       [usernameA]
     );
+    console.log("rest", result)
     // ! Sin datos en la respuesta de la consulta
     if (result.length === 0) {
       return res
@@ -35,6 +37,7 @@ export default async function loginHandler(req, res) {
     res.setHeader("Set-Cookie", serialized);
     return res.status(200).json({ message: "Inicio exitoso" });
   } catch (error) {
+    console.log(error)
     return res.status(500).json({
       message:
         "Ha ocurrido un error al conectarse con el servidor, intente más tarde",

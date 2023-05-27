@@ -52,31 +52,31 @@ export const selectOptionsDis = [
   {
     name: "tipoDiscapacidad",
     value: "Auditiva",
-    label: "tipoDiscapacidad",
+    label: "Auditiva",
     id: "Auditiva",
   },
   {
     name: "tipoDiscapacidad",
     value: "Baja visión",
-    label: "tipoDiscapacidad",
+    label: "Baja visión",
     id: "Baja visión",
   },
   {
     name: "tipoDiscapacidad",
     value: "Motora",
-    label: "tipoDiscapacidad",
+    label: "Motora",
     id: "Motora",
   },
   {
     name: "tipoDiscapacidad",
     value: "Psíquica",
-    label: "tipoDiscapacidad",
+    label: "Psíquica",
     id: "Psíquica",
   },
   {
     name: "tipoDiscapacidad",
     value: "Salud",
-    label: "tipoDiscapacidad",
+    label: "Salud",
     id: "Salud",
   },
 ];
@@ -205,33 +205,55 @@ export const sessionNav = [
   { name: "Herramientas Accesibles", href: HERRAMIENTAS_ACCESIBLES },
 ];
 
+export const dataAjustes = [
+  {
+    title: "Presentación de la información.",
+    info: "Consiste en que los estudiantes puedan acceder a la información de diversos modos alternativos, por ejemplo información táctil, auditiva, visual.",
+    adaptaciones: [
+      "Ampliación de la letra o imagen.",
+      "Amplitud de la palabra o sonido.",
+      "Videos o animaciones.",
+      "Velocidad de la animación o sonido.",
+      "Ayudas técnicas de acceso a la información.",
+      "Utilización de textos escritos o hablados.",
+      "Uso de lengua de señas.",
+      "Uso de sistema braille.",
+      "Uso de gráficos táctiles.",
+      "Proporcionar a los estudiantes materiales impresos con un buen contraste y un tamaño de letra óptimo.",
+      "Utilizar otros sentidos para reforzar el aprendizaje mediante el uso de materiales táctiles tales como documentos tridimensionales (mapas y diagramas) y textos en relieve.",
+    ],
+    name: 'informacion',
+    required: true
+  },
+  {
+    title: "Formas de respuesta.",
+    info: "Esta adaptación permite que los estudiantes ejecuten sus actividades como tareas o evaluaciones a través de diversas formas utilizando dispositivos o ayudas técnicas.",
+    adaptaciones: [
+      "Respuesta a través de computador adaptado.",
+      "Ofrecer posibilidades de expresión a través de múltiples medios comunicación: Texto escrito Sistema braille Lengua de señas Transcripción de respuesta del estudiante Ilustraciones, etc.",
+      "Privilegiar los trabajos y las presentaciones orales.",
+      "Considerar ayudas técnicas (Tecnológicas).",
+    ],
+    name: 'respuesta',
+    required: true
+  },
+  {
+    title: "Organización del tiempo y horario.",
+    info: "La organización de tiempo y horario permite el acceso autónomo de los estudiantes a través de adecuaciones en actividades o evaluaciones.",
+    adaptaciones: [
+      "Adecuar el tiempo utilizado en una actividad o evaluación.",
+      "Organizar espacios de distención.",
+      "Considerar según sea necesario el tiempo de inicio de la clase respecto a estudiantes que puedan tardar más en llegar al aula.",
+      "Otorgar mayor tiempo si es necesario para la realización de actividades y evaluaciones.",
+      "Ofrecer tiempo adecuado para que el estudiante reconozca táctilmente los materiales con los que va a trabajar.",
+    ],
+    name: 'tiempoHorario',
+    required: true
+  },
+];
+
 export const dataSolicitudF = (dataA) => {
   const dataSolicitud = [
-    {
-      label: "PRESENTACIÓN DE LA INFORMACIÓN",
-      name: "informacion",
-      description:
-        "Para realizar una adecuación de acceso eficaz, es de suma importancia presentar la información de tal manera que los y las estudiantes accedan a ella a través de diversos modos alternativos, los cuales incluyen información táctil, auditiva, visual o la combinación de estas",
-      placeholder: "1. Ampliación de la letra o imagen...",
-      value: dataA.informacion || "",
-    },
-    {
-      label: "FORMAS DE RESPUESTA",
-      name: "respuesta",
-      description:
-        "La forma de respuesta debe permitir a los y las estudiantes ejecutar actividades, tareas o evaluaciones a través de diversas formas, utilizando si es necesario dispositivos o ayudas técnicas que disminuyan las barreras que pueden interferir en la participación del o la estudiante en el proceso enseñanza aprendizaje.",
-      placeholder: "1. Respuesta a través de computador adaptado...",
-      value: dataA.respuesta || "",
-    },
-    {
-      label: "ORGANIZACIÓN DEL TIEMPO Y EL HORARIO",
-      name: "tiempoHorario",
-      description:
-        "La organización de tiempo y horario debe permitir el acceso autónomo de los y las estudiantes a través de adecuaciones en la forma en que se estructura una clase o desarrollan evaluaciones.",
-      placeholder:
-        "1. Adecuar el tiempo utilizado en una actividad o evaluación...",
-      value: dataA.tiempoHorario || "",
-    },
     {
       label: "ADAPTACIONES ANTERIORES",
       name: "adapAnteriores",
@@ -349,13 +371,13 @@ export const selectOptionsLic = [
   {
     name: "carrera",
     value: "Redes y Servicios de Cómputo",
-    label: "carrera",
+    label: "Redes y Servicios de Cómputo",
     id: "Redes y Servicios de Computo",
   },
   {
     name: "carrera",
     value: "Cibercrimen",
-    label: "carrera",
+    label: "Cibercrimen",
     id: "Cibercrimen",
   },
 ];

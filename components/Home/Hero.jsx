@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import HeroImg from "/public/biblioteca.jpeg";
+import HeroImg from "/public/bibloteca.jpeg";
 import { LOGIN, REGISTRO, HERRAMIENTAS_ACCESIBLES } from "/constants";
 
 export default function Hero() {
@@ -14,7 +14,7 @@ export default function Hero() {
                 src={HeroImg}
                 alt="Estante bibliotecario"
                 title="Estante bibliotecario"
-                className="h-full w-full object-cover ]"
+                className="h-full w-full object-cover"
                 priority={true}
                 height={"auto"}
                 width={"auto"}
@@ -22,7 +22,7 @@ export default function Hero() {
               <div className="absolute inset-0 bg-bgBtn__ mix-blend-multiply backdrop-opacity-100" />
             </div>
             <div className="hidden sm:mb-8 sm:flex sm:justify-center">
-              <div className="relative rounded-full py-1 px-3 text-sm leading-6 text-gray-200 ring-1 ring-gray-100/30 hover:ring-gray-100/50">
+              <div className="relative rounded-full py-1 px-3 text-sm leading-6 text-gray-100 ring-1 ring-gray-100 hover:ring-gray-100/50">
                 Conoce sobre herramientas accesibles.{" "}
                 <Link
                   href={HERRAMIENTAS_ACCESIBLES}

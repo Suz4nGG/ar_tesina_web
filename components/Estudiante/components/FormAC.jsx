@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Button from "../../../components/Global/Button";
 import TextArea from "./TextArea";
+import { dataAjustes } from "../../../data";
 import axios from "axios";
 import {
   API_SOLICITAR_ADAPTACION,
@@ -16,13 +17,15 @@ import { dataSolicitudF } from "data";
 import { animateScroll as scroll } from "react-scroll";
 import ErrorMessages from "../../Messages/ErrorMessages";
 import { profesoresInvolucrados } from "../../../helpers";
-
+import ComboBox from "./ComboBox";
 const FormAC = ({ endSolicitud }) => {
   const router = useRouter();
   const [dataA, setDataA] = useState({});
   const [dataStorage, setDataStorage] = useState();
   const dataSolicitud = dataSolicitudF(dataA);
   const [messageC, setMessageC] = useState("");
+  const [box, setBox] = useState({});
+  const boxList = [];
   const [errors, setErrors] = useState({
     message: "",
   });
@@ -90,9 +93,12 @@ const FormAC = ({ endSolicitud }) => {
     }
   };
 
-  const handleChange = ({ target: { name, value } }) =>
+  const handleChange = ({ target: { name, value } }) => {
+    setBox({ [name]: value });
     setDataA({ ...dataA, [name]: value });
-
+  };
+  boxList.push({ box });
+  console.log(boxList);
   useEffect(() => {
     const getDataAdaptacion = async () => {
       const { data } = await axios.get(
@@ -121,6 +127,18 @@ const FormAC = ({ endSolicitud }) => {
         className="w-full flex flex-col justify-center pt-2 pb-12 "
         onSubmit={handleSubmit}
       >
+        {dataAjustes.map((item) => (
+          <ComboBox
+            key={item.name}
+            title={item.title}
+            name={item.name}
+            info={item.info}
+            required={item.required}
+            adaptaciones={item.adaptaciones}
+            placeholder={item.placeholder}
+            handleChange={handleChange}
+          />
+        ))}
         {dataSolicitud.map((item) => (
           <TextArea
             key={item.name}
@@ -128,9 +146,9 @@ const FormAC = ({ endSolicitud }) => {
             name={item.name}
             description={item.description}
             required={item.required}
+            adaptaciones={item.adaptaciones}
             placeholder={item.placeholder}
             handleChange={handleChange}
-            value={item.value}
           />
         ))}
         <div className="mt-4">
