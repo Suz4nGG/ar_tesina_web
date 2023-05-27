@@ -14,6 +14,7 @@ const ShowAdaptaciones = ({
   const EE = normalizeText(experienciaR).toLowerCase();
   const stateSol = states.find((item) => item[estadoSolicitud]);
   const responsables = dataProfesores.find((item) => item.ee === EE);
+  console.log("zz", `${GET_ADAPTACION}${idSolicitud}`);
   return (
     <PanelAdaptaciones
       date={date}
