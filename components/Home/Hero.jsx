@@ -5,15 +5,15 @@ import { LOGIN, REGISTRO, HERRAMIENTAS_ACCESIBLES } from "/constants";
 
 export default function Hero() {
   return (
-    <div className="bg-white ">
+    <div className="bg-black">
       <main>
         <div className="relative px-6 lg:px-8">
           <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
             <div className="absolute inset-0">
               <Image
                 src={HeroImg}
-                alt="Estante bibliotecario"
-                title="Estante bibliotecario"
+                alt="Librero de una biblioteca, contiene diferentes libros"
+                title="Librero de una biblioteca, contiene diferentes libros"
                 className="h-full w-full object-cover"
                 priority={true}
                 height={"auto"}
@@ -29,8 +29,8 @@ export default function Hero() {
                   className="font-semibold text-green-600"
                   passHref={true}
                 >
-                  <span className="absolute inset-0" aria-hidden="true" />
-                  Leer más <span aria-hidden="true">&rarr;</span>
+                  <span className="absolute inset-0" aria-hidden="false" />
+                  Leer más <span aria-hidden="false">&rarr;</span>
                 </Link>
               </div>
             </div>
@@ -58,7 +58,7 @@ export default function Hero() {
                   passHref={true}
                 >
                   Iniciar Sesión{" "}
-                  <span aria-hidden="true" className="text-bgBtn_">
+                  <span aria-hidden="false" className="text-green-600">
                     →
                   </span>
                 </Link>

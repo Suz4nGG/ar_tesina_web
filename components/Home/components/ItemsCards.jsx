@@ -17,7 +17,8 @@ const ItemsCards = ({
               <Image
                 className="absolute inset-0 h-full w-full object-cover brightness-125 saturate-0"
                 src={icon}
-                alt=""
+                alt={title}
+                title={title}
                 priority={false}
               />
               <div className="absolute inset-0 bg-bgBtn__ mix-blend-multiply" />

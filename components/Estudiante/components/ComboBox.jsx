@@ -6,7 +6,6 @@ export default function ComboBox({
   handleChange,
   name,
 }) {
-  console.log(name);
   return (
     <ul className="border-b-2 py-4">
       <h2 htmlFor={title} className="block font-medium text-bgBac text-xl">
@@ -25,7 +24,6 @@ export default function ComboBox({
                 <input
                   onChange={handleChange}
                   id={item}
-                  aria-describedby={item}
                   name={item}
                   value={item}
                   type="checkbox"
